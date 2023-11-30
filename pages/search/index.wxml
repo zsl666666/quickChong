@@ -1,0 +1,113 @@
+<!--pages/search/index.wxml-->
+<page-meta class="search-wrapper">
+  <van-nav-bar title="搜索" title-class='search-title' catchtap="backHome" custom-class='search-test-style' fixed="true">
+    <van-icon name="arrow-left" slot="left" />
+  </van-nav-bar>
+  <view id='moreAction' class="index-search-wrapper">
+    <view class="home-top-search-wrapper">
+      <van-search
+        value="{{value}}"
+        placeholder="请输入位置"
+        use-action-slot
+        bind:change="onChange"
+        bind:search="onSearch"
+        shape="round"
+        clearable="{{false}}"
+        input-class="search-input-style"
+      >
+      </van-search>
+      <van-dropdown-menu active-color="#1989fa" custom-class='search-dropdown-menu' root-portal="{{true}}">
+        <van-dropdown-item bind:change="menuChange" value="{{ value1 }}" options="{{ option1 }}" />
+      </van-dropdown-menu>
+      <!-- <image src="/image/home-search-icon.png" class="search-icon" catchtap="showChargeType" /> -->
+    </view>
+    <view class="charge-item-wrapper">
+      <view>
+        <text class="search-current-title">当前定位：</text>
+        <text class="search-current-content">{{currentPosition}}</text>
+      </view>
+      <view catch:tap="resetPosition">
+        <image src="/image/position.png" class="position-img" />
+        <text class="search-reset-position">重新定位</text>
+      </view>
+    </view>
+  </view>
+  <scroll-view
+    bindscrolltolower="scrollToLower"
+    scroll-y="true"
+    enable-passive="{{true}}"
+    enable-back-to-top="{{true}}"
+    lower-threshold="80"
+    style="height: 100vh;"
+    enhanced="{{true}}"
+  >
+    <view class="search-placeholder-div"></view>
+    <view class="serachr-fenge"></view>
+    <text class="search-fujin-title">附近充电设备</text>
+    <view class="checked-mark-wrapper" wx:for="{{searchData}}" wx:key="index" catch:tap="detailHandle" data-item="{{item}}">
+      <view class="mark-content-top">
+        <view class="content-img">
+          <image src="{{item.pic_cover || '/image/list-position.png'}}" mode="aspectFit" class="content-img-style" />
+        </view>
+        <view>
+          <text class="checked-content-title">{{item.device_type}}</text>
+          <view class="checked-content-detail">
+            <text>{{item.distance}}</text>
+            <text class="checked-content-address">{{item.name}}</text>
+          </view>
+          <view class="checked-pinlun-wrapper">
+            <van-rate
+              value="{{item.star_level}}"
+              size="{{ 20 }}"
+              color="#ffd21e"
+              void-icon="star"
+              void-color="#eee"
+              readonly
+            />
+            <text class="checked-content-pinlun" catchtap="showCommentDetail" data-id="{{item.id}}">{{item.comment_number}}条评论</text>
+          </view>
+        </view>
+      </view>
+      <view class="mark-content-bottom">
+        <view class="checked-content-bottom">
+          <view class="checked-content-bg">
+            <image src="/image/home-checked-juxing.png" />
+            <text class="checked-content-type-text">{{ item.loc_type === 1 ? '小区' : '公用'}}</text>
+          </view>
+          <text class="type-chatou-num">端口：{{item.device_port}}个</text>
+        </view>
+        <view class="checked-content-go-wrapper" catch:tap="goHere" data-item="{{item}}">
+          <image src="/image/home-checked-jiantou.png" class="go-btn-text-icon" />
+          <text>去这里</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <van-popup
+    show="{{ show }}"
+    bind:close="onClose"
+    round
+    position="bottom"
+    custom-style="height: 80%"
+  >
+    <view class="search-content-wrapper">
+      <van-empty wx:if="{{!resultData.length}}" description="暂无数据" />
+      <view class="search-result-item" wx:for="{{resultData}}" wx:key="index">
+        <view>
+          <view>
+            <image src="/image/search-address-icon.png" class="search-address-icon" />
+            <text class="search-address-title">{{item.title}}</text>
+          </view>
+          <view class="search-address-content">{{item.address}}</view>
+        </view>
+        <view class="search-fujin-btn" catch:tap="searchVicinity" data-item="{{item}}">
+          <text>附近设备</text>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{searchParam.isLoadMore}}" class="search-more-load" catch:tap="loadMore">
+      <text>查看更多</text>
+      <image src='/image/more-icon.png' class="search-more-icon" />
+    </view>
+  </van-popup>
+</page-meta>

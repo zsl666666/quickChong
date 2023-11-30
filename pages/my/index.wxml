@@ -1,0 +1,37 @@
+<page-meta>
+  <view class="my-placeholder"></view>
+  <view class="my-content">
+    <view class="my-user-portrait-wrapper">
+      <image src='{{avatarUrl || "/image/no-login.png"}}' class="my-portrait" catch:tap="getUserInfoHanle" />
+    </view>
+    <view class="my-user-name" catch:tap="getUserInfoHanle">{{nickName || '点击登录'}}</view>
+    <view wx:if="{{ifLogin}}" class="my-user-gongxian" catchtap="contributeHandle">
+      <text>贡献值：{{userData.contribute || 0}}</text>
+      <van-icon name="arrow" />
+    </view>
+    <view class="my-user-item-wrapper">
+      <view class="my-user-item" catchtap="goHelpCenter">
+        <view class="my-item-left">
+          <image src="/image/bangzhu.png" class="my-item-img" />
+          <text>帮助中心</text>
+        </view>
+        <van-icon name="arrow" />
+      </view>
+      <view class="my-user-item" catchtap="feedback">
+        <view class="my-item-left">
+          <image src="/image/yijian.png" class="my-item-img" />
+          <text>意见反馈</text>
+        </view>
+        <van-icon name="arrow" />
+      </view>
+      <view class="my-user-item" catchtap="cooperateHandle">
+        <view class="my-item-left">
+          <image src="/image/hezuo.png" class="my-item-img" />
+          <text>我要合作</text>
+        </view>
+        <van-icon name="arrow" />
+      </view>
+    </view>
+  </view>
+  <get-nick show="{{showLogin}}" bind:loginSure="loginSureHandle"></get-nick>
+</page-meta>
