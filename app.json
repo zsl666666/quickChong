@@ -11,7 +11,8 @@
     "pages/feedback/index",
     "pages/cooperate/index",
     "pages/contribute/index",
-    "pages/errorCorrection/index"
+    "pages/errorCorrection/index",
+    "pages/testMap/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

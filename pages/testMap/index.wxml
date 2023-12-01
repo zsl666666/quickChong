@@ -1,0 +1,23 @@
+<!--pages/testMap/index.wxml-->
+<!-- 
+  bindmarkertap="markertap"
+  markers="{{markers}}"
+  joinCluster="{{true}}"
+  scale="{{mapScal}}"
+ -->
+<view class="page-body">
+  <view class="map-wrap">
+    <map
+      id="mapPoint"
+      class="map"
+      joinCluster="{{true}}"
+      latitude="{{latitude}}"
+      longitude="{{longitude}}"
+      bindregionchange="regionchange"
+      markers="{{markers}}"
+      scale="16"
+      max-scale="24"
+    >
+    </map>
+  </view>
+</view>

@@ -788,6 +788,13 @@ Page({
     this.onShow()
   },
 
+  // 跳转地图选点
+  handlemapPointSelection() {
+    wx.navigateTo({
+      url: '/pages/testMap/index',
+    })
+  },
+
   onHide() {
     this.setData({
       mapScal: 15

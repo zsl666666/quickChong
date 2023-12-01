@@ -52,6 +52,7 @@
     <view class="position-current-wrapper" catchtap="goBackCurrentPosition">
       <image class="position-current-icon" src="/image/position-icon.png" />
     </view>
+    <div style="position: fixed; left: 20px; bottom: 100px;" bindtap="handlemapPointSelection">地图选点</div>
   </view>
   <view class="{{ markCheckedShow ? 'checked-mark-wrapper' : 'checked-mark-wrapper hide'}}">
     <image src="/image/close.png" class="checked-mark-close" catchtap="closeMarkDetail" />
