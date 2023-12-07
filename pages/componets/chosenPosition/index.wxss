@@ -1,0 +1,54 @@
+/* pages/componets/chosenPosition/index.wxss */
+.box-wrap {
+  box-sizing: border-box;
+  width: 714rpx;
+  /* height: 480rpx; */
+  background: #FFFFFF;
+  border-radius: 18rpx;
+  margin: 0rpx auto 14rpx;
+  padding: 32rpx 28rpx;
+}
+.add-device-type-title {
+  height: 38rpx;
+  font-size: 28rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.6);
+  line-height: 38rpx;
+  /* padding: 34rpx 0 0rpx 28rpx; */
+}
+
+.custom-required-ident::before {
+  color: #ee0a24;
+  content: "*";
+  font-size: 28rpx;
+  margin-left: -12rpx;
+}
+.map-location-desc {
+  height: 30rpx;
+  font-size: 22rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.2);
+  line-height: 30rpx;
+}
+.map-wrap {
+  width: 658rpx;
+  height: 250rpx;
+  margin: 30rpx auto;
+  border-radius: 18rpx;
+  overflow: hidden;
+}
+.map-render-class {
+  width: 100%;
+  height: 370rpx !important;
+}
+.position-right-icon-class {
+  width: 36rpx;
+  height: 36rpx;
+}
+.map-desc-tips {
+  color: #f7a657;
+  font-size: 22rpx;
+  margin-top: 8rpx;
+}

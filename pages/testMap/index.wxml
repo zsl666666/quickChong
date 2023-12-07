@@ -17,7 +17,9 @@
       markers="{{markers}}"
       scale="16"
       max-scale="24"
+      show-location
     >
     </map>
   </view>
+  <button type="primary" bindtap="mapView">12122</button>
 </view>

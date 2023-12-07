@@ -1,7 +1,7 @@
 /* pages/addDevice/index.wxss */
 .device-page-wrapper {
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
   background: #F4F4F4;
   overflow-y: auto;
 }
@@ -51,13 +51,13 @@
 }
 .device-excharge-content {
   width: 714rpx;
-  height: 480rpx;
+  /* height: 480rpx; */
   background: #FFFFFF;
   border-radius: 18rpx;
   margin: 0rpx auto 14rpx;
 }
 .cell-group-content {
-  padding: 38rpx 0rpx;
+  padding: 28rpx 0rpx;
 }
 .device-input-style {
   height: 100rpx;
@@ -94,13 +94,15 @@
 }
 .device-desicribtion {
   height: 340rpx;
+  margin-bottom: 160rpx;
+  /* padding-top: 10rpx; */
 }
 .text-area-style{
   height: 100rpx !important;
 }
 .device-desicribtion-img {
   min-height: 352rpx;
-  margin-bottom: 160rpx;
+  /* margin-bottom: 160rpx; */
   padding-top: 10rpx;
 }
 .van-uploader {
@@ -115,6 +117,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1000;
 }
 .submit-btn {
   height: 80rpx;
@@ -180,9 +183,69 @@
 .radio-text {
   font-size: 25rpx;
 }
-.van-cell__value {
-  /* color: var(--field-input-text-color,#323233) !important; */
-}
+
 .monitor-value-style {
   color: var(--field-input-text-color,#323233) !important;
+}
+
+.box-wrap {
+  padding: 32rpx 28rpx;
+}
+.add-device-type-title {
+  height: 38rpx;
+  font-size: 28rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: #000000;
+  line-height: 38rpx;
+  /* padding: 34rpx 0 0rpx 28rpx; */
+}
+.custom-required-ident::before {
+  color: #ee0a24;
+  content: "*";
+  font-size: 28rpx;
+  margin-left: -12rpx;
+}
+.map-location-desc {
+  height: 30rpx;
+  font-size: 22rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.2);
+  line-height: 30rpx;
+}
+.map-wrap {
+  width: 658rpx;
+  height: 250rpx;
+  margin: 30rpx auto;
+}
+.expansion-packup {
+  box-sizing: border-box;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.6);
+  padding: 34rpx 28rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.is-not-expansion {
+  margin-bottom: 160rpx;
+}
+.expansion-title {
+  color: red;
+  height: 38rpx;
+  font-size: 28rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.6);
+  line-height: 38rpx;
+}
+.expansion-desc {
+  font-size: 22rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.2);
+  line-height: 30rpx;
 }

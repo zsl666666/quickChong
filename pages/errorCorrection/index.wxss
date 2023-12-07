@@ -2,7 +2,7 @@
 /* pages/addDevice/index.wxss */
 .device-page-wrapper {
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
   background: #F4F4F4;
   overflow-y: auto;
 }
@@ -52,7 +52,7 @@
 }
 .device-excharge-content {
   width: 714rpx;
-  height: 440rpx;
+  /* height: 440rpx; */
   background: #FFFFFF;
   border-radius: 18rpx;
   margin: 0rpx auto 14rpx;
@@ -96,13 +96,19 @@
 }
 .device-desicribtion {
   height: 340rpx;
+  margin-bottom: 160rpx;
+  /* padding-top: 10rpx; */
+}
+.device-desicribtion .cell-group-content {
+  padding: 18rpx 0rpx !important;
+  margin-top: 0rpx;
 }
 .text-area-style{
   height: 100rpx !important;
 }
 .device-desicribtion-img {
-  min-height: 492rpx;
-  margin-bottom: 160rpx;
+  /* min-height: 492rpx; */
+  /* margin-bottom: 160rpx; */
   padding-top: 10rpx;
 }
 .van-uploader {
@@ -117,6 +123,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1000;
 }
 .submit-btn {
   height: 80rpx;
@@ -173,4 +180,11 @@
   align-items: center;
   justify-content: center;
   z-index: 2000;
+}
+
+.custom-required-ident::before {
+  color: #ee0a24;
+  content: "*";
+  font-size: 28rpx;
+  margin-left: -12rpx;
 }

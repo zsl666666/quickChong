@@ -52,7 +52,6 @@
     <view class="position-current-wrapper" catchtap="goBackCurrentPosition">
       <image class="position-current-icon" src="/image/position-icon.png" />
     </view>
-    <div style="position: fixed; left: 20px; bottom: 100px;" bindtap="handlemapPointSelection">地图选点</div>
   </view>
   <view class="{{ markCheckedShow ? 'checked-mark-wrapper' : 'checked-mark-wrapper hide'}}">
     <image src="/image/close.png" class="checked-mark-close" catchtap="closeMarkDetail" />
@@ -109,7 +108,7 @@
         </view>
         <text class="type-chatou-num">端口：{{deviceDetail.device_port}}个</text>
       </view>
-      <text class="jiu-cuo-style" catchtap="goErrorCorrection" data-id="{{deviceDetail.id}}">去纠错？</text>
+      <text class="jiu-cuo-style" catchtap="goErrorCorrection" data-id="{{deviceDetail.id}}" data-detail="{{deviceDetail}}">去纠错？</text>
       <view class="checked-content-go-wrapper" catchtap="goPosition">
         <image src="/image/home-checked-jiantou.png" class="go-btn-text-icon" />
         <text>去这里</text>

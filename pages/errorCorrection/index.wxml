@@ -6,32 +6,100 @@
       <view
         wx:for="{{quickData}}"
         wx:key="index"
-        class="{{ item.selected ? 'excharge-type-item excharge-type-item-select' : 'excharge-type-item'}}"
+        class="{{ choiceDataValue === item.value ? 'excharge-type-item excharge-type-item-select' : 'excharge-type-item'}}"
         data-index="{{item.id}}" 
-        data-name="{{item.name}}"
+        data-value="{{item.value}}"
         catchtap="choiceType"
       >
         <text>{{item.name}}</text>
       </view>
     </view>
   </view>
-  <view class="device-excharge-content device-desicribtion">
-    <van-cell-group custom-class='cell-group-content' border="{{false}}">
-      <van-cell title-class='cell-title-style' title="添加描述" border="{{false}}" />
-      <van-field
-        type="textarea"
-        placeholder="请对要纠错的信息内容进行简要描述，如需要对位置进行纠正，还请详细描写设备周边特征，有助于信息判断"
-        autosize="{{ true }}"
-        :autosize="{ maxHeight: 100, minHeight: 50 }"
-        border="{{ false }}"
-        input-class="text-area-style"
-        model:value="{{ comment }}"
-      />
-    </van-cell-group>
+
+  <!-- 位置有误 -->
+  <view wx:if="{{ choiceDataValue === '位置有误'}}">
+    <chosen-position
+      required="{{true}}"
+      title="地图位置"
+      desc="位置有误会影响导航，请仔细确认"
+      initPosData="{{initPosData}}"
+      bind:mapDataChange="handleMapDataChange"
+    ></chosen-position>
   </view>
+
+  <!-- 设备信息有误 -->
+  <view wx:if="{{ choiceDataValue === '设备信息有误'}}">
+    <view class="device-excharge-type-wrapper">
+      <view class="excharge-type-title custom-required-ident">充电设备类型</view>
+      <view class="excharge-type-data-wrapper">
+        <view
+          wx:for="{{deviceData}}"
+          wx:key="index"
+          class="{{ choiceDeviceValue === index ? 'excharge-type-item excharge-type-item-select' : 'excharge-type-item'}}"
+          data-index="{{index}}" 
+          data-name="{{item.name}}"
+          catchtap="choiceDeviceType"
+        >
+          <image src="{{choiceDeviceValue === index ? item.selectIcon : item.icon}}" class="excharge-type-icon" />
+          <text>{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+  
+    <view class="device-excharge-content">
+      <van-cell-group custom-class='cell-group-content' border="{{false}}">
+        <van-field
+          clearable
+          label="设备品牌"
+          placeholder="请输入"
+          input-align="right"
+          model:value="{{ brand }}"
+        />
+        <van-field
+          clearable
+          label="品牌联系方式"
+          placeholder="请输入"
+          input-align="right"
+          model:value="{{ brand_contact }}"
+        />
+        <van-cell title-class='cell-title-style' value-class='monitor-value-style' catch:tap="showMonitor" is-link value="{{around_monitor}}" title="设备周围监控" border="{{false}}">
+        </van-cell>
+      </van-cell-group>
+    </view>
+
+    <view class="device-excharge-content">
+      <van-cell-group custom-class='cell-group-content' border="{{false}}">
+        <van-cell title-class='cell-title-style' title="支持扫码充电">
+          <van-switch size="{{'20px'}}" checked="{{deveiceData.is_scancode}}" bind:change="scanCode" />
+        </van-cell>
+        <van-cell title-class='cell-title-style' title="有防雨措施" >
+          <van-switch size="{{'20px'}}" checked="{{deveiceData.is_rainshelter}}" bind:change="rainshelter" />
+        </van-cell>
+        <van-cell title-class='cell-title-style' title="是否要自带充电器">
+          <van-switch checked="{{true}}" size="{{'20px'}}" checked="{{deveiceData.is_charger}}" bind:change="auoCharger" />
+        </van-cell>
+        <van-cell title-class='cell-title-style' title="类型" border="{{false}}" />
+        <view class="device-type-wrapper">
+          <view
+            wx:for="{{deviceTypeData}}"
+            wx:key="index"
+            data-index="{{index}}"
+            class="{{ typeValue === index ? 'device-type-item device-type-item-selected' : 'device-type-item'}}"
+            catchtap="publicPlotType"
+          >
+            <text>{{item.name}}</text>
+          </view>
+        </view>
+        <van-cell title-class='cell-title-style' title="充电端口数量" border="{{false}}">
+          <van-stepper min="1" value="{{ deveiceData.device_port }}" integer bind:change="devicePortHandle" />
+        </van-cell>
+      </van-cell-group>
+    </view>
+  </view>
+
   <view class="device-excharge-content device-desicribtion-img">
     <van-cell-group border="{{ false }}">
-      <van-cell title="设备照片（选填）" label="请上传真实、清晰的设备照片，有助于审核" border="{{ false }}" />
+      <van-cell title="设备照片" label="请上传真实、清晰的设备照片，有助于审核" border="{{ false }}" />
     </van-cell-group>
     <van-uploader
       file-list="{{ fileList }}"
@@ -45,6 +113,21 @@
       bind:after-read="afterRead"
     />
   </view>
+  <view class="device-excharge-content device-desicribtion">
+    <van-cell-group custom-class='cell-group-content' border="{{false}}">
+      <van-cell title-class='cell-title-style' title="添加描述" border="{{false}}" />
+      <van-field
+        type="textarea"
+        placeholder="添加纠错描述，加速审核通过"
+        autosize="{{ true }}"
+        :autosize="{ maxHeight: 100, minHeight: 50 }"
+        border="{{ false }}"
+        input-class="text-area-style"
+        model:value="{{ comment }}"
+      />
+    </van-cell-group>
+  </view>
+
   <view class="device-bottom-submit-wrapper">
     <view class="submit-btn" catchtap='errorCorrection'>提交</view>
   </view>
@@ -52,4 +135,12 @@
   <view class="process-wrapper" wx:if="{{showProcess}}">
     <van-circle value="{{ processValue }}"  text="{{processValue}}%" />
   </view>
+
+  <van-toast id="van-toast" />
+  <van-action-sheet
+    show="{{ monitorShow }}"
+    actions="{{ actions }}"
+    bind:close="onCloseAction"
+    bind:select="onSelect"
+  />
 </view>

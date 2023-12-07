@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-cell": "@vant/weapp/cell/index"
+  }
+}

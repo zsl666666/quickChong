@@ -97,5 +97,17 @@ Page({
           console.error('获取中心坐标失败', err)
         }
       })
-  }
+  },
+
+  mapView() {
+    const that = this
+    wx.chooseLocation({
+      success: function (res) {
+        console.log(res);
+        that.data.userAddress = res.address + res.name + ',latitude=' + res.latitude
+        + ",longitude=" + res.longitude;
+        console.log("您选择的定位地址 = " + that.data.userAddress);
+      },
+    })
+  },
 })

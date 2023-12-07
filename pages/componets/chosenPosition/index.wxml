@@ -1,0 +1,42 @@
+<!--pages/componets/chosenPosition/index.wxml-->
+<view class="chosen-position">
+  <view class="box-wrap">
+    <view class="add-device-type-title {{ required ? 'custom-required-ident' : '' }}">{{title}}</view>
+    <view class="map-location-desc">{{desc}}</view>
+    <view class="map-wrap" bind:touchstart="mapTouchstart">
+      <map
+        id="111101"
+        class="map-render-class"
+        joinCluster="{{true}}"
+        latitude="{{latitude}}"
+        longitude="{{longitude}}"
+        bindupdated="mapUpdated"
+        bindregionchange="regionchange"
+        bindtap="clickMap"
+        scale="{{scale}}"
+        max-scale="24"
+        show-location
+      >
+      </map>
+    </view>
+    <van-cell-group border="{{false}}">
+      <van-field
+        custom-style="padding-left: 4rpx;padding-right: 4rpx;"
+        clearable
+        icon="/image/map/map-back.png"
+        placeholder="选择位置"
+        bind:click-icon="onClickIcon"
+        bind:click-input='devicePositionFocus'
+        readonly
+        model:value="{{ devicePosition }}"
+      />
+      <van-field
+        custom-style="padding-left: 4rpx;padding-right: 4rpx;"
+        clearable
+        placeholder="详细地址（例如**街**号**）"
+        model:value="{{ address }}"
+      />
+    </van-cell-group>
+    <view class="map-desc-tips">记得仔细描述位置信息是否准确</view>
+  </view>
+</view>

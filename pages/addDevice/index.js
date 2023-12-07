@@ -85,7 +85,16 @@ Page({
     }, {
       name: '无监控措施',
       color: '#646566'
-    }]
+    }],
+    isExpansion: false, // 是否展开
+    mapData: {}, // 选择地图位置相关数据，省市区，经度纬度等
+  },
+
+  // 展开收起
+  onExpansionChange() {
+    this.setData({
+      isExpansion: !this.data.isExpansion
+    })
   },
 
   // 监控选择
@@ -274,6 +283,14 @@ Page({
   //     around_monitor: e.detail
   //   })
   // },
+
+  // 地图数据改变
+  handleMapDataChange(e) {
+    console.log('父组件拿到地图数据改变信息', e.detail)
+    this.setData({
+      mapData: e.detail
+    })
+  },
 
   // 提交
   addDeviceHandle() {

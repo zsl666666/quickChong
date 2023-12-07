@@ -350,8 +350,9 @@ Page({
   // 去纠错
   goErrorCorrection(e) {
     const id = e.currentTarget.dataset.id
+    const detail = e.currentTarget.dataset.detail
     wx.navigateTo({
-      url: `/pages/errorCorrection/index?id=${id}`,
+      url: `/pages/errorCorrection/index?id=${id}&detail=${JSON.stringify(detail)}`,
     })
   },
 
@@ -786,13 +787,6 @@ Page({
     console.log(app.globalData.address)
     this.onLoad()
     this.onShow()
-  },
-
-  // 跳转地图选点
-  handlemapPointSelection() {
-    wx.navigateTo({
-      url: '/pages/testMap/index',
-    })
   },
 
   onHide() {
