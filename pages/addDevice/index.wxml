@@ -27,8 +27,9 @@
   <view class="device-excharge-content device-desicribtion-img">
     <van-cell-group border="{{ false }}">
       <van-cell
+        title-class="device-img-title-class"
         title="设备照片"
-        label="充电设备整体图（必上传）扫码充电二维码图（必上传，需要清晰可扫码）设备操作流程说明图（必上传）拍摄设备周边标志性建筑/商户图片，方便定位及审核（选择上传）"
+        label="上传证明照片有助于审核"
         border="{{ false }}"
       />
     </van-cell-group>

@@ -294,8 +294,13 @@ Page({
 
   // 提交
   addDeviceHandle() {
-    if (!this.data.deveiceData.device_type || !this.data.name) {
-      return Toast('设备类型和设备位置不能为空')
+    const { deveiceData, mapData } = this.data
+    console.log('addDeviceHandle', mapData)
+    if (!deveiceData.device_type) {
+      return Toast('充电设备类型不能为空')
+    }
+    if (!mapData.name || !mapData.city || !mapData.address) {
+      return Toast('位置信息不能为空')
     }
     if (this.data.deveiceData.picture.length < 3) {
       return Toast('设备图片至少三张')
@@ -304,17 +309,20 @@ Page({
       url: url + '/api/device/add',
       method: 'POST',
       data: {
-        ...this.data.deveiceData,
-        devicePosition: this.data.devicePosition, // 充电位置的文字
-        address: this.data.address, // 详细地址
-        coordinate: this.data.coordinate, // 坐标
-        city: this.data.city, // 城市
+        ...deveiceData,
+        // devicePosition: this.data.devicePosition, // 充电位置的文字
+        // address: this.data.address, // 详细地址
+        // coordinate: this.data.coordinate, // 坐标
+        // city: this.data.city, // 城市
+        ...mapData,
+        coordinate: `${mapData.latitude},${mapData.longitude}`,
+        devicePosition: mapData.name,
         email: this.data.email, // 邮箱
         brand: this.data.brand, // 品牌
         device_code: this.data.device_code, // 设备编码
         brand_contact: this.data.brand_contact, // 联系方式
         around_monitor: this.data.around_monitor, // 监控个数
-        name: this.data.name, // 设备位置
+        // name: this.data.name, // 设备位置
         ticket: wx.getStorageSync('ticket')
       },
       success: (res) => {
