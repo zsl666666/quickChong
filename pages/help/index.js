@@ -55,6 +55,10 @@ Page({
       activeName: event.detail,
     });
   },
+  // 用户在会话中点击消息卡片后返回小程序回调函数
+  handleContact(e) {
+    console.log('handleContact会话', e)
+  },
 
   /**
    * 页面上拉触底事件的处理函数

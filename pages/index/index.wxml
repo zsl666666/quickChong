@@ -58,7 +58,7 @@
     <view class="mark-content-top">
       <view class="content-img content-uploader-image" wx:if="{{deviceDetail.pic_cover}}">
         <!-- <image src="{{deviceDetail.pic_cover}}" class="content-img-style" catch:tap="showBig" data-url="{{deviceDetail.pic_cover}}" /> -->
-        <van-uploader file-list="{{ deviceDetail.showPictures }}" />
+        <van-uploader file-list="{{ deviceDetail.showPictures }}" bind:click-preview="handleClickViewImg" />
       </view>
       <view class="content-img" wx:else>
         <van-uploader
@@ -67,9 +67,11 @@
           accept="image"
           multiple="false"
           max-size="{{5242880}}"
+          bind:tap="handleClickUpload"
           use-before-read
           bind:before-read="beforeRead"
           bind:after-read="afterRead"
+          bind:click-preview="handleClickViewImg" 
         >
           <image src="/image/upload-icon.png" class="content-img-style2" />
         </van-uploader>

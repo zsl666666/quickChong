@@ -19,6 +19,10 @@ const selectMapIcon = {
   '换电柜': '/image/huandiangui-xuan.png',
   '充电柜': '/image/diangui-xuan.png'
 }
+
+// 是否是预览图片，为了解决预览图片触发onHide的问题
+let isViewImg = false
+
 Page({
   data: {
     chargeBtnArray: [{
@@ -531,6 +535,12 @@ Page({
   },
 
   onShow() {
+    // 如果是结束预览图片触发return
+    if (isViewImg) {
+      isViewImg = false
+      return
+    }
+
     if (wx.getStorageSync('ticket')) {
       // const obj = this.data.chargeBtnArray.find(item => item.id === this.data.choiceTypeValue)
       const options = JSON.parse(wx.getStorageSync('detailObj') || '{}')
@@ -637,6 +647,10 @@ Page({
     })
   },
 
+  handleClickUpload() {
+    isViewImg = true
+  },
+
   // 上传前校验
   beforeRead(event) {
     const { file, callback } = event.detail;
@@ -704,6 +718,11 @@ Page({
     })
   },
 
+  // 点击预览图片
+  handleClickViewImg(e) {
+    isViewImg = true
+  },
+
   // 设备图片上传
   deviceUpload() {
     wx.request({
@@ -722,11 +741,11 @@ Page({
             title: '等待审核',
             icon: 'success',
           })
-          setTimeout(() => {
-            wx.navigateBack({
-              delta: 1 // 返回上一级页面
-            })
-          }, 1000)
+          // setTimeout(() => {
+          //   wx.navigateBack({
+          //     delta: 1 // 返回上一级页面
+          //   })
+          // }, 1000)
         }
       },
       fail: (err) => {
@@ -790,6 +809,9 @@ Page({
   },
 
   onHide() {
+    // 如果是预览图片触发hide直接return
+    if (isViewImg) return
+
     this.setData({
       mapScal: 15
     })
