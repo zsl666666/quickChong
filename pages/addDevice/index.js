@@ -286,7 +286,6 @@ Page({
 
   // 地图数据改变
   handleMapDataChange(e) {
-    console.log('父组件拿到地图数据改变信息', e.detail)
     this.setData({
       mapData: e.detail
     })
@@ -295,7 +294,6 @@ Page({
   // 提交
   addDeviceHandle() {
     const { deveiceData, mapData } = this.data
-    console.log('addDeviceHandle', mapData)
     if (!deveiceData.device_type) {
       return Toast('充电设备类型不能为空')
     }

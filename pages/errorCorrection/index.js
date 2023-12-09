@@ -45,8 +45,8 @@ Page({
       selectIcon: '/image/device-huandiangui-select-icon.png',
       id: 2
     }],
-    choiceDeviceValue: -1,
-    brand_contact: null, // 联系方式
+    brand: '', // 设备品牌,
+    brand_contact: '', // 联系方式
     around_monitor: '', // 监控
     monitorShow: false, // 选择设备周围监控弹窗
     actions: [{ // 设备监控列表
@@ -76,7 +76,6 @@ Page({
       name: '小区内充电设备',
       value: 1
     }],
-    typeValue: -1, // 充电设备类型值
     initPosData: {}, // 接口返回地图位置数据
     mapData: {}, // 地图相关数据
   },
@@ -96,7 +95,18 @@ Page({
         latitude: coordinateArr[0],
         longitude: coordinateArr[1],
         city: detail.city
-      }
+      },
+      deveiceData: {
+        is_scancode: detail.is_scancode === 1, // 扫码充电
+        is_rainshelter: detail.is_rainshelter === 1, // 是否有防雨棚
+        is_charger: detail.is_charger === 1, // 是否自带充电器
+        loc_type: detail.loc_type, // 是小区，还是公共
+        device_port: detail.device_port, // 充电口数量
+        device_type: detail.device_type, // 充电设备类型
+      },
+      brand: detail.brand, // 设备品牌
+      brand_contact: detail.brand_contact, // 联系方式
+      around_monitor: detail.around_monitor, // 设备周围监控
     })
   },
 
@@ -200,7 +210,6 @@ Page({
   // 选择充电设备类型
   choiceDeviceType(e) {
     this.setData({
-      choiceDeviceValue: e.currentTarget.dataset.index,
       deveiceData: {
         ...this.data.deveiceData,
         device_type: e.currentTarget.dataset.name
@@ -268,10 +277,9 @@ Page({
   // 选择类型-公共充电设备，还是小区充电设备
   publicPlotType(e) {
     this.setData({
-      typeValue: e.currentTarget.dataset.index,
       deveiceData: {
         ...this.data.deveiceData,
-        loc_type: e.currentTarget.dataset.index === 0 ? 2 : 1
+        loc_type: e.currentTarget.dataset.value
       }
     })
   },
@@ -285,54 +293,80 @@ Page({
 
   // 提交纠错
   errorCorrection() {
-    const nameData = this.data.quickData.filter(item => this.data.choiceData.includes(item.id))
-    const tempName = nameData.map(item => item.name)
-    // 提交校验
+    // const nameData = this.data.quickData.filter(item => this.data.choiceData.includes(item.id))
+    // const tempName = nameData.map(item => item.name)
+    const data = this.data
+    const mapData = data.mapData
+    // 校验纠错设备信息
+    if (!data.choiceDataValue) {
+      return Toast('纠错设备信息不能为空')
+    }
+    // 校验纠错设备信息-位置有误的情况
+    if (data.choiceDataValue === '位置有误') {
+      if (!mapData.name || !mapData.city || !mapData.address) {
+        return Toast('位置信息不能为空')
+      }
+    }
+    // 校验纠错设备信息-设备信息有误，充电设备类型
+    if (data.choiceDataValue === '设备信息有误' && !data.deveiceData.device_type) {
+      return Toast('充电设备类型不能为空') 
+    }
+
+    // 校验设备照片
     if (this.data.picture.length < 3) {
       return Toast('设备图片至少三张')
     }
 
     const params = {
-      ...this.data.deveiceData,
-      device_id: this.data.deviceId,
-      error_type: this.data.choiceDataValue, // 纠正设备信息
-      ...this.data.mapData, // 位置信息(坐标，省市区，位置名称，详细地址)
-      coordinate: `${this.data.mapData.latitude},${this.data.mapData.longitude}`, // 坐标点（经纬度）
-      brand: this.data.brand, // 品牌
-      brand_contact: this.data.brand_contact, // 联系方式
-      around_monitor: this.data.around_monitor, // 设备周围监控
+      ...data.deveiceData,
+      device_id: Number(data.deviceId),
+      error_type: data.choiceDataValue, // 纠正设备信息
+      ...data.mapData, // 位置信息(坐标，省市区，位置名称，详细地址)
+      coordinate: `${mapData.latitude},${mapData.longitude}`, // 坐标点（经纬度）
+      brand: data.brand, // 品牌
+      brand_contact: data.brand_contact, // 联系方式
+      around_monitor: data.around_monitor, // 设备周围监控
       device_code: null, // 设备编码，暂时没有该字段
-      description: this.data.comment, // 描述
-      picture: this.data.picture, // 设备照片
+      description: data.comment, // 描述
+      picture: data.picture, // 设备照片
     }
     console.log('纠错提交接口参数', params)
-    // wx.request({
-    //   url: url + '/api/user/correct',
-    //   method: 'POST',
-    //   data: {
-    //     ticket: wx.getStorageSync('ticket'),
-    //     picture: this.data.picture,
-    //     description: this.data.comment,
-    //     error_type: tempName.join(','),
-    //     device_id: this.data.deviceId
-    //   },
-    //   success: (res) => {
-    //     if (!res.data.code) {
-    //       wx.showToast({
-    //         title: '提交成功',
-    //         icon: 'success',
-    //       })
-    //       setTimeout(() => {
-    //         wx.navigateBack({
-    //           delta: 1 // 返回上一级页面
-    //         })
-    //       }, 1000)
-    //     }
-    //   },
-    //   fail: (err) => {
-    //     console.error('纠错失败：', err)
-    //   }
-    // })
+    wx.request({
+      url: url + '/api/user/correct',
+      method: 'POST',
+      data: {
+        ticket: wx.getStorageSync('ticket'),
+        ...params
+        // picture: this.data.picture,
+        // description: this.data.comment,
+        // error_type: tempName.join(','),
+        // device_id: this.data.deviceId
+      },
+      success: (res) => {
+        if (!res.data.code) {
+          wx.showToast({
+            title: '提交成功',
+            icon: 'success',
+          })
+          setTimeout(() => {
+            wx.navigateBack({
+              delta: 1 // 返回上一级页面
+            })
+          }, 1000)
+        } else {
+          wx.showToast({
+            title: res.data.msg || '提交失败',
+            icon: 'fail'
+          })
+        }
+      },
+      fail: (err) => {
+        wx.showToast({
+          title: '提交失败',
+          icon: 'fail'
+        })
+      }
+    })
   },
 
   /**

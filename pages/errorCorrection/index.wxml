@@ -1,7 +1,7 @@
 <!--pages/errorCorrection/index.wxml-->
 <view class="device-page-wrapper">
   <view class="device-excharge-type-wrapper">
-    <view class="excharge-type-title">纠正设备信息</view>
+    <view class="excharge-type-title custom-required-ident">纠正设备信息</view>
     <view class="excharge-type-data-wrapper">
       <view
         wx:for="{{quickData}}"
@@ -35,12 +35,12 @@
         <view
           wx:for="{{deviceData}}"
           wx:key="index"
-          class="{{ choiceDeviceValue === index ? 'excharge-type-item excharge-type-item-select' : 'excharge-type-item'}}"
-          data-index="{{index}}" 
+          class="{{ deveiceData.device_type === item.name ? 'excharge-type-item excharge-type-item-select' : 'excharge-type-item'}}"
+          data-index="{{index}}"
           data-name="{{item.name}}"
           catchtap="choiceDeviceType"
         >
-          <image src="{{choiceDeviceValue === index ? item.selectIcon : item.icon}}" class="excharge-type-icon" />
+          <image src="{{deveiceData.device_type === item.name ? item.selectIcon : item.icon}}" class="excharge-type-icon" />
           <text>{{item.name}}</text>
         </view>
       </view>
@@ -83,8 +83,8 @@
           <view
             wx:for="{{deviceTypeData}}"
             wx:key="index"
-            data-index="{{index}}"
-            class="{{ typeValue === index ? 'device-type-item device-type-item-selected' : 'device-type-item'}}"
+            data-value="{{item.value}}"
+            class="{{ deveiceData.loc_type === item.value ? 'device-type-item device-type-item-selected' : 'device-type-item'}}"
             catchtap="publicPlotType"
           >
             <text>{{item.name}}</text>
@@ -99,7 +99,12 @@
 
   <view class="device-excharge-content device-desicribtion-img">
     <van-cell-group border="{{ false }}">
-      <van-cell title="设备照片" label="请上传真实、清晰的设备照片，有助于审核" border="{{ false }}" />
+      <van-cell
+        title-class="device-img-title-class"
+        title="设备照片"
+        label="请上传真实、清晰的设备照片，有助于审核"
+        border="{{ false }}"
+      />
     </van-cell-group>
     <van-uploader
       file-list="{{ fileList }}"

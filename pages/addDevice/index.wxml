@@ -29,7 +29,7 @@
       <van-cell
         title-class="device-img-title-class"
         title="设备照片"
-        label="上传证明照片有助于审核"
+        label="请上传真实、清晰的设备照片，有助于审核"
         border="{{ false }}"
       />
     </van-cell-group>
