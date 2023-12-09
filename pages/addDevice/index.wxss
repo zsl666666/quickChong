@@ -2,6 +2,7 @@
 .device-page-wrapper {
   width: 100vw;
   /* height: 100vh; */
+  min-height: 100vh;
   background: #F4F4F4;
   overflow-y: auto;
 }
@@ -117,7 +118,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 10;
 }
 .submit-btn {
   height: 80rpx;
