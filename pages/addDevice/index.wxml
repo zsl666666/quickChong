@@ -27,11 +27,15 @@
   <view class="device-excharge-content device-desicribtion-img">
     <van-cell-group border="{{ false }}">
       <van-cell
-        title-class="device-img-title-class"
-        title="设备照片"
-        label="请上传真实、清晰的设备照片，有助于审核"
+        label-class="device-img-label-class"
+        label="请上传真实清晰的设备照片、充电二维码、周边标志性建筑等，有助于审核"
         border="{{ false }}"
-      />
+      >
+        <view slot="title" class="device-img-title-class">
+          设备照片
+          <span class="device-img-title-desc">(真实上传可获得额外贡献值)</span>
+        </view>
+      </van-cell>
     </van-cell-group>
     <van-uploader
       file-list="{{ fileList }}"

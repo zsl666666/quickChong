@@ -300,9 +300,9 @@ Page({
     if (!mapData.name || !mapData.city || !mapData.address) {
       return Toast('位置信息不能为空')
     }
-    if (this.data.deveiceData.picture.length < 3) {
-      return Toast('设备图片至少三张')
-    }
+    // if (this.data.deveiceData.picture.length < 3) {
+    //   return Toast('设备图片至少三张')
+    // }
     wx.request({
       url: url + '/api/device/add',
       method: 'POST',

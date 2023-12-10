@@ -1,13 +1,20 @@
 /* pages/contribute/index.wxss */
+.contribute-rule {
+  font-size: 32rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.6);
+  margin: 32rpx 0 28rpx 28rpx;
+}
 .contribute-item {
-  margin-bottom: 80rpx;
+  margin-bottom: 50rpx;
 }
 .contribute-title {
   font-size: 32rpx;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: rgba(0,0,0,0.6);
-  margin: 32rpx 0 41rpx 28rpx;
+  margin: 32rpx 0 28rpx 28rpx;
 }
 .contribute-content {
   font-size: 30rpx;
@@ -15,4 +22,7 @@
   font-weight: 400;
   color: rgba(0,0,0,0.6);
   margin: 0 28rpx;
+}
+.contribute-content-item {
+  margin: 10rpx 0rpx;
 }

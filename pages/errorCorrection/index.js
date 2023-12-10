@@ -313,9 +313,9 @@ Page({
     }
 
     // 校验设备照片
-    if (this.data.picture.length < 3) {
-      return Toast('设备图片至少三张')
-    }
+    // if (this.data.picture.length < 3) {
+    //   return Toast('设备图片至少三张')
+    // }
 
     const params = {
       ...data.deveiceData,

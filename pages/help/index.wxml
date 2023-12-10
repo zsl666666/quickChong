@@ -18,10 +18,13 @@
         <view class="help-item-content">通过更换电池的方式为车辆充电，一般对车辆的品牌与电池型号有要求</view>
       </van-collapse-item>
       <van-collapse-item title="如何发现充电设备" name="2" border="{{false}}" size="large">
-        <view class="help-item-content">可通过点击主页左下角的——发现充电设备，和大家一起点亮地图</view>
+        <view class="help-item-content">如您发现身边有可用的充电桩，可通过点击主页左下角的——发现充电设备，实现一键添加，与骑友一起共享充电信息，点亮充电地图</view>
       </van-collapse-item>
       <van-collapse-item title="如何获取贡献值" name="3" border="{{false}}" size="large">
-        <view class="help-item-content">通过主页-发现设备-提交并审核成功、参与设备评价、设备上传图片/纠错并审核成功后均可获得贡献值</view>
+        <view class="help-item-content">通过主页-发现设备-提交真实信息并审核成功、参与设备评价、设备纠错、上传设备照片并审核成功后均可获得贡献值</view>
+      </van-collapse-item>
+      <van-collapse-item title="贡献值能用来做什么" name="5" border="{{false}}" size="large">
+        <view class="help-item-content">贡献值累计达1000，即可联系在线客服兑换骑行好礼，累计积分越高，可获得的礼物越精美哦</view>
       </van-collapse-item>
       <van-collapse-item title="联系客服" name="4" border="{{false}}" size="large">
         <view class="help-item-content">

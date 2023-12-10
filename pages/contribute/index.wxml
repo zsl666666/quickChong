@@ -1,13 +1,23 @@
 <!--pages/contribute/index.wxml-->
 <page-meta>
+  <view class="contribute-rule">贡献值规则如下：</view>
   <view class="contribute-item">
-    <view class="contribute-title">一. 贡献值规则</view>
+    <view class="contribute-title">一、参与发现充电设备</view>
     <view class="contribute-content">
-      <view>参与发现充电设备，并审核通过可获得100个贡献值</view>
-      <view>参与充电设备纠错/设备上传图片，并审核通过可获得5个贡献值</view>
-      <view>参与设备评价=1个贡献值</view>
+      <view class="contribute-content-item">1.1 添加设备信息+上传真实设备照片，审核通过可获得100个贡献值</view>
+      <view class="contribute-content-item">1.2 仅添加设备信息，审核通过可获得50个贡献值</view>
     </view>
   </view>
+  <view class="contribute-item">
+    <view class="contribute-title">二、参与充电设备纠错：审核通过可获得5个贡献值</view>
+  </view>
+  <view class="contribute-item">
+    <view class="contribute-title">三、参与添加设备照片：审核通过可获得5个贡献值</view>
+  </view>
+  <view class="contribute-item">
+    <view class="contribute-title">四、参与设备评价=1个贡献值</view>
+  </view>
+
   <!-- <view class="contribute-item">
     <view class="contribute-title">二. 规则是什么</view>
     <view class="contribute-content">
