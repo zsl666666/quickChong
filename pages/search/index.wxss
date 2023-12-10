@@ -30,9 +30,9 @@
 .index-search-limit {
   height: 106rpx;
 }
-/* .search-placeholder-div {
-  height: 352rpx;
-} */
+.search-placeholder-div {
+  height: 180rpx;
+}
 .home-top-search-wrapper {
   display: flex;
   justify-content: center;

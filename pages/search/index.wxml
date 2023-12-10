@@ -38,10 +38,11 @@
     enable-passive="{{true}}"
     enable-back-to-top="{{true}}"
     lower-threshold="80"
-    style="height: 100vh;"
+    style="height: calc(100vh - {{navBarHeight}}px); margin-top: {{navBarHeight}}px;"
     enhanced="{{true}}"
   >
-    <view class="search-placeholder-div" style="height: calc({{navBarHeight}}px + 180rpx)"></view>
+    <!-- <view class="search-placeholder-div" style="height: calc({{navBarHeight}}px + 180rpx)"></view> -->
+    <view class="search-placeholder-div"></view>
     <view class="serachr-fenge"></view>
     <text class="search-fujin-title">附近充电设备</text>
     <view class="checked-mark-wrapper" wx:for="{{searchData}}" wx:key="index" catch:tap="detailHandle" data-item="{{item}}">
