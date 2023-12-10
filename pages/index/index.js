@@ -25,6 +25,7 @@ let isViewImg = false
 
 Page({
   data: {
+    navBarHeight: app.globalData.navBarHeight,
     chargeBtnArray: [{
       name: '全部',
       id: 1,

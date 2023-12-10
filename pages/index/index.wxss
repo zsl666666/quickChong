@@ -1,5 +1,12 @@
+.page-body {
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+}
 .page-section-gap{
   box-sizing: border-box;
+  width: 100%;
+  height: 100%;
   /* padding: 0 30rpx; */
 }
 .test-style {
@@ -66,7 +73,7 @@
   background: #FFFFFF;
   box-shadow: 0rpx 1rpx 14rpx 0rpx rgba(0,0,0,0.1);
   border-radius: 0 0 24rpx 24rpx;
-  top: 150rpx;
+  /* top: 150rpx; */
   left: 0;
   z-index: 100;
   overflow: hidden;

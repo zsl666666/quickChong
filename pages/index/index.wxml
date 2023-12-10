@@ -3,7 +3,7 @@
   <view class="page-section page-section-gap">
     <map
       id="myMap"
-      style="width: 100%; height: 100vh;"
+      style="width: 100%; height: 100%;"
       latitude="{{latitude}}"
       longitude="{{longitude}}"
       markers="{{markers}}"
@@ -16,7 +16,7 @@
     >
     </map>
   </view>
-  <view id='moreAction' class="index-search-wrapper">
+  <view id='moreAction' class="index-search-wrapper" style="top: {{navBarHeight}}px;">
     <view class="home-top-search-wrapper">
       <van-search
         value="{{value}}"
