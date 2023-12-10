@@ -1,6 +1,7 @@
 // pages/componets/indexNavbar/index.js
 import { areaList } from '@vant/area-data'
 const app = getApp()
+console.log('ggggggg', app)
 Component({
   /**
    * 组件的属性列表
@@ -26,7 +27,17 @@ Component({
     menuHeight: app.globalData.menuHeight,
     areaList,
     show: false,
-    currentCity: '北京'
+    currentCity: '',
+  },
+
+  lifetimes: {
+    attached() {
+      app.asyncOkCb = (res) => {
+        this.setData({
+          currentCity: res.curPositionInfo?.city,
+        })
+      }
+    }
   },
 
   /**

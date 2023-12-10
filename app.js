@@ -1,4 +1,5 @@
 // app.js
+import { QQMapWXReverseGeocoder } from './service/QQMapApis'
 App({
   onLaunch() {
     // 展示本地存储能力
@@ -16,6 +17,31 @@ App({
     this.globalData.menuRight = systemInfo.screenWidth - menuButtonInfo.right;
     this.globalData.menuTop=  menuButtonInfo.top;
     this.globalData.menuHeight = menuButtonInfo.height;
+
+    // 当前位置信息
+    QQMapWXReverseGeocoder({
+      success: function(res) {
+        console.log('逆地址解析接口-getReverseGeocoder', res, that.globalData)
+        const result = res.result
+        const ad_info = result?.ad_info || {}
+        const params = {
+          province: ad_info.province,
+          city: ad_info.city,
+          district: ad_info.district,
+          town: result.address_reference?.town?.title || '',
+          name: result.address_reference.landmark_l2.title,
+          address: result.formatted_addresses.recommend,
+          location: result.location,
+          latitude: result.location.lat,
+          longitude: result.location.lng,
+        }
+        that.globalData.curPositionInfo = params
+        that.globalData.address = params.city
+        if (typeof that.asyncOkCb === 'function') {
+          that.asyncOkCb(that.globalData)
+        }
+      }
+    })
   },
   globalData: {
     userInfo: null,
@@ -23,6 +49,7 @@ App({
     menuRight: 0, // 胶囊距右方间距（方保持左、右间距一致）
     menuTop: 0, // 胶囊距底部间距（保持底部间距一致）
     menuHeight: 0, // 胶囊高度（自定义内容可与胶囊高度保证一致）
-    address: '北京'
+    address: '', // 城市名
+    curPositionInfo: {}, // 当前位置信息
   }
 })

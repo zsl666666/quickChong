@@ -320,6 +320,7 @@ Page({
       })
     }
     const markerId = event.markerId || event.detail.markerId; // 获取点击的标记点的 id
+    commonMarkId = markerId
     const selectedMarker = this.data.markers.find(marker => marker.id === markerId);
     // 在这里可以根据 selectedMarker 执行需要的操作，比如显示信息窗口等
     console.log("点击了标记点：" + selectedMarker.id);
@@ -330,7 +331,7 @@ Page({
     this.setData({
       markers: tempArr
     })
-    this.getDeviceDetail(selectedMarker)
+    this.getDeviceDetail(selectedMarker, true)
   },
 
   // 关闭详情
@@ -474,11 +475,18 @@ Page({
     }, 200)
   },
 
-  // 获取设备详情
-  getDeviceDetail(param) {
-    wx.showLoading({
-      title: '加载中...',
-    })
+  /**
+   *  获取设备详情
+   * @param {Object} param query参数
+   * @param {Boolean} isClickMark 是否是点击地图上的标记点触发
+   */
+  getDeviceDetail(param, isClickMark) {
+    if (isClickMark) {
+      wx.showLoading({
+        title: '加载中...',
+      })
+    }
+
     wx.getLocation({
       type: 'gcj02',
       isHighAccuracy: true,
@@ -823,10 +831,11 @@ Page({
     // 如果是预览图片触发hide直接return
     if (isViewImg) return
 
-    this.setData({
-      mapScal: 15
-    })
-    this.closeMarkDetail()
+    // 为了解决一些之前遗留复杂问题优化，暂时注释以下代码
+    // this.setData({
+    //   mapScal: 15
+    // })
+    // this.closeMarkDetail()
   }
 })
 
