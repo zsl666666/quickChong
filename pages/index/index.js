@@ -503,15 +503,25 @@ Page({
             coordinate: `${latitude},${longitude}`
           },
           success: (res) => {
+            const { pic_cover, pictures = [] } = (res.data.data || {})
             const showPictures = []
-            if (!res.data.data.pic_cover) {
+            if (!pic_cover) {
               res.data.data.pic_cover = false
               
             } else {
               showPictures.push({
-                url: res.data.data.pic_cover,
-                name: '设备缩略图',
+                url: pic_cover,
+                name: '设备缩略图1',
                 deletable: false
+              })
+              pictures?.forEach((item, i) => {
+                if (item.pic_url !== pic_cover) {
+                  showPictures.push({
+                    url: item.pic_url,
+                    name: `设备缩略图${i+2}`,
+                    deletable: false
+                  })
+                }
               })
             }
 
