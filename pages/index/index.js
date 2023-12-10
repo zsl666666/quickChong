@@ -495,19 +495,29 @@ Page({
             coordinate: `${latitude},${longitude}`
           },
           success: (res) => {
+            const showPictures = []
             if (!res.data.data.pic_cover) {
               res.data.data.pic_cover = false
               
-            }
-            const tempArr = []
-            res.data.data?.pictures.forEach((item, i) => {
-              tempArr.push({
-                url: item.pic_url,
-                name: i,
+            } else {
+              showPictures.push({
+                url: res.data.data.pic_cover,
+                name: '设备缩略图',
                 deletable: false
               })
-            })
-            res.data.data.showPictures = tempArr
+            }
+
+            // const tempArr = []
+            // res.data.data?.pictures.forEach((item, i) => {
+            //   tempArr.push({
+            //     url: item.pic_url,
+            //     name: i,
+            //     deletable: false
+            //   })
+            // })
+            // res.data.data.showPictures = tempArr
+
+            res.data.data.showPictures = showPictures
             this.setData({
               deviceDetail: res.data.data,
               markCheckedShow: true,
