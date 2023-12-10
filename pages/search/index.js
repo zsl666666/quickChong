@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    navBarHeight: app.globalData.navBarHeight,
     chargeBtnArray: [{
       name: '全部',
       id: 1,

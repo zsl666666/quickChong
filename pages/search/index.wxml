@@ -3,7 +3,7 @@
   <van-nav-bar title="搜索" title-class='search-title' catchtap="backHome" custom-class='search-test-style' fixed="true">
     <van-icon name="arrow-left" slot="left" />
   </van-nav-bar>
-  <view id='moreAction' class="index-search-wrapper">
+  <view id='moreAction' class="index-search-wrapper" style="top: {{ navBarHeight }}px;">
     <view class="home-top-search-wrapper">
       <van-search
         value="{{value}}"
@@ -41,7 +41,7 @@
     style="height: 100vh;"
     enhanced="{{true}}"
   >
-    <view class="search-placeholder-div"></view>
+    <view class="search-placeholder-div" style="height: calc({{navBarHeight}}px + 180rpx)"></view>
     <view class="serachr-fenge"></view>
     <text class="search-fujin-title">附近充电设备</text>
     <view class="checked-mark-wrapper" wx:for="{{searchData}}" wx:key="index" catch:tap="detailHandle" data-item="{{item}}">

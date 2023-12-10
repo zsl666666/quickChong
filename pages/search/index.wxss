@@ -17,8 +17,8 @@
   width: 750rpx;
   height: 180rpx;
   background: #FFFFFF;
-  border-radius: 24rpx;
-  top: 170rpx;
+  border-radius: 0rpx 0rpx 24rpx 24rpx;
+  /* top: 170rpx; */
   left: 0;
   z-index: 100;
   overflow: hidden;
@@ -30,9 +30,9 @@
 .index-search-limit {
   height: 106rpx;
 }
-.search-placeholder-div {
+/* .search-placeholder-div {
   height: 352rpx;
-}
+} */
 .home-top-search-wrapper {
   display: flex;
   justify-content: center;
