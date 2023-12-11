@@ -194,8 +194,8 @@ Component({
       if (!this.mapCtx) return
       const markers = [{
         id: 11110101,
-        width: 36,
-        height: 54,
+        width: 24,
+        height: 36,
         latitude: latitude,
         longitude: longitude,
         iconPath: '/image/map/map-marker-icon.png'

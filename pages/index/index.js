@@ -507,20 +507,23 @@ Page({
             const showPictures = []
             if (!pic_cover) {
               res.data.data.pic_cover = false
-              
             } else {
-              showPictures.push({
-                url: pic_cover,
-                name: '设备缩略图1',
-                deletable: false
-              })
+              // showPictures.push({
+              //   url: pic_cover,
+              //   name: '设备缩略图1',
+              //   deletable: false
+              // })
               pictures?.forEach((item, i) => {
-                if (item.pic_url !== pic_cover) {
-                  showPictures.push({
-                    url: item.pic_url,
-                    name: `设备缩略图${i+2}`,
-                    deletable: false
-                  })
+                const params = {
+                  url: item.pic_url,
+                  name: `设备缩略图${i+1}`,
+                  deletable: false
+                }
+                
+                if (i === pictures.length - 1) {
+                  showPictures.unshift(params)
+                } else {
+                  showPictures.push(params)
                 }
               })
             }

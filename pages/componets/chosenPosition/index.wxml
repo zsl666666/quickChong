@@ -37,6 +37,6 @@
         model:value="{{ address }}"
       />
     </van-cell-group>
-    <view class="map-desc-tips">记得仔细描述位置信息是否准确</view>
+    <view class="map-desc-tips">请仔细确认位置是否准确，如有误可手动修改</view>
   </view>
 </view>

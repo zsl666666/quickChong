@@ -30,7 +30,7 @@
         <view class="help-item-content">
           请联系mdks_serv@163.com，或点击下方联系客服按钮与客服进行沟通
         </view>
-        <button open-type="contact" bindcontact="handleContact" session-from="sessionFrom">联系客服</button>
+        <button class="contact-btn" open-type="contact" bindcontact="handleContact" session-from="sessionFrom">联系客服</button>
       </van-collapse-item>
     </van-collapse>
   </view>
