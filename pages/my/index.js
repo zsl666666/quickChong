@@ -140,6 +140,13 @@ Page({
     })
   },
 
+  // 跳转我的贡献值
+  goMyContributeValue() {
+    wx.navigateTo({
+      url: '/pages/my/components/myContriValue/index',
+    })
+  },
+
   /**
    * 用户点击右上角分享
    */

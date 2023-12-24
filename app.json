@@ -12,7 +12,9 @@
     "pages/cooperate/index",
     "pages/contribute/index",
     "pages/errorCorrection/index",
-    "pages/testMap/index"
+    "pages/testMap/index",
+    "pages/forum/index",
+    "pages/my/components/myContriValue/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -45,6 +47,12 @@
         "text": "首页",
         "iconPath": "/image/home.png",
         "selectedIconPath": "/image/home-select.png"
+      },
+      {
+        "pagePath": "pages/forum/index",
+        "text": "论坛",
+        "iconPath": "/image/forum/forum.png",
+        "selectedIconPath": "/image/forum/forumSelect.png"
       },
       {
         "pagePath": "pages/my/index",

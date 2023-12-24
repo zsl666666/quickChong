@@ -10,6 +10,16 @@
       <van-icon name="arrow" />
     </view>
     <view class="my-user-item-wrapper">
+      <view class="my-user-item" catchtap="goMyContributeValue">
+        <view class="my-item-left">
+          <image src="/image/my/myContributionValue.png" class="my-item-img" />
+          <text>我的贡献值</text>
+        </view>
+        <view>
+          <text class="my-contribute-value">{{'500'}}</text>
+          <van-icon name="arrow" />
+        </view>
+      </view>
       <view class="my-user-item" catchtap="goHelpCenter">
         <view class="my-item-left">
           <image src="/image/bangzhu.png" class="my-item-img" />
