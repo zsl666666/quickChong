@@ -1,11 +1,12 @@
-// pages/forum/index.js
+// pages/forums/index.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    searchBoxHeight: 0,
+    triggered: false,
   },
 
   /**
@@ -19,7 +20,11 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-
+    wx.createSelectorQuery().select('.forums-search-wrap').boundingClientRect(rect=>{
+      this.setData({
+        searchBoxHeight: rect.height
+      })
+    }).exec();
   },
 
   /**
@@ -54,7 +59,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-
+  
   },
 
   /**
@@ -62,5 +67,27 @@ Page({
    */
   onShareAppMessage() {
 
+  },
+
+  //
+  goPostDetail(e) {
+    const data = e.currentTarget.dataset.item
+    wx.navigateTo({
+      url: '/pages/forums/components/postDetail/index' + `?postId=${2}`,
+    })
+  },
+
+  // 帖子滚动到底
+  handleScrollToLower() {
+    console.log('到底啦呀')
+  },
+
+  // 下拉刷新
+  handleScrollRefresh() {
+    setTimeout(() => {
+      this.setData({
+        triggered: false
+      })
+    }, 500)
   }
 })

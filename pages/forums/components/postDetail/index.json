@@ -1,0 +1,9 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "van-nav-bar": "@vant/weapp/nav-bar/index",
+    "van-divider": "@vant/weapp/divider/index",
+    "van-rate": "@vant/weapp/rate/index",
+    "replyPopup": "../commentReply/index"
+  }
+}

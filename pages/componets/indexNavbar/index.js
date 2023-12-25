@@ -27,7 +27,7 @@ Component({
     menuHeight: app.globalData.menuHeight,
     areaList,
     show: false,
-    currentCity: '',
+    currentCity: app.globalData?.curPositionInfo?.city || '',
   },
 
   lifetimes: {

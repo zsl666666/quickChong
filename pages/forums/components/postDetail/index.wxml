@@ -1,0 +1,89 @@
+<!--pages/forums/components/postDetail/index.wxml-->
+<van-nav-bar fixed class="constom-detail-nav-bar">
+  <view slot="left" class="detail-nav-bar-left" catch:tap="goBack">
+    <van-icon name="arrow-left" size="18" custom-style="font-weight: bolder;" />
+    <image
+      src="https://img.ikstatic.cn/MTcwMzQxMTU2NTE3MSMzNTUjanBn.jpg"
+      class="custom-nav-bar-icon"
+    />
+    <text>帅气冲天</text>
+  </view>
+</van-nav-bar>
+
+<scroll-view
+  bindscrolltolower="handleScrollToLower"
+  scroll-y="true"
+  enhanced="{{true}}"
+  enable-passive="{{true}}"
+  lower-threshold="80"
+  enable-back-to-top="{{true}}"
+  class="post-detail-scroll-view"
+  style="height: calc(100vh - {{navBarHeight}}px); margin-top: {{navBarHeight}}px;"
+>
+  <swiper
+    indicator-dots
+    class="swiper-cutom"
+  >
+    <block
+      wx:for="{{postImages}}"
+      wx:key="index"
+    >
+      <swiper-item
+        data-item="{{item}}"
+        bind:tap="handlePreview"
+      >
+        <image src="{{item}}" class="swiper-img" />
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <view class="post-content">
+    <view class="post-title">为什么我这么帅气呢~</view>
+    <view class="post-content-main-body">
+      为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，
+    </view>
+    <view class="post-data-info">
+      <text>发布于 2022-03-20</text>
+      <view>
+        <image class="preview-icon" src="/image/forum/postPreview.png" />
+        <text>66 浏览</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="comment-wrap">
+    <view class="comment-title">评论 {{'122'}}</view>
+    <van-divider custom-style="margin: 0;" />
+    <view class="comment-content-box">
+      <view
+        wx:for="{{commentList}}"
+        wx:key="index"
+        class="comment-every-content"
+      >
+        <image src="https://img.ikstatic.cn/MTcwMzQxMTU2NTE3MSMzNTUjanBn.jpg" class="comment-profile-image" />
+        <view class="comment-content-right">
+          <view class="comment-user-name">是个小鲜肉啦</view>
+          <view class="comment-main-content">非常好用，充电接口多速度还快，设施比较新位置好找～</view>
+          <view class="comment-reply-operation">
+            <text catch:tap="handleViewReply">共10条回复</text>
+            <van-icon name="arrow" />
+          </view>
+          <view class="date-and-collect">
+            <text>2023-12-24</text>
+            <image
+              src="{{item.is_collect ? '/image/forum/collect.png' : '/image/forum/noCollect.png'}}" 
+              class="collect-icon"
+              data-item="{{item}}"
+              catch:tap="handleCollect"
+            />
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+<replyPopup
+  showPopup="{{showReplyPopup}}"
+  bind:onClose="handlePopupClose"
+></replyPopup>

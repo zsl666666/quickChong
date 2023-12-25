@@ -13,8 +13,9 @@
     "pages/contribute/index",
     "pages/errorCorrection/index",
     "pages/testMap/index",
-    "pages/forum/index",
-    "pages/my/components/myContriValue/index"
+    "pages/my/components/myContriValue/index",
+    "pages/forums/index",
+    "pages/forums/components/postDetail/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -49,7 +50,7 @@
         "selectedIconPath": "/image/home-select.png"
       },
       {
-        "pagePath": "pages/forum/index",
+        "pagePath": "pages/forums/index",
         "text": "论坛",
         "iconPath": "/image/forum/forum.png",
         "selectedIconPath": "/image/forum/forumSelect.png"
