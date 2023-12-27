@@ -69,11 +69,18 @@ Page({
 
   },
 
-  //
+  // 跳转帖子详情
   goPostDetail(e) {
     const data = e.currentTarget.dataset.item
     wx.navigateTo({
       url: '/pages/forums/components/postDetail/index' + `?postId=${2}`,
+    })
+  },
+
+  // 跳转消息通知
+  goNotify() {
+    wx.navigateTo({
+      url: '/pages/forums/components/notify/index',
     })
   },
 

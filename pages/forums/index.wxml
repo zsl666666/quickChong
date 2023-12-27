@@ -19,7 +19,11 @@
         class="search-box"
       >
       </van-search>
-      <image src="/image/forum/messageNotification.png" class="search-icon" catchtap="toSearch" />
+      <image
+        src="/image/forum/messageNotification.png"
+        class="search-icon"
+        catchtap="goNotify"
+      />
     </view>
   </van-sticky>
 

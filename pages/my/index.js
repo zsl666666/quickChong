@@ -147,6 +147,13 @@ Page({
     })
   },
 
+  // 跳转收藏中心
+  goCollectCenter() {
+    wx.navigateTo({
+      url: '/pages/my/components/collectCenter/index',
+    })
+  },
+
   /**
    * 用户点击右上角分享
    */

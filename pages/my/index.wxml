@@ -41,6 +41,13 @@
         </view>
         <van-icon name="arrow" />
       </view>
+      <view class="my-user-item" catchtap="goCollectCenter">
+        <view class="my-item-left">
+          <image src="/image/forum/noCollect.png" class="my-item-img" />
+          <text>收藏中心</text>
+        </view>
+        <van-icon name="arrow" />
+      </view>
     </view>
   </view>
   <get-nick show="{{showLogin}}" bind:loginSure="loginSureHandle"></get-nick>

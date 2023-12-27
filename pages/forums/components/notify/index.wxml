@@ -1,0 +1,103 @@
+<!--pages/forums/components/notify/index.wxml-->
+<van-nav-bar
+  fixed
+  placeholder
+  z-index="{{101}}"
+  class="constom-message-nav-bar"
+>
+  <view slot="left" class="detail-nav-bar-left" catch:tap="goBack">
+    <van-icon
+      name="arrow-left"
+      size="18"
+      custom-style="font-weight: bolder;"
+    />
+  </view>
+  <view
+    slot="title"
+    class="contom-top-title"
+    catch:tap="handleChangeMeaasgeType"
+  >
+    {{MESSAGE_TYPE_OBJ[topMessageType].label}}
+    <text class="triangle-icon"></text>
+  </view>
+</van-nav-bar>
+
+<scroll-view
+  bindscrolltolower="handleScrollToLower"
+  scroll-y="true"
+  enhanced="{{true}}"
+  enable-passive="{{true}}"
+  lower-threshold="80"
+  style="height: calc(100vh - {{navBarHeight}}px)"
+>
+  <view
+    wx:for="{{[1,2,3,4,5]}}"
+    wx:key="index"
+    class="notify-content-box"
+  >
+    <view class="notify-conent">
+      <image
+        class="notify-people-icon"
+        src="https://img.ikstatic.cn/MTcwMzQxMTUwOTM0MSM3OTIjanBn.jpg"
+      />
+      <view>
+        <view class="reply-people-name">哪吒小王子</view>
+        <view class="notify-main-body">
+          <text>回复：天气很好啊</text>
+          <text class="notify-time">2023-12-28</text>
+        </view>
+        <view>
+          <view class="reply-collect-box">
+            <image
+              class="reply-collect-icon"
+              src="/image/forum/notifyReply.png"
+            />
+            <text>回复</text>
+          </view>
+          <view class="reply-collect-box">
+            <image
+              class="reply-collect-icon"
+              src="/image/forum/notifyCollect.png"
+            />
+            <text>回复</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <image
+      class="notify-comment-img"
+      wx:if="{{true}}"
+      src="https://img.ikstatic.cn/MTcwMzQxMTUwOTM0MSM3OTIjanBn.jpg"
+    />
+  </view>
+</scroll-view>
+
+<van-popup
+  show="{{ showPopup }}"
+  position="top"
+  round
+  safe-area-inset-top
+  bind:close="handleClose"
+  custom-style="top: {{navBarHeight}}px;"
+  overlay-style="top: {{navBarHeight}}px;"
+>
+  <view class="message-type-select-popup">
+    <view
+      wx:for="{{MESSAGE_TYPE_LIST}}"
+      wx:key="index"
+      data-value="{{item.value}}"
+      class="message-type-select-box-popup"
+      catch:tap="handleSelectedMessageType"
+    >
+      <view class="messaeg-type-title-popup">
+        <image class="messaeg-type-icon-popup" src="{{item.icon}}" />
+        <text>{{item.label}}</text>
+      </view>
+      <image
+        wx:if="{{topMessageType === item.value}}"
+        class="messaeg-type-selected-icon-popup"
+        src="/image/forum/notifySelected.png"
+      />
+    </view>
+  </view>
+</van-popup>

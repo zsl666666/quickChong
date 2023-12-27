@@ -15,7 +15,9 @@
     "pages/testMap/index",
     "pages/my/components/myContriValue/index",
     "pages/forums/index",
-    "pages/forums/components/postDetail/index"
+    "pages/forums/components/postDetail/index",
+    "pages/forums/components/notify/index",
+    "pages/my/components/collectCenter/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
