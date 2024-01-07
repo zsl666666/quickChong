@@ -55,6 +55,7 @@
   width: 40rpx;
   height: 40rpx;
   border-radius: 50%;
+  background: #FAFAFA;
 }
 .poster-name {
   font-size: 22rpx;

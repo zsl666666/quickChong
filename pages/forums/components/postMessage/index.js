@@ -1,5 +1,9 @@
 // pages/forums/components/postMessage/index.js
 import { url } from 'utils/index'
+import apis from './apis'
+
+import Toast from '@vant/weapp/toast/toast'
+
 Page({
 
   /**
@@ -105,4 +109,20 @@ Page({
       fileList: tempArr,
     })
   },
+
+  // 点击发帖
+  postMessage() {
+    const { titleValue, content, fileList = [] } = this.data
+    console.log('fileList, ', titleValue, content, fileList?.map(item => item.url))
+    if (!content || !content.trim()) {
+      return Toast('帖子内容不能为空')
+    }
+    apis.postMessage({
+      title: titleValue,
+      content: content,
+      picture: fileList?.map(item => item.url)
+    }).then(res => {
+      console.log('发帖成功', res)
+    })
+  }
 })

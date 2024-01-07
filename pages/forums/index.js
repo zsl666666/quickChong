@@ -1,4 +1,5 @@
 // pages/forums/index.js
+import apis from './apis'
 Page({
 
   /**
@@ -7,6 +8,14 @@ Page({
   data: {
     searchBoxHeight: 0,
     triggered: false,
+    list: [],
+    total: 0,
+    filterParams: {
+      page: 1,
+      size: 20,
+      keywords: ''
+    },
+    isEndPage: false
   },
 
   /**
@@ -31,7 +40,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    this.handleSearch()
   },
 
   /**
@@ -69,6 +78,38 @@ Page({
 
   },
 
+  // 获取论坛帖子列表
+  getForumList(params = {}) {
+    apis.getForumList(params).then(res => {
+      const data = res.data || {}
+      const list = data.list || []
+      let newList = [...list]
+      if (params.page !== 1) {
+        newList = this.data.list.concat(list).filter((item, index, self) => {
+          return self.findIndex(cur => cur.id === item.id) === index
+        })
+      }
+
+      this.setData({
+        list: newList,
+        total: data.total,
+        isEndPage: list.length !== params.size
+      })
+    })
+  },
+
+  // 查询列表
+  handleSearch(params = {}) {
+    const newParams = {
+      ...this.data.filterParams,
+      ...params
+    }
+    this.setData({
+      filterParams: newParams
+    })
+    this.getForumList(newParams)
+  },
+
   // 跳转帖子详情
   goPostDetail(e) {
     const data = e.currentTarget.dataset.item
@@ -93,15 +134,22 @@ Page({
 
   // 帖子滚动到底
   handleScrollToLower() {
-    console.log('到底啦呀')
+    console.log('到底啦呀', isEndPage)
+    const { filterParams, isEndPage } = this.data
+    if (!isEndPage) {
+      this.handleSearch({
+        page: filterParams.page + 1
+      })
+    }
   },
 
   // 下拉刷新
   handleScrollRefresh() {
+    this.handleSearch({ page: 1 })
     setTimeout(() => {
       this.setData({
         triggered: false
       })
-    }, 500)
+    }, 300)
   }
 })

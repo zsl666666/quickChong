@@ -39,7 +39,7 @@
     style="height: calc(100vh - {{searchBoxHeight}}px)"
   >
     <view
-      wx:for="{{[1,2,3,4,5,6,7,8,22,33,23,44,223]}}" 
+      wx:for="{{list}}" 
       wx:key="index"
       class="forum-invitation"
       data-item="{{item}}"
@@ -47,21 +47,22 @@
     >
       <view class="poster-info-wrap">
         <view class="poster-profile-name">
-          <image src="https://img.ikstatic.cn/MTcwMzQxMTU2NTE3MSMzNTUjanBn.jpg" class="poster-profile-icon" />
-          <text class="poster-name">用户昵称</text>
+          <!-- <image src="{{item.avatar}}" class="poster-profile-icon" /> -->
+          <image src="/image/no-login.png" class="poster-profile-icon" />
+          <text class="poster-name">{{item.username}}</text>
         </view>
-        <text class="poster-date">发布于2023-12-24</text>
+        <text class="poster-date">发布于{{item.create_time}}</text>
       </view>
       <view class="forum-detail-wrap">
         <view class="detail-cont-box">
-          <view class="forum-content-info">我知道一个秘密据点，但我是不会告诉你的，哈哈哈哈哈哈我知道一个秘密据点，但我是不会告诉你的，哈哈哈哈哈哈</view>
+          <view class="forum-content-info">{{item.title || item.content}}</view>
           <view class="invitation-data">
-            <text class="invitation-data-value">144 评论</text>
-            <text class="invitation-data-value">66 点赞</text>
-            <text>1344 浏览</text>
+            <text class="invitation-data-value">{{item.comment_number}} 评论</text>
+            <text class="invitation-data-value">{{item.like_number}} 点赞</text>
+            <text>{{item.view_number}} 浏览</text>
           </view>
         </view>
-        <image src="https://img.ikstatic.cn/MTcwMzQxMTUwOTM0MSM3OTIjanBn.jpg" class="detail-content-image-icon" />
+        <image src="{{item.pic_cover}}" class="detail-content-image-icon" />
       </view>
     </view>
   </scroll-view>

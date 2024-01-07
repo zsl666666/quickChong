@@ -41,7 +41,8 @@
   ],
   "resolveAlias": {
     "pages/*": "pages/*",
-    "utils/*": "utils/*"
+    "utils/*": "utils/*",
+    "service/*": "service/*"
   },
   "tabBar": {
     "color": "#7A7E83",

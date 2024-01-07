@@ -75,8 +75,10 @@
         {{'北京游玩'}}
       </view>
     </view>
-    <view class="popup-submit-btn">
+    <view class="popup-submit-btn" catch:tap="postMessage">
       <text>发帖</text>
     </view>
   </view>
+
+  <van-toast id="van-toast" />
 </view>
