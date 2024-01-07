@@ -17,7 +17,8 @@
     "pages/forums/index",
     "pages/forums/components/postDetail/index",
     "pages/forums/components/notify/index",
-    "pages/my/components/collectCenter/index"
+    "pages/my/components/collectCenter/index",
+    "pages/forums/components/postMessage/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -38,6 +39,10 @@
     "chooseLocation",
     "getLocation"
   ],
+  "resolveAlias": {
+    "pages/*": "pages/*",
+    "utils/*": "utils/*"
+  },
   "tabBar": {
     "color": "#7A7E83",
     "selectedColor": "#0D7AC2",

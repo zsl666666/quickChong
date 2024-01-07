@@ -114,3 +114,31 @@
   content: "·";
   margin-left: 16rpx;
 }
+
+.post-message-wrap {
+  width: 164rpx;
+  height: 82rpx;
+  background: #0D7AC2;
+  box-shadow: 0rpx 1rpx 6rpx 0rpx rgba(0,0,0,0.3);
+  border-radius: 41rpx;
+  position: fixed;
+  right: 40rpx;
+  bottom: 80rpx;
+  z-index: 2;
+  font-size: 30rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 600;
+  color: #FFFFFF;
+  line-height: 42rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.post-message-wrap:active {
+  background: #2188ce;
+}
+.post-message-icon {
+  width: 46rpx;
+  height: 46rpx;
+  margin-right: 10rpx;
+}

@@ -84,6 +84,13 @@ Page({
     })
   },
 
+  // 跳转发帖页面
+  goPostMessage() {
+    wx.navigateTo({
+      url: '/pages/forums/components/postMessage/index',
+    })
+  },
+
   // 帖子滚动到底
   handleScrollToLower() {
     console.log('到底啦呀')

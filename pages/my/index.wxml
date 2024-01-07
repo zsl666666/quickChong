@@ -43,7 +43,7 @@
       </view>
       <view class="my-user-item" catchtap="goCollectCenter">
         <view class="my-item-left">
-          <image src="/image/forum/noCollect.png" class="my-item-img" />
+          <image src="/image/my/myCollectEntryIcon.png" class="my-item-img" />
           <text>收藏中心</text>
         </view>
         <van-icon name="arrow" />

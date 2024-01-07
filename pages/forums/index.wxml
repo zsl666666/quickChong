@@ -65,4 +65,12 @@
       </view>
     </view>
   </scroll-view>
+
+  <view class="post-message-wrap" catch:tap="goPostMessage">
+    <image
+      src="/image/forum/postMessage.png"
+      class="post-message-icon"
+    />
+    <text>发帖</text>
+  </view>
 </view>
