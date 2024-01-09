@@ -111,6 +111,14 @@
         <text class="type-chatou-num">端口：{{deviceDetail.device_port}}个</text>
       </view>
       <text class="jiu-cuo-style" catchtap="goErrorCorrection" data-id="{{deviceDetail.id}}" data-detail="{{deviceDetail}}">去纠错？</text>
+      <view
+        class="collect-operation-wrap"
+        catch:tap="handleCollectDevice"
+        data-detail="{{deviceDetail}}"
+      >
+        <image src="{{deviceDetail.is_collect === 1 ? '/image/index/collectDeviceSelected.png' : '/image/index/collectDeviceNoSelected.png'}}" class="collect-device-icon" />
+        <text class="collect-title">{{deviceDetail.is_collect === 1 ? '已' : ''}}收藏</text>
+      </view>
       <view class="checked-content-go-wrapper" catchtap="goPosition">
         <image src="/image/home-checked-jiantou.png" class="go-btn-text-icon" />
         <text>去这里</text>

@@ -1,6 +1,8 @@
 // index.js
 import { url, getUserInfo, QQMapWX } from '../../utils/util'
 import Toast from '@vant/weapp/toast/toast';
+import apis from './apis'
+
 // 获取应用实例
 const app = getApp()
 let timeId = 0
@@ -72,7 +74,10 @@ Page({
     picture: [],
     showProcess: false,
     processValue: 0,
-    deviceId: 0
+    deviceId: 0,
+    loadObj: {
+      collectLoading: false
+    }
   },
   onReady: function (e) {
     this.mapCtx = wx.createMapContext('myMap')
@@ -838,6 +843,33 @@ Page({
     console.log(app.globalData.address)
     this.onLoad()
     this.onShow()
+  },
+
+  // 收藏、取消收藏
+  handleCollectDevice(e) {
+    if (this.data.loadObj.collectLoading) {
+      return
+    }
+    const curDevice = e.currentTarget.dataset.detail
+    this.setData({
+      loadObj: { ...this.data.loadObj, collectLoading: true }
+    })
+
+    apis.collectDevice({
+      device_id: curDevice.id,
+      type: curDevice.is_collect === 1 ? 2 : 1, // 1-收藏 2-取消
+    }).then(res => {
+      this.setData({
+        deviceDetail: {
+          ...this.data.deviceDetail,
+          is_collect: curDevice.is_collect === 1 ? 0 : 1
+        }
+      })
+    }).finally(() => {
+      this.setData({
+        loadObj: { ...this.data.loadObj, collectLoading: false }
+      })
+    })
   },
 
   onHide() {

@@ -16,7 +16,7 @@
           <text>我的贡献值</text>
         </view>
         <view>
-          <text class="my-contribute-value">{{'500'}}</text>
+          <text class="my-contribute-value">{{userData.contribute || 0}}</text>
           <van-icon name="arrow" />
         </view>
       </view>

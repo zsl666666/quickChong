@@ -40,7 +40,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    this.handleSearch()
+    this.handleSearch({ page: 1 })
   },
 
   /**
@@ -93,7 +93,8 @@ Page({
       this.setData({
         list: newList,
         total: data.total,
-        isEndPage: list.length !== params.size
+        isEndPage: list.length !== params.size,
+        // isEndPage: list.length !== data.size
       })
     })
   },
@@ -134,7 +135,6 @@ Page({
 
   // 帖子滚动到底
   handleScrollToLower() {
-    console.log('到底啦呀', isEndPage)
     const { filterParams, isEndPage } = this.data
     if (!isEndPage) {
       this.handleSearch({

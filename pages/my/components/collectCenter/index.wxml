@@ -1,55 +1,59 @@
 <!--pages/my/components/collectCenter/index.wxml-->
-<scroll-view
-  bindscrolltolower="scrollToLower"
-  scroll-y="true"
-  enable-passive="{{true}}"
-  enable-back-to-top="{{true}}"
-  lower-threshold="80"
-  style="height: 100vh"
-  enhanced="{{true}}"
->
-  <view
-    class="checked-mark-wrapper"
-    wx:for="{{searchData}}"
-    wx:key="index"
-    catch:tap="detailHandle"
-    data-item="{{item}}"
+<view class="collect-center">
+  <scroll-view
+    bindscrolltolower="handleScrollToLower"
+    scroll-y="true"
+    enable-passive="{{true}}"
+    enable-back-to-top="{{true}}"
+    lower-threshold="80"
+    style="background: #FAFAFA;"
+    enhanced="{{true}}"
+    class="collect-scroll-view"
   >
-    <view class="mark-content-top">
-      <view class="content-img">
-        <image src="{{item.pic_cover || '/image/list-position.png'}}" mode="aspectFit" class="content-img-style" />
-      </view>
-      <view>
-        <text class="checked-content-title">{{item.device_type}}</text>
-        <view class="checked-content-detail">
-          <text>{{item.distance}}</text>
-          <text class="checked-content-address">{{item.name}}</text>
+    <view
+      class="checked-mark-wrapper"
+      wx:for="{{list}}"
+      wx:key="index"
+      catch:tap="detailHandle"
+      data-item="{{item}}"
+      catch:tap="handleClick"
+    >
+      <view class="mark-content-top">
+        <view class="content-img">
+          <image src="{{item.pic_cover || '/image/list-position.png'}}" mode="aspectFit" class="content-img-style" />
         </view>
-        <view class="checked-pinlun-wrapper">
-          <van-rate
-            value="{{item.star_level}}"
-            size="{{ 20 }}"
-            color="#ffd21e"
-            void-icon="star"
-            void-color="#eee"
-            readonly
-          />
-          <text class="checked-content-pinlun" catchtap="showCommentDetail" data-id="{{item.id}}">{{item.comment_number}}条评论</text>
+        <view>
+          <text class="checked-content-title">{{item.device_type}}</text>
+          <view class="checked-content-detail">
+            <text>{{item.distance}}</text>
+            <text class="checked-content-address">{{item.name}}</text>
+          </view>
+          <view class="checked-pinlun-wrapper">
+            <van-rate
+              value="{{item.star_level}}"
+              size="{{ 20 }}"
+              color="#ffd21e"
+              void-icon="star"
+              void-color="#eee"
+              readonly
+            />
+            <text class="checked-content-pinlun" catchtap="showCommentDetail" data-id="{{item.id}}">{{item.comment_number}}条评论</text>
+          </view>
         </view>
       </view>
+      <!-- <view class="mark-content-bottom">
+        <view class="checked-content-bottom">
+          <view class="checked-content-bg">
+            <image src="/image/home-checked-juxing.png" />
+            <text class="checked-content-type-text">{{ item.loc_type === 1 ? '小区' : '公用'}}</text>
+          </view>
+          <text class="type-chatou-num">端口：{{item.device_port}}个</text>
+        </view>
+        <view class="checked-content-go-wrapper" catch:tap="goHere" data-item="{{item}}">
+          <image src="/image/home-checked-jiantou.png" class="go-btn-text-icon" />
+          <text>去这里</text>
+        </view>
+      </view> -->
     </view>
-    <view class="mark-content-bottom">
-      <view class="checked-content-bottom">
-        <view class="checked-content-bg">
-          <image src="/image/home-checked-juxing.png" />
-          <text class="checked-content-type-text">{{ item.loc_type === 1 ? '小区' : '公用'}}</text>
-        </view>
-        <text class="type-chatou-num">端口：{{item.device_port}}个</text>
-      </view>
-      <view class="checked-content-go-wrapper" catch:tap="goHere" data-item="{{item}}">
-        <image src="/image/home-checked-jiantou.png" class="go-btn-text-icon" />
-        <text>去这里</text>
-      </view>
-    </view>
-  </view>
-</scroll-view>
+  </scroll-view>
+</view>

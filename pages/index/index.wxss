@@ -221,7 +221,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 34rpx 0 34rpx;
+  /* margin: 0 34rpx 0 34rpx; */
+  margin: 0 20rpx 0 20rpx;
 }
 .checked-content-bottom {
   position: relative;
@@ -352,10 +353,27 @@
 .jiu-cuo-style {
   color: #0D7AC2;
   font-size: 24rpx;
-  margin-left: -120rpx;
+  /* margin-left: -120rpx; */
 }
 .tag-item {
   font-size: 24rpx;
   color: rgba(0,0,0,0.6);
   margin-right: 10rpx;
+}
+
+.collect-operation-wrap {
+  display: flex;
+  align-items: center;
+}
+.collect-title {
+  font-size: 24rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  color: #0D7AC2;
+  line-height: 33rpx;
+  margin-left: 4rpx;
+}
+.collect-device-icon {
+  width: 38rpx;
+  height: 38rpx;
 }

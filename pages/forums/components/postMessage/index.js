@@ -123,6 +123,12 @@ Page({
       picture: fileList?.map(item => item.url)
     }).then(res => {
       console.log('发帖成功', res)
+      // wx.navigateBack({
+      //   delta: 1
+      // })
+      wx.switchTab({
+        url: '/pages/forums/index',
+      })
     })
   }
 })

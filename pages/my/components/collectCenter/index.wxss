@@ -1,34 +1,45 @@
 /* pages/my/components/collectCenter/index.wxss */
 
+.collect-scroll-view {
+  box-sizing: border-box;
+  /* padding: 20rpx 0rpx 34rpx 0rpx; */
+  height: 100vh;
+}
 .checked-mark-wrapper {
   width: 100vw;
-  height: 326rpx;
   background: #FFFFFF;
 }
 .checked-mark-wrapper::after {
-  display: inline-block;
+  display: flex;
   content: '';
-  height: 1px;
-  width: 700rpx;
+  height: 2rpx;
+  width: 682rpx;
   background: #eee;
-  margin-left: 25rpx;
+  margin: 0rpx auto;
+}
+.checked-mark-wrapper:active {
+  background: #eee;
 }
 .mark-content-top {
+  box-sizing: border-box;
   padding: 34rpx;
   display: flex;
   align-items: center;
 }
 .content-img {
   width: 152rpx;
-  height: 151rpx;
+  height: 152rpx;
   border-radius: 18rpx;
   overflow: hidden;
   margin-right: 18rpx;
 }
 .content-img image {
   display: inline-block;
-  width: 152rpx;
-  height: 152rpx;
+  /* width: 152rpx;
+  height: 152rpx; */
+  width: 100%;
+  height: 100%;
+  object-fit:cover;
 }
 .checked-content-title {
   font-size: 32rpx;
