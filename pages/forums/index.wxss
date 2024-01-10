@@ -15,6 +15,10 @@
   align-items: center;
   background: #FFFFFF;
 }
+.forums-search-wrap .van-search__action-button {
+  padding-left: 34rpx !important;
+  padding-right: 0rpx !important;
+}
 .search-box {
   flex: 1;
 }
@@ -142,4 +146,21 @@
   width: 46rpx;
   height: 46rpx;
   margin-right: 10rpx;
+}
+.empty-data-wrap {
+  height: 200rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #A9A9A9;
+}
+.content-end-wrap {
+  text-align: center;
+  height: 100rpx;
+  font-size: 24rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.3);
+  line-height: 50rpx;
 }

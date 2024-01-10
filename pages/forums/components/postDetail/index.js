@@ -1,4 +1,5 @@
 // pages/forums/components/postDetail/index.js
+import apis from './apis'
 const app = getApp()
 Page({
 
@@ -33,6 +34,7 @@ Page({
       }
     ],
     showReplyPopup: false, // 查看回复弹窗
+    detailData: {}, // 帖子详情数据
   },
 
   /**
@@ -44,6 +46,7 @@ Page({
     this.setData({
       postId: id
     })
+    this.getDetail({ post_id: id })
   },
 
   /**
@@ -102,12 +105,21 @@ Page({
     })
   },
 
+  // 获取帖子详情接口
+  getDetail(params = {}) {
+    apis.getDetail(params).then(res => {
+      this.setData({
+        detailData: res.data || {}
+      })
+    })
+  },
+
   // 预览帖子详情大图
   handlePreview(e) {
     const curUrl = e.currentTarget.dataset.item
     wx.previewImage({
       current: curUrl,
-      urls: this.data.postImages,
+      urls: this.data.detailData.pictures || [],
     })
   },
 

@@ -6,7 +6,7 @@
       src="https://img.ikstatic.cn/MTcwMzQxMTU2NTE3MSMzNTUjanBn.jpg"
       class="custom-nav-bar-icon"
     />
-    <text>帅气冲天</text>
+    <text>{{detailData.username}}</text>
   </view>
 </van-nav-bar>
 
@@ -23,9 +23,10 @@
   <swiper
     indicator-dots
     class="swiper-cutom"
+    wx:if="{{detailData.pictures && detailData.pictures.length}}"
   >
     <block
-      wx:for="{{postImages}}"
+      wx:for="{{detailData.pictures}}"
       wx:key="index"
     >
       <swiper-item
@@ -38,23 +39,23 @@
   </swiper>
 
   <view class="post-content">
-    <view class="post-title">为什么我这么帅气呢~</view>
+    <view class="post-title" wx:if="{{detailData.title}}">{{detailData.title}}</view>
     <view class="post-content-main-body">
-      为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，为什么我这么帅气呢，
+      {{detailData.content}}
     </view>
     <view class="post-data-info">
-      <text>发布于 2022-03-20</text>
+      <text>发布于 {{detailData.create_time}}</text>
       <view>
         <image class="preview-icon" src="/image/forum/postPreview.png" />
-        <text>66 浏览</text>
+        <text>{{detailData.view_number || 0}} 浏览</text>
       </view>
     </view>
   </view>
 
   <view class="comment-wrap">
-    <view class="comment-title">评论 {{'122'}}</view>
+    <view class="comment-title">评论 {{detailData.comment_number}}</view>
     <van-divider custom-style="margin: 0;" />
-    <view class="comment-content-box">
+    <view wx:if="{{detailData.comment_number}}" class="comment-content-box">
       <view
         wx:for="{{commentList}}"
         wx:key="index"
@@ -79,6 +80,10 @@
           </view>
         </view>
       </view>
+    </view>
+    <view wx:else class="empty-comment-wrap">
+      <view>暂无评论</view>
+      <view class="empty-comment-desc">快去发表你的看法吧～</view>
     </view>
   </view>
 </scroll-view>

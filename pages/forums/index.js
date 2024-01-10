@@ -8,6 +8,7 @@ Page({
   data: {
     searchBoxHeight: 0,
     triggered: false,
+    serachValue: '', // 搜索框值
     list: [],
     total: 0,
     filterParams: {
@@ -15,7 +16,8 @@ Page({
       size: 20,
       keywords: ''
     },
-    isEndPage: false
+    isEndPage: false,
+    scrollTop: undefined
   },
 
   /**
@@ -90,6 +92,14 @@ Page({
         })
       }
 
+
+      // 搜索第一页时回到顶部
+      if (params.page === 1) {
+        this.setData({
+          scrollTop: 0
+        })
+      }
+
       this.setData({
         list: newList,
         total: data.total,
@@ -115,7 +125,7 @@ Page({
   goPostDetail(e) {
     const data = e.currentTarget.dataset.item
     wx.navigateTo({
-      url: '/pages/forums/components/postDetail/index' + `?postId=${2}`,
+      url: '/pages/forums/components/postDetail/index' + `?postId=${data.id}`,
     })
   },
 
@@ -151,5 +161,32 @@ Page({
         triggered: false
       })
     }, 300)
+  },
+
+  // 帖子搜索框改变事件
+  handleForumChange(e) {
+    this.setData({
+      serachValue: e.detail
+    })
+  },
+
+  // 搜索
+  handleForumSearch(e) {
+    const value = e.detail
+    this.handleSearch({
+      page: 1,
+      keywords: value
+    })
+  },
+
+  // 清空搜索框
+  handleClearCancel() {
+    this.setData({
+      serachValue: ''
+    })
+    this.handleSearch({
+      page: 1,
+      keywords: ''
+    })
   }
 })
