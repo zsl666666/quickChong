@@ -10,7 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    autosize: {maxHeight: '300rpx', minHeight: '300rpx'}, // 正文输入框高度
+    autosize: {minHeight: '500rpx', maxHeight: '500rpx'}, // 正文输入框高度
     titleValue: '', // 标题
     content: '', // 帖子正文
     contentCode: "", // 帖子内容html dom用户话题高亮

@@ -212,11 +212,22 @@
   margin-right: 10rpx;
 }
 .comment-poeration-icon {
-  width: 48rpx;
-  height: 48rpx;
+  width: 48rpx !important;
+  height: 48rpx !important;
 }
 .collect-reply-wrap {
   position: relative;
+}
+.share-post-detail {
+  padding: 0rpx !important;
+}
+.share-post-detail .van-button {
+  padding: 0rpx !important;
+  height: auto;
+  border: none;
+}
+.share-post-detail .van-button:active {
+  background: #FFFFFF !important;
 }
 .collect-reply-num {
   background: #FFFFFF;

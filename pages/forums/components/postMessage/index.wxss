@@ -90,6 +90,7 @@
 } */
 .content-field .van-field__control--textarea{
   /* word-break: break-all; */
+  box-sizing: border-box;
   white-space:pre-wrap;
   font-size: 30rpx;
   font-family: PingFangSC, PingFang SC;
@@ -105,8 +106,9 @@
   line-height: 46rpx;
 }
 .highlight {
+  box-sizing: border-box;
   position: absolute;
-  top: 31rpx;
+  top: 30rpx;
   white-space:pre-wrap;
   font-size: 30rpx;
   font-family: PingFangSC, PingFang SC;

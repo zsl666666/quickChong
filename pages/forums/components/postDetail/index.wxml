@@ -135,10 +135,16 @@
           />
           <view class="collect-reply-num reply-num">{{detailData.comment_number}}</view>
         </view>
-        <image
+        <van-button
+          open-type="share"
+          icon="/image/forum/commentOperationShare.png"
+          class-prefix="comment-poeration-icon"
+          class="share-post-detail"
+        ></van-button>
+        <!-- <image
           class="comment-poeration-icon"
           src="/image/forum/commentOperationShare.png"
-        />
+        /> -->
       </view>
     </view>
   </view>

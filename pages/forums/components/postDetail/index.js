@@ -60,6 +60,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    wx.showShareMenu()
     console.log('options', options)
     const id = options?.postId
     this.setData({
@@ -116,11 +117,17 @@ Page({
   onShareAppMessage() {
 
   },
+  onShareTimeline() {
+
+  },
 
   // 返回上一级
   goBack() {
-    wx.navigateBack({
-      delta: 1
+    // wx.navigateBack({
+    //   delta: 1
+    // })
+    wx.switchTab({
+      url: '/pages/forums/index',
     })
   },
 

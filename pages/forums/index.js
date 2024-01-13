@@ -50,7 +50,7 @@ Page({
    */
   onShow() {
     const isPostOk = wx.getStorageSync('isPostOk')
-    if (isPostOk) {
+    if (isPostOk || !this.data.list.length) {
       wx.removeStorageSync('isPostOk')
       this.handleSearch({ page: 1 })
     }
@@ -88,6 +88,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage() {
+
+  },
+  onShareTimeline() {
 
   },
 
