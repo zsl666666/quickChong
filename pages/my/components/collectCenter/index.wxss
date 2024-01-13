@@ -142,6 +142,17 @@
   content: '|';
   margin: 0 6rpx;
 }
+.device-intro-desc {
+  font-size: 22rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: #0D7AC2;
+  line-height: 30rpx;
+  margin-right: 8rpx;
+  padding: 4rpx 8rpx;
+  background: rgba(13,122,194,0.05);
+  border-radius: 6rpx;
+}
 .checked-mark-close {
   display: inline-block;
   position: absolute;

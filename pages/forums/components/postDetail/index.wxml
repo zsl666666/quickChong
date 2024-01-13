@@ -126,14 +126,14 @@
             class="comment-poeration-icon"
             src="/image/forum/commentOperationNoCollect.png"
           />
-          <view class="collect-reply-num">{{detailData.like_number}}</view>
+          <view wx:if="{{detailData.like_number}}" class="collect-reply-num">{{detailData.like_number}}</view>
         </view>
         <view class="collect-reply-wrap">
           <image
             class="comment-poeration-icon"
             src="/image/forum/commentOperationReply.png"
           />
-          <view class="collect-reply-num reply-num">{{detailData.comment_number}}</view>
+          <view wx:if="{{detailData.comment_number}}" class="collect-reply-num reply-num">{{detailData.comment_number}}</view>
         </view>
         <van-button
           open-type="share"

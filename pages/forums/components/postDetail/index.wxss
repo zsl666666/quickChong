@@ -19,12 +19,12 @@
 
 .swiper-cutom {
   width: 100%;
-  height: 500rpx !important;
+  height: 600rpx !important;
 }
 .swiper-img {
   width: 100%;
   overflow: hidden;
-  height: 500rpx !important;
+  height: 600rpx !important;
 }
 
 .swiper-cutom .wx-swiper-dot {
