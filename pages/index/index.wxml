@@ -15,6 +15,26 @@
       show-location
     >
     </map>
+    <view
+      wx:if="{{isNoticeBar}}"
+      class="map-notice-bar"
+      style="top: calc({{navBarHeight}}px + 220rpx)"
+    >
+      <van-notice-bar
+        speed="{{45}}"
+        background="#FFFFFF"
+        color="#6b6b6b"
+        left-icon="volume-o"
+        text="请您注意骑行安全，远离大车盲区，减速慢行注意避让；请您注意消防安全，禁止电动车及电池室内停放或充电。"
+      >
+        <van-icon
+          name="cross"
+          slot="right-icon"
+          class="map-notice-bar-close-icon"
+          catch:tap="handleCloseNoticeBar"
+        />
+      </van-notice-bar> 
+    </view>
   </view>
   <view id='moreAction' class="index-search-wrapper" style="top: {{navBarHeight}}px;">
     <view class="home-top-search-wrapper">

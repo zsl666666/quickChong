@@ -28,6 +28,7 @@ let isViewImg = false
 Page({
   data: {
     navBarHeight: app.globalData.navBarHeight,
+    isNoticeBar: false, // 顶部通知
     chargeBtnArray: [{
       name: '全部',
       id: 1,
@@ -203,6 +204,7 @@ Page({
       },
       success: (res) => {
         wx.setStorageSync('ticket', res.data.data?.ticket)
+        wx.setStorageSync('isNoticeBar', true)
         this.appForLocation()
         this.onShow()
       },
@@ -572,6 +574,11 @@ Page({
   },
 
   onShow() {
+    // 地图顶部通知
+    this.setData({
+      isNoticeBar: wx.getStorageSync('isNoticeBar')
+    })
+
     // 如果是结束预览图片触发return
     if (isViewImg) {
       isViewImg = false
@@ -869,6 +876,14 @@ Page({
       this.setData({
         loadObj: { ...this.data.loadObj, collectLoading: false }
       })
+    })
+  },
+
+  // 关闭NoticeBar通知
+  handleCloseNoticeBar() {
+    wx.removeStorageSync('isNoticeBar')
+    this.setData({
+      isNoticeBar: false
     })
   },
 

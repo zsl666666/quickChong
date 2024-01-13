@@ -9,6 +9,21 @@
   height: 100%;
   /* padding: 0 30rpx; */
 }
+.map-notice-bar {
+  position: fixed;
+  z-index: 1000;
+  top: 100rpx;
+  left: 35rpx;
+  width: calc(100% - 70rpx);
+}
+.map-notice-bar .van-notice-bar{
+  border-radius: 40rpx;
+  padding-left: 16rpx;
+  padding-right: 16rpx;
+}
+.map-notice-bar-close-icon {
+  padding-left: 6rpx;
+}
 .test-style {
   background-color: #0D7AC2 !important;
 }
