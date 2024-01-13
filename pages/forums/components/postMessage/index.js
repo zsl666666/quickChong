@@ -126,6 +126,7 @@ Page({
       // wx.navigateBack({
       //   delta: 1
       // })
+      wx.setStorageSync('isPostOk', true)
       wx.switchTab({
         url: '/pages/forums/index',
       })

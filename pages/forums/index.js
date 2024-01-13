@@ -24,7 +24,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    console.log('生命周期函数--监听页面加载', options)
+  },
 
+  // 点击tabar回调
+  onTabItemTap: function (item) {
+    console.log('tabBar', item)
+    this.handleSearch({ page: 1 })
   },
 
   /**
@@ -36,13 +42,18 @@ Page({
         searchBoxHeight: rect.height
       })
     }).exec();
+    this.handleSearch({ page: 1 })
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    this.handleSearch({ page: 1 })
+    const isPostOk = wx.getStorageSync('isPostOk')
+    if (isPostOk) {
+      wx.removeStorageSync('isPostOk')
+      this.handleSearch({ page: 1 })
+    }
   },
 
   /**

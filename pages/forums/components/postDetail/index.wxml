@@ -10,85 +10,178 @@
   </view>
 </van-nav-bar>
 
-<scroll-view
-  bindscrolltolower="handleScrollToLower"
-  scroll-y="true"
-  enhanced="{{true}}"
-  enable-passive="{{true}}"
-  lower-threshold="80"
-  enable-back-to-top="{{true}}"
-  class="post-detail-scroll-view"
-  style="height: calc(100vh - {{navBarHeight}}px); margin-top: {{navBarHeight}}px;"
->
-  <swiper
-    indicator-dots
-    class="swiper-cutom"
-    wx:if="{{detailData.pictures && detailData.pictures.length}}"
+<view>
+  <scroll-view
+    bindscrolltolower="handleScrollToLower"
+    scroll-y="true"
+    enhanced="{{true}}"
+    enable-passive="{{true}}"
+    lower-threshold="80"
+    enable-back-to-top="{{true}}"
+    class="post-detail-scroll-view"
+    style="height: calc(100vh - {{navBarHeight}}px - 170rpx); margin-top: {{navBarHeight}}px;"
   >
-    <block
-      wx:for="{{detailData.pictures}}"
-      wx:key="index"
+    <swiper
+      indicator-dots
+      class="swiper-cutom"
+      wx:if="{{detailData.pictures && detailData.pictures.length}}"
     >
-      <swiper-item
-        data-item="{{item}}"
-        bind:tap="handlePreview"
-      >
-        <image src="{{item}}" class="swiper-img" />
-      </swiper-item>
-    </block>
-  </swiper>
-
-  <view class="post-content">
-    <view class="post-title" wx:if="{{detailData.title}}">{{detailData.title}}</view>
-    <view class="post-content-main-body">
-      {{detailData.content}}
-    </view>
-    <view class="post-data-info">
-      <text>发布于 {{detailData.create_time}}</text>
-      <view>
-        <image class="preview-icon" src="/image/forum/postPreview.png" />
-        <text>{{detailData.view_number || 0}} 浏览</text>
-      </view>
-    </view>
-  </view>
-
-  <view class="comment-wrap">
-    <view class="comment-title">评论 {{detailData.comment_number}}</view>
-    <van-divider custom-style="margin: 0;" />
-    <view wx:if="{{detailData.comment_number}}" class="comment-content-box">
-      <view
-        wx:for="{{commentList}}"
+      <block
+        wx:for="{{detailData.pictures}}"
         wx:key="index"
-        class="comment-every-content"
       >
-        <image src="https://img.ikstatic.cn/MTcwMzQxMTU2NTE3MSMzNTUjanBn.jpg" class="comment-profile-image" />
-        <view class="comment-content-right">
-          <view class="comment-user-name">是个小鲜肉啦</view>
-          <view class="comment-main-content">非常好用，充电接口多速度还快，设施比较新位置好找～</view>
-          <view class="comment-reply-operation">
-            <text catch:tap="handleViewReply">共10条回复</text>
-            <van-icon name="arrow" />
-          </view>
-          <view class="date-and-collect">
-            <text>2023-12-24</text>
-            <image
-              src="{{item.is_collect ? '/image/forum/collect.png' : '/image/forum/noCollect.png'}}" 
-              class="collect-icon"
-              data-item="{{item}}"
-              catch:tap="handleCollect"
-            />
-          </view>
+        <swiper-item
+          data-item="{{item}}"
+          bind:tap="handlePreview"
+        >
+          <image src="{{item}}" class="swiper-img" />
+        </swiper-item>
+      </block>
+    </swiper>
+
+    <view class="post-content">
+      <view class="post-title" wx:if="{{detailData.title}}">{{detailData.title}}</view>
+      <view class="post-content-main-body">
+        {{detailData.content}}
+      </view>
+      <view class="post-data-info">
+        <text>发布于 {{detailData.create_time}}</text>
+        <view>
+          <image class="preview-icon" src="/image/forum/postPreview.png" />
+          <text>{{detailData.view_number || 0}} 浏览</text>
         </view>
       </view>
     </view>
-    <view wx:else class="empty-comment-wrap">
-      <view>暂无评论</view>
-      <view class="empty-comment-desc">快去发表你的看法吧～</view>
+
+    <view class="comment-wrap">
+      <view class="comment-title">评论 {{detailData.comment_number}}</view>
+      <van-divider custom-style="margin: 0;" />
+      <view
+        wx:if="{{detailData.comment_number}}"
+        class="comment-content-box"
+      >
+        <view
+          wx:for="{{list}}"
+          wx:key="index"
+          data-item="{{item}}"
+          class="comment-every-content"
+          catch:tap="handleComment"
+        >
+          <image src="https://img.ikstatic.cn/MTcwMzQxMTU2NTE3MSMzNTUjanBn.jpg" class="comment-profile-image" />
+          <view class="comment-content-right">
+            <view class="comment-user-name">{{item.username}}</view>
+            <view class="comment-main-content">{{item.content}}</view>
+            <view
+              wx:if="{{item.reply_number}}"
+              class="comment-reply-operation"
+            >
+              <text data-item="{{item}}" catch:tap="handleViewReply">共{{item.reply_number}}条回复</text>
+              <van-icon name="arrow" />
+            </view>
+            <view class="date-and-collect">
+              <text>{{item.create_time}}</text>
+              <view class="like-wrap">
+                <image
+                  src="{{item.is_collect ? '/image/forum/collect.png' : '/image/forum/noCollect.png'}}" 
+                  class="collect-icon"
+                  data-item="{{item}}"
+                  catch:tap="handleCollect"
+                />
+                <text
+                  wx:if="{{item.like_number}}"
+                  class="like-num {{item.is_collect ? 'is-my-like' : ''}}"
+                >{{item.like_number}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view wx:else class="empty-comment-wrap">
+        <view>暂无评论</view>
+        <view class="empty-comment-desc">快去发表你的看法吧～</view>
+      </view>
+    </view>
+
+    <view wx:if="{{isEndPage && total}}" class="content-end-wrap">到底啦~</view>
+  </scroll-view>
+
+  <view class="bottom-wrap">
+    <view class="bottom-comment-wrap">
+      <van-search
+        placeholder="快去参与讨论吧"
+        shape="round"
+        left-icon=""
+        show-action="{{serachValue}}"
+        clearable="{{false}}"
+        input-class="search-input-style"
+        class="search-box"
+        readonly
+        auto-focus
+        bindtap="handleShowInput"
+      >
+      </van-search>
+      <view class="comment-operation">
+        <view class="collect-reply-wrap">
+          <image
+            class="comment-poeration-icon"
+            src="/image/forum/commentOperationNoCollect.png"
+          />
+          <view class="collect-reply-num">{{detailData.like_number}}</view>
+        </view>
+        <view class="collect-reply-wrap">
+          <image
+            class="comment-poeration-icon"
+            src="/image/forum/commentOperationReply.png"
+          />
+          <view class="collect-reply-num reply-num">{{detailData.comment_number}}</view>
+        </view>
+        <image
+          class="comment-poeration-icon"
+          src="/image/forum/commentOperationShare.png"
+        />
+      </view>
     </view>
   </view>
-</scroll-view>
+</view>
 
 <replyPopup
-  showPopup="{{showReplyPopup}}"
+  showPopup="{{replyPopupModal.showReplyPopup}}"
+  levelCommentDetail="{{replyPopupModal.data}}"
   bind:onClose="handlePopupClose"
+  bind:onReplyOk="handleReplyOk"
 ></replyPopup>
+
+<keyboardTopInput
+  showInput="{{commentModal.showInput}}"
+  placeholder="{{commentModal.type === COMMENT_TYPE_COMMENT ? '回复 @' + commentModal.data.username : '评论帖子'}}"
+  bind:onVisible="handleKeyboardTopInputVisible"
+  bind:onChange="handleKeyboardInput"
+  bind:onSubmit="handleSubmit"
+></keyboardTopInput>
+<!-- <view
+  class="keyboard-top-input-wrap"
+  wx:if="{{showInput}}"
+  style="bottom: {{keyboardHeight}}px; min-height: {{keyboardHeight ? 'initial' : '170rpx'}};"
+>
+  <textarea
+    class='keyboard-top-input'
+    value="{{keyboardTopInputMessage}}"
+    placeholder="请输入内容"
+    name="textarea"
+    auto-focus
+    adjust-position
+    show-confirm-bar="{{false}}"
+    adjust-position="{{false}}"
+    cursor-spacing="{{50}}"
+    auto-height
+    bindblur="handleBlurInput"
+    bindkeyboardheightchange="handleKeyboardheightchange"
+    bindinput="handleKeyboardInput"
+  />
+  <view
+    wx:if="{{keyboardTopInputMessage}}"
+    class="keyboard-top-send-btn"
+  >
+    发送
+  </view>
+</view> -->

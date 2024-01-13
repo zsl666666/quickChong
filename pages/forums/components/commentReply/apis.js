@@ -1,21 +1,5 @@
 import { request } from 'service/index'
 
-// 详情接口
-export const getDetail = (params = {}) => {
-  return request(
-    {
-      url: '/api/forum/postDetail',
-      method: 'GET',
-      data: {
-        ...params
-      }
-    },
-    {
-      isLoading: true,
-    }
-  )
-}
-
 // 评论，回复列表
 export const getCommentList = (params = {}) => {
   return request(
@@ -51,7 +35,6 @@ export const postCommentReply = (params = {}) => {
 }
 
 export default {
-  getDetail,
   getCommentList,
   postCommentReply
 }

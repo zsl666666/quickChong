@@ -1,4 +1,5 @@
 // pages/forums/components/postDetail/index.js
+import * as CONFIG from './config'
 import apis from './apis'
 const app = getApp()
 Page({
@@ -7,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    ...CONFIG,
     navBarHeight: app.globalData.navBarHeight,
     postId: undefined, // 帖子id
     postImages: [
@@ -33,8 +35,25 @@ Page({
         is_collect: false
       }
     ],
-    showReplyPopup: false, // 查看回复弹窗
     detailData: {}, // 帖子详情数据
+    replyPopupModal: {
+      showReplyPopup: false, // 查看回复弹窗
+      data: {}
+    }, // 回复弹窗
+    commentModal: {
+      type: '',
+      showInput: false,
+    },
+    keyboardHeight: 0, // 键盘高度
+    keyboardTopInputMessage: '',
+    list: [],
+    total: 0,
+    isEndPage: false,
+    filterParams: {
+      page: 1,
+      size: 20,
+      post_id: ''
+    },
   },
 
   /**
@@ -111,7 +130,53 @@ Page({
       this.setData({
         detailData: res.data || {}
       })
+      this.handleSearch({ page: 1, post_id: params.post_id })
     })
+  },
+  // 获取评论列表接口
+  getCommentList(params = {}) {
+    apis.getCommentList(params).then(res => {
+      const data = res.data || {}
+      const list = data.list || []
+      let newList = [...list]
+      if (params.page !== 1) {
+        newList = this.data.list.concat(list).filter((item, index, self) => {
+          return self.findIndex(cur => cur.id === item.id) === index
+        })
+      }
+
+      this.setData({
+        list: newList,
+        total: data.total,
+        isEndPage: list.length !== params.size,
+      })
+    })
+  },
+  // 评论接口
+  postCommentReply(params = {}) {
+    apis.postCommentReply(params).then(res => {
+      this.handleSearch({ page: 1 })
+
+      // 设置帖子评论数+1
+      this.setData({
+        detailData: {
+          ...this.data.detailData,
+          comment_number: this.data.detailData.comment_number + 1
+        }
+      })
+    })
+  },
+
+  // 查询列表
+  handleSearch(params = {}) {
+    const newParams = {
+      ...this.data.filterParams,
+      ...params
+    }
+    this.setData({
+      filterParams: newParams
+    })
+    this.getCommentList(newParams)
   },
 
   // 预览帖子详情大图
@@ -124,15 +189,39 @@ Page({
   },
 
   // 点击查看回复
-  handleViewReply() {
+  handleViewReply(e) {
     this.setData({
-      showReplyPopup: true
+      replyPopupModal: {
+        showReplyPopup: true,
+        data: e.currentTarget.dataset.item
+      }
     })
   },
+  // 关闭回复弹窗
   handlePopupClose() {
     this.setData({
-      showReplyPopup: false
+      replyPopupModal: {
+        showReplyPopup: false,
+        data: {}
+      }
     })
+  },
+  // 回复成功回调
+  handleReplyOk(e) {
+    const { cid, post_id } = e.detail
+    const { list, detailData } = this.data
+    const targetIndex = list.findIndex(item => item.id === cid)
+    const newList = [...list]
+    if (targetIndex !== -1) {
+      newList[targetIndex].reply_number = newList[targetIndex].reply_number + 1
+      this.setData({
+        list: newList,
+        detailData: {
+          ...detailData,
+          comment_number: detailData.comment_number + 1
+        }
+      })
+    }
   },
   // 处理收藏、取消收藏
   handleCollect(e) {
@@ -152,12 +241,67 @@ Page({
   // 滑到底了
   handleScrollToLower() {
     console.log('到底啦帅哥')
-    const list = new Array(20).fill({
-      id: Math.random() * 100,
-      is_collect: false
-    })
+    const { filterParams, isEndPage } = this.data
+    if (!isEndPage) {
+      this.handleSearch({
+        page: filterParams.page + 1
+      })
+    }
+  },
+
+  // 点击帖子评论
+  handleShowInput: function() {
     this.setData({
-      commentList: this.data.commentList.concat(list)
+      commentModal: {
+        type: CONFIG.COMMENT_TYPE_POST,
+        showInput: true
+      }
+    })
+  },
+
+  handleKeyboardInput(e) {
+    this.setData({
+      keyboardTopInputMessage: e.detail.value
+    })
+  },
+
+  handleKeyboardTopInputVisible(e) {
+    const visible = e.detail
+    this.setData({
+      commentModal: {
+        ...this.data.commentModal,
+        showInput: false
+      }
+    })
+  },
+
+  // 点击一级评论
+  handleComment(e) {
+    this.setData({
+      commentModal: {
+        type: CONFIG.COMMENT_TYPE_COMMENT,
+        showInput: true,
+        data: e.currentTarget.dataset.item
+      }
+    })
+  },
+
+  // 提交评论
+  handleSubmit() {
+    console.log('发送啦', this.data.keyboardTopInputMessage)
+    const { postId, keyboardTopInputMessage, commentModal } = this.data
+    const params = {
+      post_id: postId,
+      content: keyboardTopInputMessage
+    }
+    // 对评论进行评论
+    if (commentModal.type === CONFIG.COMMENT_TYPE_COMMENT) {
+      params.cid = commentModal.data.id
+    }
+    this.postCommentReply(params)
+    // 清空保存的评论输入框值
+    this.setData({
+      keyboardTopInputMessage: ''
     })
   }
 })
