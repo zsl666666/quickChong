@@ -71,7 +71,7 @@
           catch:tap="handleComment"
         >
           <image
-            src="{{forumsFn.getAvatar(detailData.avatar)}}"
+            src="{{forumsFn.getAvatar(item.avatar)}}"
             class="comment-profile-image"
           />
           <view class="comment-content-right">

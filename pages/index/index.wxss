@@ -20,9 +20,15 @@
   border-radius: 40rpx;
   padding-left: 16rpx;
   padding-right: 16rpx;
+  height: 68rpx;
 }
 .map-notice-bar-close-icon {
   padding-left: 6rpx;
+}
+.notice-bar-left-icon {
+  width: 44rpx;
+  height: 44rpx;
+  padding-right: 10rpx;
 }
 .test-style {
   background-color: #0D7AC2 !important;
