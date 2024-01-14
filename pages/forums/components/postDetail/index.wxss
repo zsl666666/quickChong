@@ -19,12 +19,12 @@
 
 .swiper-cutom {
   width: 100%;
-  height: 600rpx !important;
+  height: 750rpx !important;
 }
 .swiper-img {
   width: 100%;
   overflow: hidden;
-  height: 600rpx !important;
+  height: 750rpx !important;
 }
 
 .swiper-cutom .wx-swiper-dot {
@@ -127,6 +127,7 @@
 .like-wrap {
   display: flex;
   align-items: center;
+  padding: 10rpx;
 }
 .like-num {
   font-size: 22rpx;
@@ -157,12 +158,14 @@
   color: rgba(0,0,0,0.7);
   line-height: 40rpx;
   margin-top: 7rpx;
-  margin-bottom: 10rpx;
+  /* margin-bottom: 10rpx; */
 }
 .comment-reply-operation {
   font-size: 24rpx;
   color: #0D7AC2;
-  margin-bottom: 10rpx;
+  /* margin-bottom: 10rpx; */
+  padding-top: 10rpx;
+  /* padding-bottom: 10rpx; */
 }
 .empty-comment-wrap {
   display: flex;

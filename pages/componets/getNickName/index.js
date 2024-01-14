@@ -26,9 +26,37 @@ Component({
   methods: {
     onChooseAvatar(e) {
       const { avatarUrl } = e.detail
-      this.setData({
-        avatarUrl,
-      })
+      // this.setData({
+      //   avatarUrl,
+      // })
+      wx.uploadFile({
+        url: url + "/api/file/upload", // 服务端接收上传文件的路由
+        filePath: avatarUrl,
+        name: 'file',
+        formData: {
+          ticket: wx.getStorageSync("ticket"), // 其他额外的表单数据
+        },
+        success: (res) => {
+          const responseData = JSON.parse(res.data)
+          console.log('responseData', responseData)
+          if (responseData.code !== 0) {
+            return wx.showToast({
+              title: '失败',
+              icon: 'error'
+            })
+          }
+
+          this.setData({
+            avatarUrl: responseData.data.url
+          })
+        },
+        fail: (err) => {
+          wx.showToast({
+            title: "失败",
+            icon: "error",
+          });
+        },
+      });
     },
     nickNameHandle(e) {
       if (e.detail.pass) {

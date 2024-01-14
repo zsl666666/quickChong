@@ -1,0 +1,9 @@
+var forumsFn = {
+	getAvatar: function(value){
+		return value && value.indexOf('https://') !== -1 ? value : '/image/no-login.png'
+	}
+}
+// 导出对外暴露的属性
+module.exports = {
+	getAvatar: forumsFn.getAvatar
+}

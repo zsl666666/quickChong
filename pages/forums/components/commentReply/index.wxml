@@ -6,6 +6,8 @@
   custom-style="height: 20%"
   bind:close="onClose"
 /> -->
+<wxs module="forumsFn" src="../../utils.wxs"></wxs>
+
 <page-container 
   show="{{showPopup}}"
   overlay="{{true}}"
@@ -32,7 +34,7 @@
       catch:tap="handleCommentReply"
     >
       <image
-        src="https://img.ikstatic.cn/MTcwMzQxMTU2NTE3MSMzNTUjanBn.jpg"
+        src="{{forumsFn.getAvatar(levelCommentDetail.avatar)}}"
         class="comment-profile-image"
       />
       <view class="comment-content-right">
@@ -65,7 +67,7 @@
       catch:tap="handleCommentReply"
     >
       <image
-        src="https://img.ikstatic.cn/MTcwMzQxMTU2NTE3MSMzNTUjanBn.jpg"
+        src="{{forumsFn.getAvatar(item.avatar)}}"
         class="comment-profile-image"
       />
       <view class="comment-content-right">

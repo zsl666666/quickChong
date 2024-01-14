@@ -6,8 +6,10 @@
 }
 .close-icon {
   position: absolute;
-  right: 34rpx;
-  top: calc(36rpx - 10px);
+  right: 4rpx;
+  height: 100%;
+  width: 80rpx;
+  /* top: calc(36rpx - 10px); */
 }
 .reply-detail-title {
   text-align: center;
@@ -44,7 +46,7 @@
   color: rgba(0,0,0,0.7);
   line-height: 40rpx;
   margin-top: 7rpx;
-  margin-bottom: 10rpx;
+  /* margin-bottom: 10rpx; */
 }
 .reply-people-username {
   font-size: 26rpx;
@@ -65,6 +67,7 @@
 .like-wrap {
   display: flex;
   align-items: center;
+  padding: 10rpx;
 }
 .like-num {
   font-size: 22rpx;

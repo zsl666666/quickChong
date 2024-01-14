@@ -202,5 +202,18 @@ Page({
       page: 1,
       keywords: ''
     })
+  },
+
+  // 发帖人头像加载失败
+  handleAvatarImageError(e) {
+    const id = e.currentTarget.dataset.id
+    const newList = [...this.data.list]
+    const index = newList.findIndex(item => item.id === id)
+    if (index !== -1) {
+      newList[index].avatar = '/image/no-login.png'
+    }
+    this.setData({
+      list: newList
+    })
   }
 })

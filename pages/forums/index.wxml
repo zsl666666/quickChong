@@ -45,15 +45,20 @@
     <view wx:if="{{!list.length}}" class="empty-data-wrap">暂无数据</view>
     <view
       wx:for="{{list}}" 
-      wx:key="index"
+      wx:key="id"
       class="forum-invitation"
       data-item="{{item}}"
       catch:tap="goPostDetail"
     >
       <view class="poster-info-wrap">
         <view class="poster-profile-name">
-          <!-- <image src="{{item.avatar}}" class="poster-profile-icon" /> -->
-          <image src="/image/no-login.png" class="poster-profile-icon" />
+          <image
+            src="{{item.avatar}}"
+            class="poster-profile-icon"
+            data-id="{{item.id}}"
+            binderror="handleAvatarImageError"
+          />
+          <!-- <image src="/image/no-login.png" class="poster-profile-icon" /> -->
           <text class="poster-name">{{item.username}}</text>
         </view>
         <text class="poster-date">发布于{{item.create_time}}</text>

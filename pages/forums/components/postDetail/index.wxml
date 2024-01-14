@@ -1,9 +1,12 @@
 <!--pages/forums/components/postDetail/index.wxml-->
+<!-- src="{{detailData.avatar && detailData.avatar.includes('https://') ? detailData.avatar : '/image/no-login.png'}}" -->
+<wxs module="forumsFn" src="../../utils.wxs"></wxs>
+
 <van-nav-bar fixed class="constom-detail-nav-bar">
   <view slot="left" class="detail-nav-bar-left" catch:tap="goBack">
     <van-icon name="arrow-left" size="18" custom-style="font-weight: bolder;" />
     <image
-      src="https://img.ikstatic.cn/MTcwMzQxMTU2NTE3MSMzNTUjanBn.jpg"
+      src="{{forumsFn.getAvatar(detailData.avatar)}}"
       class="custom-nav-bar-icon"
     />
     <text>{{detailData.username}}</text>
@@ -34,7 +37,7 @@
           data-item="{{item}}"
           bind:tap="handlePreview"
         >
-          <image src="{{item}}" class="swiper-img" />
+          <image src="{{item}}" mode="aspectFit" class="swiper-img" />
         </swiper-item>
       </block>
     </swiper>
@@ -67,7 +70,10 @@
           class="comment-every-content"
           catch:tap="handleComment"
         >
-          <image src="https://img.ikstatic.cn/MTcwMzQxMTU2NTE3MSMzNTUjanBn.jpg" class="comment-profile-image" />
+          <image
+            src="{{forumsFn.getAvatar(detailData.avatar)}}"
+            class="comment-profile-image"
+          />
           <view class="comment-content-right">
             <view class="comment-user-name">{{item.username}}</view>
             <view class="comment-main-content">{{item.content}}</view>
@@ -128,7 +134,7 @@
           />
           <view wx:if="{{detailData.like_number}}" class="collect-reply-num">{{detailData.like_number}}</view>
         </view>
-        <view class="collect-reply-wrap">
+        <view class="collect-reply-wrap" catch:tap="handleShowInput">
           <image
             class="comment-poeration-icon"
             src="/image/forum/commentOperationReply.png"
