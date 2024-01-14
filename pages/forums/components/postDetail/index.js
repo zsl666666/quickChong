@@ -61,7 +61,6 @@ Page({
    */
   onLoad(options) {
     wx.showShareMenu()
-    console.log('options', options)
     const id = options?.postId
     this.setData({
       postId: id
@@ -174,6 +173,37 @@ Page({
     })
   },
 
+  // 帖子点赞接口
+  postLike(params = {}) {
+    apis.postLike(params).then(res => {
+      const { detailData } = this.data
+      this.setData({
+        detailData: {
+          ...detailData,
+          like_number: params.type === 1 ? detailData.like_number + 1 : detailData.like_number - 1,
+          is_like: params.type === 1 ? 1 : 0
+        }
+      })
+    })
+  },
+
+  // 评论，回复点赞接口
+  postCommentReplyLike(params = {}) {
+    apis.postCommentReplyLike(params).then(res => {
+      const { list } = this.data
+      const newList = [...list]
+      const index = newList.findIndex(item => item.id === params.like_id)
+      if (index !== -1) {
+        const targetItem = newList[index]
+        newList[index].like_number = params.type === 1 ? targetItem.like_number + 1 : targetItem.like_number - 1
+        newList[index].is_like = params.type === 1 ? 1 : 0
+        this.setData({
+          list: newList
+        })
+      }
+    })
+  },
+
   // 查询列表
   handleSearch(params = {}) {
     const newParams = {
@@ -233,21 +263,47 @@ Page({
   // 处理收藏、取消收藏
   handleCollect(e) {
     const data = e.currentTarget.dataset.item
-    const newList = this.data.commentList.map(item => {
-      const newItem = {...item}
-      if (newItem.id === data.id) {
-        newItem.is_collect = !newItem.is_collect
-      }
-      return newItem
+    this.postCommentReplyLike({
+      like_id: data.id,
+      type: data.is_like === 1 ? 2 : 1,
     })
-    this.setData({
-      commentList: newList
+  },
+
+  // 点击帖子点赞
+  handleGivePostLike() {
+    const { detailData } = this.data
+    this.postLike({
+      like_id: detailData.id,
+      type: detailData.is_like === 1 ? 2 : 1,
     })
+  },
+
+  // 一级评论点赞回调（回复组件透传）
+  handleLevelCommentLike(e) {
+    const { like_id, type } = e.detail
+    const { list, replyPopupModal } = this.data
+    const newList = [...list]
+    const index = newList.findIndex(item => item.id === like_id)
+    if (index !== -1) {
+      const targetItem = newList[index]
+      newList[index].like_number = type === 1 ? targetItem.like_number + 1 : targetItem.like_number - 1
+      newList[index].is_like = type === 1 ? 1 : 0
+      this.setData({
+        list: newList,
+        replyPopupModal: {
+          ...replyPopupModal,
+          data: {
+            ...replyPopupModal.data,
+            like_number: type === 1 ? replyPopupModal.data.like_number + 1 : replyPopupModal.data.like_number - 1,
+            is_like: type === 1 ? 1 : 0
+          }
+        }
+      })
+    }
   },
 
   // 滑到底了
   handleScrollToLower() {
-    console.log('到底啦帅哥')
     const { filterParams, isEndPage } = this.data
     if (!isEndPage) {
       this.handleSearch({
@@ -295,7 +351,6 @@ Page({
 
   // 提交评论
   handleSubmit() {
-    console.log('发送啦', this.data.keyboardTopInputMessage)
     const { postId, keyboardTopInputMessage, commentModal } = this.data
     const params = {
       post_id: postId,

@@ -86,16 +86,18 @@
             </view>
             <view class="date-and-collect">
               <text>{{item.create_time}}</text>
-              <view class="like-wrap">
+              <view
+                class="like-wrap"
+                data-item="{{item}}"
+                catch:tap="handleCollect"
+              >
                 <image
-                  src="{{item.is_collect ? '/image/forum/collect.png' : '/image/forum/noCollect.png'}}" 
+                  src="{{item.is_like ? '/image/forum/collect.png' : '/image/forum/noCollect.png'}}" 
                   class="collect-icon"
-                  data-item="{{item}}"
-                  catch:tap="handleCollect"
                 />
                 <text
                   wx:if="{{item.like_number}}"
-                  class="like-num {{item.is_collect ? 'is-my-like' : ''}}"
+                  class="like-num {{item.is_like ? 'is-my-like' : ''}}"
                 >{{item.like_number}}</text>
               </view>
             </view>
@@ -127,12 +129,15 @@
       >
       </van-search>
       <view class="comment-operation">
-        <view class="collect-reply-wrap">
+        <view class="collect-reply-wrap" catch:tap="handleGivePostLike">
           <image
             class="comment-poeration-icon"
-            src="/image/forum/commentOperationNoCollect.png"
+            src="{{detailData.is_like ? '/image/forum/commentOperationCollect.png' : '/image/forum/commentOperationNoCollect.png'}}"
           />
-          <view wx:if="{{detailData.like_number}}" class="collect-reply-num">{{detailData.like_number}}</view>
+          <view
+            wx:if="{{detailData.like_number}}"
+            class="collect-reply-num {{detailData.is_like ? 'is-my-like' : ''}}"
+          >{{detailData.like_number}}</view>
         </view>
         <view class="collect-reply-wrap" catch:tap="handleShowInput">
           <image
@@ -161,6 +166,7 @@
   levelCommentDetail="{{replyPopupModal.data}}"
   bind:onClose="handlePopupClose"
   bind:onReplyOk="handleReplyOk"
+  bind:onLevelCommentLike="handleLevelCommentLike"
 ></replyPopup>
 
 <keyboardTopInput

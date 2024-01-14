@@ -42,16 +42,18 @@
         <view class="comment-main-content">{{levelCommentDetail.content}}</view>
         <view class="date-and-collect">
           <text>{{levelCommentDetail.create_time}}</text>
-          <view class="like-wrap">
+          <view
+            class="like-wrap"
+            data-item="{{levelCommentDetail}}"
+            catch:tap="handleCommentLike"
+          >
             <image
-              src="{{item.is_collect ? '/image/forum/collect.png' : '/image/forum/noCollect.png'}}" 
+              src="{{levelCommentDetail.is_like ? '/image/forum/collect.png' : '/image/forum/noCollect.png'}}" 
               class="collect-icon"
-              data-item="{{item}}"
-              catch:tap="handleCollect"
             />
             <text
               wx:if="{{levelCommentDetail.like_number}}"
-              class="like-num {{levelCommentDetail.is_collect ? 'is-my-like' : ''}}"
+              class="like-num {{levelCommentDetail.is_like ? 'is-my-like' : ''}}"
             >{{levelCommentDetail.like_number}}</text>
           </view>
         </view>
@@ -80,17 +82,19 @@
         </view>
         <view class="date-and-collect">
           <text>{{item.create_time}}</text>
-          <view class="like-wrap">
+          <view
+            class="like-wrap"
+            data-item="{{item}}"
+            catch:tap="handleReplyLike"
+          >
             <image
-              src="{{item.is_collect ? '/image/forum/collect.png' : '/image/forum/noCollect.png'}}" 
+              src="{{item.is_like ? '/image/forum/collect.png' : '/image/forum/noCollect.png'}}" 
               class="collect-icon"
-              data-item="{{item}}"
-              catch:tap="handleCollect"
             />
             <text
-              wx:if="{{levelCommentDetail.like_number}}"
-              class="like-num {{levelCommentDetail.is_collect ? 'is-my-like' : ''}}"
-            >{{levelCommentDetail.like_number}}</text>
+              wx:if="{{item.like_number}}"
+              class="like-num {{item.is_like ? 'is-my-like' : ''}}"
+            >{{item.like_number}}</text>
           </view>
         </view>
       </view>

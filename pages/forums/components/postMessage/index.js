@@ -113,7 +113,6 @@ Page({
   // 点击发帖
   postMessage() {
     const { titleValue, content, fileList = [] } = this.data
-    console.log('fileList, ', titleValue, content, fileList?.map(item => item.url))
     if (!content || !content.trim()) {
       return Toast('帖子内容不能为空')
     }
@@ -122,7 +121,6 @@ Page({
       content: content,
       picture: fileList?.map(item => item.url)
     }).then(res => {
-      console.log('发帖成功', res)
       // wx.navigateBack({
       //   delta: 1
       // })

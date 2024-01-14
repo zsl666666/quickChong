@@ -87,6 +87,34 @@ Component({
         })
       })
     },
+    /**
+     * 评论，回复点赞接口
+     * @param {*} params 
+     * @param {*} isCommentLike 是否对顶部一级评论点赞，true是，false是回复点赞
+     */
+    postCommentReplyLike(params = {}, isCommentLike) {
+      apis.postCommentReplyLike(params).then(res => {
+        // 对顶部评论点赞
+        if (isCommentLike) {
+          this.triggerEvent('onLevelCommentLike', {
+            ...params
+          })
+        } else { // 对评论回复点赞
+          const { list } = this.data
+          const newList = [...list]
+          const index = newList.findIndex(item => item.id === params.like_id)
+          if (index !== -1) {
+            const targetItem = newList[index]
+            newList[index].like_number = params.type === 1 ? targetItem.like_number + 1 : targetItem.like_number - 1
+            newList[index].is_like = params.type === 1 ? 1 : 0
+            this.setData({
+              list: newList
+            })
+          }
+        }
+      })
+    },
+
     // 查询列表
     handleSearch(params = {}) {
       const newParams = {
@@ -99,7 +127,6 @@ Component({
       this.getCommentList(newParams)
     },
     handleScrollToLower() {
-      console.log('到底啦')
       const { filterParams, isEndPage } = this.data
       if (!isEndPage) {
         this.handleSearch({
@@ -114,22 +141,24 @@ Component({
     },
   
     // 处理收藏、取消收藏
-    handleCollect(e) {
+    handleReplyLike(e) {
       const data = e.currentTarget.dataset.item
-      const newList = this.data.list.map(item => {
-        const newItem = {...item}
-        if (newItem.id === data.id) {
-          newItem.is_collect = !newItem.is_collect
-        }
-        return newItem
+      this.postCommentReplyLike({
+        like_id: data.id,
+        type: data.is_like === 1 ? 2 : 1,
       })
-      this.setData({
-        list: newList
-      })
+    },
+  
+    // 评论点赞
+    handleCommentLike(e) {
+      const data = e.currentTarget.dataset.item
+      this.postCommentReplyLike({
+        like_id: data.id,
+        type: data.is_like === 1 ? 2 : 1,
+      }, true)
     },
 
     handleCommentReply(e) {
-      console.log('----', e.currentTarget)
       const detail = e.currentTarget.dataset
       this.setData({
         commentModal: {
@@ -156,7 +185,6 @@ Component({
     },
       // 提交评论
   handleSubmit() {
-    console.log('发送啦', this.data.keyboardTopInputMessage)
     const { filterParams, keyboardTopInputMessage, commentModal } = this.data
     const params = {
       // post_id: postId,

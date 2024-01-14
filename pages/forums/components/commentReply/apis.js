@@ -34,7 +34,24 @@ export const postCommentReply = (params = {}) => {
   )
 }
 
+// 评论，回复点赞
+export const postCommentReplyLike = (params = {}) => {
+  return request(
+    {
+      url: '/api/forum/commentReplyLike',
+      method: 'POST',
+      data: {
+        ...params
+      }
+    },
+    {
+      isLoading: false,
+    }
+  )
+}
+
 export default {
   getCommentList,
-  postCommentReply
+  postCommentReply,
+  postCommentReplyLike
 }

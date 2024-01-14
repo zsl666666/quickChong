@@ -239,7 +239,6 @@
   font-size: 18rpx;
   font-family: PingFangSC, PingFang SC;
   font-weight: 500;
-  color: #000000;
   line-height: 25rpx;
   position: absolute;
   top: -10rpx;
