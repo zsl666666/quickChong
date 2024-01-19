@@ -151,6 +151,16 @@
   color: rgba(0,0,0,0.4);
   line-height: 38rpx;
 }
+.is-post-author {
+  background: rgba(0,0,0,0.05);
+  border-radius: 6rpx;
+  padding: 2rpx 8rpx;
+  font-size: 22rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  color: rgba(0,0,0,0.5);
+  line-height: 30rpx;
+}
 .comment-main-content {
   font-size: 28rpx;
   font-family: PingFangSC, PingFang SC;

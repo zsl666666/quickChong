@@ -38,7 +38,10 @@
         class="comment-profile-image"
       />
       <view class="comment-content-right">
-        <view class="comment-user-name">{{levelCommentDetail.username}}</view>
+        <view class="comment-user-name">
+          {{levelCommentDetail.username}}
+          <text wx:if="{{articleDetail.uid === levelCommentDetail.uid}}" class="is-post-author">帖主评论</text>
+        </view>
         <view class="comment-main-content">{{levelCommentDetail.content}}</view>
         <view class="date-and-collect">
           <text>{{levelCommentDetail.create_time}}</text>
@@ -73,7 +76,10 @@
         class="comment-profile-image"
       />
       <view class="comment-content-right">
-        <view class="comment-user-name">{{item.username}}</view>
+        <view class="comment-user-name">
+          {{item.username}}
+          <text wx:if="{{item.uid === articleDetail.uid}}" class="is-post-author">帖主回复</text>
+        </view>
         <view class="comment-main-content">
           <text
             wx:if="{{item.to_username}}"

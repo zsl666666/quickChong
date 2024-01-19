@@ -25,6 +25,11 @@ Component({
         }
       }
     }, // 一级评论
+    // 帖子文章详情
+    articleDetail: {
+      type: Object,
+      value: {}
+    }
   },
 
   /**

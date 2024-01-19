@@ -75,7 +75,10 @@
             class="comment-profile-image"
           />
           <view class="comment-content-right">
-            <view class="comment-user-name">{{item.username}}</view>
+            <view class="comment-user-name">
+              {{item.username}}
+              <text wx:if="{{item.uid === detailData.uid}}" class="is-post-author">帖主评论</text>
+            </view>
             <view class="comment-main-content">{{item.content}}</view>
             <view
               wx:if="{{item.reply_number}}"
@@ -164,6 +167,7 @@
 <replyPopup
   showPopup="{{replyPopupModal.showReplyPopup}}"
   levelCommentDetail="{{replyPopupModal.data}}"
+  articleDetail="{{detailData}}"
   bind:onClose="handlePopupClose"
   bind:onReplyOk="handleReplyOk"
   bind:onLevelCommentLike="handleLevelCommentLike"
