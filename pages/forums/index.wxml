@@ -85,4 +85,6 @@
     />
     <text>发帖</text>
   </view>
+
+  <get-nick show="{{showLogin}}" bind:loginSure="loginSureHandle"></get-nick>
 </view>

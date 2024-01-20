@@ -34,11 +34,18 @@ const getUserInfo = (cb) => {
   })
 }
 
+// 判断用户是否登录
+export const verifyLogin = () => {
+  const nickName = wx.getStorageSync('nickName')
+  return !!nickName
+}
+
 // 高德 web 的key 516d5a816833c6ee44e3446e40ca22e3
 module.exports = {
   formatTime,
   url,
   getUserInfo,
+  verifyLogin,
   amapFile: new amapFile.AMapWX({key:'24c3089f745d73fccd2245382fbb2942'}),
   QQMapWX: new QQMapWX({
     key: '2IQBZ-GCWLL-DSGPF-EJPAM-5HDEV-ILB4O'

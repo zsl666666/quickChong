@@ -1,6 +1,6 @@
 import { request } from 'service/index'
 
-// 纠错提交接口
+// 获取论坛列表接口
 export const getForumList = (params = {}) => {
   return request(
     {
@@ -16,6 +16,23 @@ export const getForumList = (params = {}) => {
   )
 }
 
+// 未读消息数接口
+export const getUnReadMessage = (params = {}) => {
+  return request(
+    {
+      url: '/api/forum/unReadMessage',
+      method: 'GET',
+      data: {
+        ...params
+      }
+    },
+    {
+      isLoading: false,
+    }
+  )
+}
+
 export default {
-  getForumList
+  getForumList,
+  getUnReadMessage
 }

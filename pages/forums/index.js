@@ -1,5 +1,10 @@
 // pages/forums/index.js
+import { verifyLogin } from 'utils/index'
 import apis from './apis'
+
+// 轮询未读消息数
+let timer = null
+
 Page({
 
   /**
@@ -17,7 +22,10 @@ Page({
       keywords: ''
     },
     isEndPage: false,
-    scrollTop: undefined
+    scrollTop: undefined,
+    isLogin: false,
+    showLogin: false,
+    unReadNum: 0
   },
 
   /**
@@ -48,9 +56,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    const isPostOk = wx.getStorageSync('isPostOk')
-    if (isPostOk || !this.data.list.length) {
-      wx.removeStorageSync('isPostOk')
+    // 判断是否登录状态
+    const loginStatus = verifyLogin()
+    // 登录获取未读消息数
+    if (loginStatus) {
+      // this.getUnReadMessage()
+    }
+    this.setData({
+      isLogin: loginStatus
+    })
+
+    const isReloadForum = wx.getStorageSync('isReloadForum')
+    if (isReloadForum || !this.data.list.length) {
+      wx.removeStorageSync('isReloadForum')
       this.handleSearch({ page: 1 })
     }
   },
@@ -59,7 +77,8 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide() {
-
+    clearTimeout(timer)
+    timer = null
   },
 
   /**
@@ -151,6 +170,9 @@ Page({
 
   // 跳转发帖页面
   goPostMessage() {
+    if (!this.data.isLogin) {
+      return this.notLoginFn()
+    }
     wx.navigateTo({
       url: '/pages/forums/components/postMessage/index',
     })
@@ -213,6 +235,38 @@ Page({
     }
     this.setData({
       list: newList
+    })
+  },
+
+  // 未登录回调
+  notLoginFn() {
+    this.setData({
+      showLogin: true
+    })
+  },
+
+  // 登录成功
+  loginSureHandle(){
+    setTimeout(() => {
+      this.setData({
+        showLogin: false
+      })
+    }, 500)
+  },
+
+  // 获取未读消息
+  getUnReadMessage() {
+    apis.getUnReadMessage().then(res => {
+      const num = res.data?.num || 0
+      this.setData({
+        unReadNum: num
+      })
+      if (!num) {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          this.getUnReadMessage()
+        }, 5000)
+      }
     })
   }
 })

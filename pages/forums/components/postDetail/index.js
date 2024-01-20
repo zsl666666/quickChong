@@ -1,4 +1,5 @@
 // pages/forums/components/postDetail/index.js
+import Dialog from '@vant/weapp/dialog/dialog'
 import * as CONFIG from './config'
 import apis from './apis'
 const app = getApp()
@@ -364,6 +365,23 @@ Page({
     // 清空保存的评论输入框值
     this.setData({
       keyboardTopInputMessage: ''
+    })
+  },
+
+  // 删除
+  handleDetale() {
+    Dialog.confirm({
+      message: '确认删除该帖子么？删除后无法恢复!',
+      confirmButtonText: '确定',
+      cancelButtonText: '我再想想'
+    }).then(() => {
+      // on close
+      apis.postDelete({ id: this.data.detailData.id }).then(res => {
+        wx.setStorageSync('isReloadForum', true)
+        wx.switchTab({
+          url: '/pages/forums/index',
+        })
+      })
     })
   }
 })

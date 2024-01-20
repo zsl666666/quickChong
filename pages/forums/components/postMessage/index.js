@@ -124,7 +124,8 @@ Page({
       // wx.navigateBack({
       //   delta: 1
       // })
-      wx.setStorageSync('isPostOk', true)
+      // wx.setStorageSync('isReloadForum', true)
+      wx.setStorageSync('isReloadForum', true)
       wx.switchTab({
         url: '/pages/forums/index',
       })

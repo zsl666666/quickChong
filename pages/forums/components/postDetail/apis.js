@@ -82,10 +82,29 @@ export const postCommentReplyLike = (params = {}) => {
   )
 }
 
+// 删除自己的帖子
+export const postDelete= (params = {}) => {
+  return request(
+    {
+      url: '/api/forum/postDel',
+      method: 'POST',
+      data: {
+        ...params
+      }
+    },
+    {
+      isLoading: true,
+      loadingTitle: '加载中...',
+      successMsg: '删除成功'
+    }
+  )
+}
+
 export default {
   getDetail,
   getCommentList,
   postCommentReply,
   postLike,
-  postCommentReplyLike
+  postCommentReplyLike,
+  postDelete
 }

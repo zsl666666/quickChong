@@ -84,6 +84,21 @@
   height: 18rpx;
   margin-right: 6rpx;
 }
+.post-delete {
+  font-size: 22rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.6);
+  line-height: 30rpx;
+  /* width: max-content; */
+  /* display: flex;
+  justify-content: right; */
+  text-align: right
+}
+.post-delete-name {
+  display: inline-block;
+  padding: 20rpx 0rpx 20rpx 20rpx;
+}
 .comment-wrap {
   background: #FFFFFF;
   /* margin-bottom: 200rpx; */
