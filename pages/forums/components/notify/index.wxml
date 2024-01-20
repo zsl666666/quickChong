@@ -1,4 +1,6 @@
 <!--pages/forums/components/notify/index.wxml-->
+<wxs module="forumsFn" src="../../utils.wxs"></wxs>
+
 <van-nav-bar
   fixed
   placeholder
@@ -17,7 +19,7 @@
     class="contom-top-title"
     catch:tap="handleChangeMeaasgeType"
   >
-    {{MESSAGE_TYPE_OBJ[topMessageType].label}}
+    {{MESSAGE_TYPE_OBJ[filterParams.type].label}}
     <text class="triangle-icon"></text>
   </view>
 </van-nav-bar>
@@ -25,28 +27,35 @@
 <scroll-view
   bindscrolltolower="handleScrollToLower"
   scroll-y="true"
+  scroll-top="{{scrollTop}}"
   enhanced="{{true}}"
   enable-passive="{{true}}"
   lower-threshold="80"
+  refresher-enabled
+  refresher-triggered="{{triggered}}"
+  bindrefresherrefresh="handleScrollRefresh"
   style="height: calc(100vh - {{navBarHeight}}px)"
 >
   <view
-    wx:for="{{[1,2,3,4,5]}}"
+    wx:for="{{list}}"
     wx:key="index"
+    data-item="{{item}}"
     class="notify-content-box"
+    catch:tap="goDetail"
   >
     <view class="notify-conent">
       <image
         class="notify-people-icon"
-        src="https://img.ikstatic.cn/MTcwMzQxMTUwOTM0MSM3OTIjanBn.jpg"
+        src="{{forumsFn.getAvatar(item.avatar)}}"
       />
       <view>
-        <view class="reply-people-name">哪吒小王子</view>
+        <view class="reply-people-name">{{item.username}}</view>
         <view class="notify-main-body">
-          <text>回复：天气很好啊</text>
-          <text class="notify-time">2023-12-28</text>
+          <text>{{item.msg.content || '-'}}</text>
+          <text class="notify-time">{{item.create_time}}</text>
         </view>
-        <view>
+        <!-- 暂时隐藏下列内容 -->
+        <!-- <view>
           <view class="reply-collect-box">
             <image
               class="reply-collect-icon"
@@ -61,14 +70,13 @@
             />
             <text>回复</text>
           </view>
-        </view>
+        </view> -->
       </view>
     </view>
-    <image
+    <!-- <image
       class="notify-comment-img"
-      wx:if="{{true}}"
       src="https://img.ikstatic.cn/MTcwMzQxMTUwOTM0MSM3OTIjanBn.jpg"
-    />
+    /> -->
   </view>
 </scroll-view>
 
@@ -94,10 +102,12 @@
         <text>{{item.label}}</text>
       </view>
       <image
-        wx:if="{{topMessageType === item.value}}"
+        wx:if="{{filterParams.type === item.value}}"
         class="messaeg-type-selected-icon-popup"
         src="/image/forum/notifySelected.png"
       />
     </view>
   </view>
 </van-popup>
+
+<van-toast id="van-toast" />

@@ -48,6 +48,9 @@
   flex-direction: row;
   justify-content: space-between;
 }
+.notify-content-box:active {
+  background: #eee;
+}
 .notify-conent {
   flex: 1;
   display: flex;

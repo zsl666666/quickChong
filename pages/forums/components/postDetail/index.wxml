@@ -54,7 +54,7 @@
           <text>{{detailData.view_number || 0}} 浏览</text>
         </view>
       </view>
-      <view class="post-delete">
+      <view wx:if="{{detailData.is_owner === 1}}" class="post-delete">
         <text class="post-delete-name" catch:tap="handleDetale">删除</text>
       </view>
     </view>
@@ -185,6 +185,8 @@
 ></keyboardTopInput>
 
 <van-dialog id="van-dialog" />
+
+<get-nick show="{{showLogin}}" bind:loginSure="loginSureHandle"></get-nick>
 <!-- <view
   class="keyboard-top-input-wrap"
   wx:if="{{showInput}}"

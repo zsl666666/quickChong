@@ -71,9 +71,9 @@
 
   <view class="bottom-wrap">
     <view class="topic-wrap">
-      <view wx:for="{{[1,2,3,4,5,6,7,8]}}" class="topic-cont">
+      <!-- <view wx:for="{{[1,2,3,4,5,6,7,8]}}" class="topic-cont">
         {{'北京游玩'}}
-      </view>
+      </view> -->
     </view>
     <view class="popup-submit-btn" catch:tap="postMessage">
       <text>发帖</text>

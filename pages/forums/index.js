@@ -23,7 +23,6 @@ Page({
     },
     isEndPage: false,
     scrollTop: undefined,
-    isLogin: false,
     showLogin: false,
     unReadNum: 0
   },
@@ -60,11 +59,8 @@ Page({
     const loginStatus = verifyLogin()
     // 登录获取未读消息数
     if (loginStatus) {
-      // this.getUnReadMessage()
+      this.getUnReadMessage()
     }
-    this.setData({
-      isLogin: loginStatus
-    })
 
     const isReloadForum = wx.getStorageSync('isReloadForum')
     if (isReloadForum || !this.data.list.length) {
@@ -163,6 +159,9 @@ Page({
 
   // 跳转消息通知
   goNotify() {
+    if (!verifyLogin()) {
+      return this.notLoginFn()
+    }
     wx.navigateTo({
       url: '/pages/forums/components/notify/index',
     })
@@ -170,7 +169,7 @@ Page({
 
   // 跳转发帖页面
   goPostMessage() {
-    if (!this.data.isLogin) {
+    if (!verifyLogin()) {
       return this.notLoginFn()
     }
     wx.navigateTo({
@@ -261,11 +260,11 @@ Page({
       this.setData({
         unReadNum: num
       })
+      clearTimeout(timer)
       if (!num) {
-        clearTimeout(timer)
         timer = setTimeout(() => {
           this.getUnReadMessage()
-        }, 5000)
+        }, 10000)
       }
     })
   }

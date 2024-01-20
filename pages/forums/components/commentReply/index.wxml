@@ -116,4 +116,6 @@
     bind:onChange="handleKeyboardInput"
     bind:onSubmit="handleSubmit"
   ></keyboardTopInput>
+
+  <get-nick show="{{showLogin}}" bind:loginSure="loginSureHandle"></get-nick>
 </page-container>

@@ -1,5 +1,8 @@
 // pages/componets/getNickName/index.js
 import { url } from '../../../utils/util'
+
+const noLoginImg = '/image/no-login.png'
+
 Component({
   /**
    * 组件的属性列表
@@ -15,9 +18,8 @@ Component({
    * 组件的初始数据
    */
   data: {
-    avatarUrl: '/image/no-login.png',
+    avatarUrl: noLoginImg,
     nickNameValue: '',
-    avatarUrlValue: '',
   },
 
   /**
@@ -60,8 +62,11 @@ Component({
     },
     nickNameHandle(e) {
       if (e.detail.pass) {
-        wx.setStorageSync('nickName', this.data.nickNameValue)
-        wx.setStorageSync('avatarUrl', this.data.avatarUrl)
+        // wx.setStorageSync('nickName', this.data.nickNameValue)
+        // wx.setStorageSync('avatarUrl', this.data.avatarUrl)
+        // this.setData({
+        //   nickNameValue: e.detail.value
+        // })
       }
     },
     nickNameConfirmHandle(e) {
@@ -70,7 +75,8 @@ Component({
       })
     },
     loginConfirm(e) {
-      if (!this.data.nickNameValue || !this.data.avatarUrl) {
+      const { nickNameValue, avatarUrl } = this.data
+      if (!nickNameValue || !avatarUrl || avatarUrl === noLoginImg) {
         return wx.showToast({
           title: '不能为空',
           icon: 'error'
@@ -89,6 +95,11 @@ Component({
         },
         success: (res) => {
           console.log(res.data)
+          if (res.data.code === 0) {
+            wx.setStorageSync('nickName', this.data.nickNameValue)
+            wx.setStorageSync('avatarUrl', this.data.avatarUrl)
+          }
+
         },
         fail: err => {
           console.error(err)
@@ -98,7 +109,13 @@ Component({
     },
     close(action, done) {
       this.setData({
-        show: false
+        show: false,
+      }, () => {
+        setTimeout(() => {
+          this.setData({
+            avatarUrl: noLoginImg,
+          })
+        }, 100)
       })
     }
   }

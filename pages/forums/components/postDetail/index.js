@@ -1,4 +1,5 @@
 // pages/forums/components/postDetail/index.js
+import { verifyLogin } from 'utils/index'
 import Dialog from '@vant/weapp/dialog/dialog'
 import * as CONFIG from './config'
 import apis from './apis'
@@ -55,6 +56,8 @@ Page({
       size: 20,
       post_id: ''
     },
+    isNotifyPage: false, // 是否消息通知页面跳转过来的
+    showLogin: false, // 是否显示登录弹窗
   },
 
   /**
@@ -64,7 +67,8 @@ Page({
     wx.showShareMenu()
     const id = options?.postId
     this.setData({
-      postId: id
+      postId: id,
+      isNotifyPage: options.isNotifyPage === 'true'
     })
     this.getDetail({ post_id: id })
   },
@@ -126,9 +130,17 @@ Page({
     // wx.navigateBack({
     //   delta: 1
     // })
-    wx.switchTab({
-      url: '/pages/forums/index',
-    })
+
+    // 是消息通知过来的
+    if (this.data.isNotifyPage) {
+      wx.navigateTo({
+        url: '/pages/forums/components/notify/index',
+      })
+    } else {
+      wx.switchTab({
+        url: '/pages/forums/index',
+      })
+    }
   },
 
   // 获取帖子详情接口
@@ -217,6 +229,22 @@ Page({
     this.getCommentList(newParams)
   },
 
+  // 登录成功
+  loginSureHandle(){
+    setTimeout(() => {
+      this.setData({
+        showLogin: false
+      })
+    }, 500)
+  },
+
+  // 未登录回调
+  notLoginFn() {
+    this.setData({
+      showLogin: true
+    })
+  },
+
   // 预览帖子详情大图
   handlePreview(e) {
     const curUrl = e.currentTarget.dataset.item
@@ -263,6 +291,10 @@ Page({
   },
   // 处理收藏、取消收藏
   handleCollect(e) {
+    if (!verifyLogin()) {
+      return this.notLoginFn()
+    }
+
     const data = e.currentTarget.dataset.item
     this.postCommentReplyLike({
       like_id: data.id,
@@ -272,6 +304,10 @@ Page({
 
   // 点击帖子点赞
   handleGivePostLike() {
+    if (!verifyLogin()) {
+      return this.notLoginFn()
+    }
+
     const { detailData } = this.data
     this.postLike({
       like_id: detailData.id,
@@ -315,6 +351,10 @@ Page({
 
   // 点击帖子评论
   handleShowInput: function() {
+    if (!verifyLogin()) {
+      return this.notLoginFn()
+    }
+
     this.setData({
       commentModal: {
         type: CONFIG.COMMENT_TYPE_POST,
@@ -341,6 +381,10 @@ Page({
 
   // 点击一级评论
   handleComment(e) {
+    if (!verifyLogin()) {
+      return this.notLoginFn()
+    }
+
     this.setData({
       commentModal: {
         type: CONFIG.COMMENT_TYPE_COMMENT,
@@ -370,6 +414,9 @@ Page({
 
   // 删除
   handleDetale() {
+    if (!verifyLogin()) {
+      return this.notLoginFn()
+    }
     Dialog.confirm({
       message: '确认删除该帖子么？删除后无法恢复!',
       confirmButtonText: '确定',

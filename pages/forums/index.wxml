@@ -20,12 +20,14 @@
         class="search-box"
       >
       </van-search>
-      <image
-        wx:if="{{!serachValue}}"
-        src="/image/forum/messageNotification.png"
-        class="search-icon"
-        catchtap="goNotify"
-      />
+      <view class="search-notify-wrap" catchtap="goNotify">
+        <image
+          wx:if="{{!serachValue}}"
+          src="/image/forum/messageNotification.png"
+          class="search-icon"
+        />
+        <view wx:if="{{unReadNum}}" class="notify-num"></view>
+      </view>
     </view>
   </van-sticky>
 

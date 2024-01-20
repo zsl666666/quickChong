@@ -29,6 +29,21 @@
 .search-input-style {
   background: #F7F8FA;
 }
+.search-notify-wrap {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.notify-num {
+  position: absolute;
+  width: 18rpx;
+  height: 18rpx;
+  background: #FF5656;
+  border: 2rpx solid #FFFFFF;
+  border-radius: 50%;
+  top: 0;
+  right: 0;
+}
 .search-icon {
   display: inline-block;
   width: 58rpx;

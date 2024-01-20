@@ -1,4 +1,5 @@
 // pages/forums/components/commentReply/index.js
+import { verifyLogin } from 'utils/index'
 import apis from './apis'
 import * as CONFIG from '../postDetail/config'
 
@@ -52,12 +53,29 @@ Component({
     },
     keyboardHeight: 0, // 键盘高度
     keyboardTopInputMessage: '',
+    showLogin: false, // 是否显示登录弹窗
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
+    // 未登录回调
+    notLoginFn() {
+      this.setData({
+        showLogin: true
+      })
+    },
+
+    // 登录成功
+    loginSureHandle(){
+      setTimeout(() => {
+        this.setData({
+          showLogin: false
+        })
+      }, 500)
+    },
+
     // 评论接口
     postCommentReply(params = {}, option = {}) {
       const { type } = option
@@ -147,6 +165,10 @@ Component({
   
     // 处理收藏、取消收藏
     handleReplyLike(e) {
+      if (!verifyLogin()) {
+        return this.notLoginFn()
+      }
+
       const data = e.currentTarget.dataset.item
       this.postCommentReplyLike({
         like_id: data.id,
@@ -156,6 +178,10 @@ Component({
   
     // 评论点赞
     handleCommentLike(e) {
+      if (!verifyLogin()) {
+        return this.notLoginFn()
+      }
+
       const data = e.currentTarget.dataset.item
       this.postCommentReplyLike({
         like_id: data.id,
@@ -164,6 +190,9 @@ Component({
     },
 
     handleCommentReply(e) {
+      if (!verifyLogin()) {
+        return this.notLoginFn()
+      }
       const detail = e.currentTarget.dataset
       this.setData({
         commentModal: {

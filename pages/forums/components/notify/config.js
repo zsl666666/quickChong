@@ -1,6 +1,6 @@
-export const MESSAGE_TYPE_ALL = 'all'
-export const MESSAGE_TYPE_LIKE = 'like'
-export const MESSAGE_TYPE_REPLY = 'reply'
+export const MESSAGE_TYPE_ALL = 0
+export const MESSAGE_TYPE_LIKE = 1
+export const MESSAGE_TYPE_REPLY = 2
 
 export const MESSAGE_TYPE_LIST = [
   {
