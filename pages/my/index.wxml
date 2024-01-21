@@ -5,10 +5,10 @@
       <image src='{{avatarUrl || "/image/no-login.png"}}' class="my-portrait" catch:tap="getUserInfoHanle" />
     </view>
     <view class="my-user-name" catch:tap="getUserInfoHanle">{{nickName || '点击登录'}}</view>
-    <view wx:if="{{ifLogin}}" class="my-user-gongxian" catchtap="contributeHandle">
+    <!-- <view wx:if="{{ifLogin}}" class="my-user-gongxian" catchtap="contributeHandle">
       <text>贡献值：{{userData.contribute || 0}}</text>
       <van-icon name="arrow" />
-    </view>
+    </view> -->
     <view class="my-user-item-wrapper">
       <view class="my-user-item" catchtap="goMyContributeValue">
         <view class="my-item-left">

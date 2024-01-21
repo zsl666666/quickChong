@@ -10,6 +10,7 @@
     "van-button": "@vant/weapp/button/index",
     "van-dialog": "@vant/weapp/dialog/index",
     "keyboardTopInput": "/pages/componets/keyboardTopInput/index",
-    "get-nick": "/pages/componets/getNickName/index"
+    "get-nick": "/pages/componets/getNickName/index",
+    "mp-html": "mp-html"
   }
 }

@@ -13,7 +13,7 @@ Page({
   data: {
     searchBoxHeight: 0,
     triggered: false,
-    serachValue: '', // 搜索框值
+    // serachValue: '', // 搜索框值
     list: [],
     total: 0,
     filterParams: {
@@ -62,10 +62,18 @@ Page({
       this.getUnReadMessage()
     }
 
+    // 发帖完成跳转过来得
     const isReloadForum = wx.getStorageSync('isReloadForum')
     if (isReloadForum || !this.data.list.length) {
       wx.removeStorageSync('isReloadForum')
       this.handleSearch({ page: 1 })
+    }
+
+    // 帖子详情点击话题跳转过来的
+    const  topic = wx.getStorageSync('topic')
+    if (topic) {
+      wx.removeStorageSync('topic')
+      this.handleSearch({ page: 1, keywords: topic })
     }
   },
 
@@ -200,7 +208,11 @@ Page({
   // 帖子搜索框改变事件
   handleForumChange(e) {
     this.setData({
-      serachValue: e.detail
+      // serachValue: e.detail
+      filterParams: {
+        ...this.data.filterParams,
+        keywords: e.detail
+      }
     })
   },
 
@@ -215,9 +227,9 @@ Page({
 
   // 清空搜索框
   handleClearCancel() {
-    this.setData({
-      serachValue: ''
-    })
+    // this.setData({
+    //   serachValue: ''
+    // })
     this.handleSearch({
       page: 1,
       keywords: ''

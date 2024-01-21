@@ -4,6 +4,7 @@ import Dialog from '@vant/weapp/dialog/dialog'
 import * as CONFIG from './config'
 import apis from './apis'
 const app = getApp()
+
 Page({
 
   /**
@@ -58,6 +59,14 @@ Page({
     },
     isNotifyPage: false, // 是否消息通知页面跳转过来的
     showLogin: false, // 是否显示登录弹窗
+  },
+
+  handleLinktap(e) {
+    const  value = e.detail.innerText
+    wx.setStorageSync('topic', value)
+    wx.switchTab({
+      url: '/pages/forums/index',
+    })
   },
 
   /**
@@ -146,8 +155,16 @@ Page({
   // 获取帖子详情接口
   getDetail(params = {}) {
     apis.getDetail(params).then(res => {
+      const data = res.data || {}
+
+      let newContent = data.content
+      const brStr = newContent.replace(/\r\n/g, '<br />')
+      newContent = brStr.replace(/[#＃][^#＃]+[#＃]/g, '<a style="color: #0874b9">$&</a>')
+
+      data.topicContent = newContent
+
       this.setData({
-        detailData: res.data || {}
+        detailData: data
       })
       this.handleSearch({ page: 1, post_id: params.post_id })
     })

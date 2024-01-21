@@ -44,8 +44,18 @@
 
     <view class="post-content">
       <view class="post-title" wx:if="{{detailData.title}}">{{detailData.title}}</view>
-      <view class="post-content-main-body">
-        {{detailData.content}}
+      <view class="post-content-main-body" catch:tap="boxWpra">
+        <!-- {{detailData.content}} -->
+        <!-- <rich-text
+          class="highlight"
+          nodes="{{detailData.topicContent}}"
+          space="nbsp"
+        ></rich-text> -->
+        <mp-html
+          content="{{detailData.topicContent}}"
+          copy-link="{{true}}"
+          bind:linktap="handleLinktap"
+        />
       </view>
       <view class="post-data-info">
         <text>发布于 {{detailData.create_time}}</text>

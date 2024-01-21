@@ -8,10 +8,10 @@
   <van-sticky>
     <view class="forums-search-wrap">
       <van-search
-        value="{{value}}"
+        value="{{filterParams.keywords}}"
         placeholder="搜索感兴趣的帖子"
         shape="round"
-        show-action="{{serachValue}}"
+        show-action="{{filterParams.keywords}}"
         bind:change="handleForumChange"
         bind:search="handleForumSearch"
         bind:cancel="handleClearCancel"
@@ -20,9 +20,8 @@
         class="search-box"
       >
       </van-search>
-      <view class="search-notify-wrap" catchtap="goNotify">
+      <view wx:if="{{!filterParams.keywords}}" class="search-notify-wrap" catchtap="goNotify">
         <image
-          wx:if="{{!serachValue}}"
           src="/image/forum/messageNotification.png"
           class="search-icon"
         />
