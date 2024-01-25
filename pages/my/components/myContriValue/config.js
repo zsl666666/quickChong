@@ -1,6 +1,7 @@
 
 export const CONTRIBUTE_TYPE_ADD = 'add'
 export const CONTRIBUTE_TYPE_CORRECTION = 'correction'
+export const CONTRIBUTE_TYPE_COMMENT = 'comment'
 export const CONTRIBUTE_TYPE_LIST = [
   {
     label: "添加",
@@ -9,6 +10,10 @@ export const CONTRIBUTE_TYPE_LIST = [
   {
     label: "纠错",
     value: CONTRIBUTE_TYPE_CORRECTION
+  },
+  {
+    label: "评论",
+    value: CONTRIBUTE_TYPE_COMMENT
   }
 ]
 

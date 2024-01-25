@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "我的贡献",
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#0D7AC2",
   "usingComponents": {
     "van-image": "@vant/weapp/image/index",
     "van-icon": "@vant/weapp/icon/index",

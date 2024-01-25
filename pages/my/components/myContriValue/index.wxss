@@ -1,7 +1,61 @@
 /* pages/my/components/myContriValue/index.wxss */
+.contri-value-wrap {
+  height: 410rpx;
+  position: relative;
+  background: #F4F4F4;
+}
+.contri-background-wrap {
+  background: #0D7AC2;
+  height: 350rpx;
+  border-radius: 0rpx 0rpx 30rpx 30rpx;
+  position: relative;
+}
+.contri-background-all {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 37rpx 43rpx;
+}
+.contri-background-all-value {
+  font-size: 74rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 600;
+  color: #FFFFFF;
+  line-height: 103rpx;
+}
+.contri-background-all-desc-wrap {
+  font-size: 28rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 40rpx;
+  display: flex;
+  align-items: center;
+}
+.contri-background-all-logo {
+  width: 410rpx;
+  height: 410rpx;
+  position: absolute;
+  right: 0;
+}
+.contri-every-wrap {
+  position: absolute;
+  width: 714rpx;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 154rpx !important;
+  background: #FFFFFF;
+  border-radius: 18rpx;
+  margin-bottom: 0 !important;
+}
+
+
 .my-contribute-value-wrap {
   background: #F4F4F4;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   font-size: 28rpx;
   overflow-y: auto;
 }
@@ -32,11 +86,17 @@
 .contribute-type-wrap {
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 .contribute-type-box {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.contri-custom-divider {
+  width: 1rpx;
+  height: 50rpx;
+  background: rgba(0,0,0,0.1);
 }
 .contribute-type-value {
   font-size: 38rpx;
@@ -61,7 +121,8 @@
   border-radius: 18rpx;
   margin: 20rpx auto 40rpx;
   padding: 28rpx;
-  min-height: calc(100vh - 320rpx);
+  /* min-height: calc(100vh - 320rpx); */
+  min-height: 300rpx;
 }
 .contribute-detail-type-box {
   display: flex;
@@ -76,13 +137,15 @@
   font-size: 32rpx;
   font-family: PingFangSC, PingFang SC;
   font-weight: 500;
-  color: #000000;
+  /* color: #000000; */
+  color: rgba(0,0,0,0.3);
   line-height: 45rpx;
   margin-right: 58rpx;
 }
 .active-contribute-type {
   border-bottom: 6rpx solid black;
   padding-bottom: 4rpx;
+  color: #000000;
 }
 
 .contribute-content-wrap {

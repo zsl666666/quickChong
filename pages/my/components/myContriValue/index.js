@@ -76,4 +76,8 @@ Page({
   goCorrectDetail() {
     console.log('点击跳转纠错详情回显')
   },
+
+  handleScrollToLower() {
+    console.log('贡献值列表到底')
+  }
 })
