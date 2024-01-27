@@ -129,7 +129,7 @@
   font-size: 24rpx;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
-  color: rgba(0,0,0,0.6);
+  color: rgba(0,0,0,0.5);
   margin: 9rpx 0 9rpx 0;
 }
 .checked-content-pinlun {
@@ -329,4 +329,15 @@
   width: 24rpx;
   height: 24rpx;
   vertical-align: middle;
+}
+.device-intro-desc {
+  font-size: 22rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: #0D7AC2;
+  line-height: 30rpx;
+  margin-right: 8rpx;
+  padding: 4rpx 8rpx;
+  background: rgba(13,122,194,0.05);
+  border-radius: 6rpx;
 }

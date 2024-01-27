@@ -122,6 +122,7 @@ Page({
   onLoad: function (options) {
     this.setData({
       isNoticeScrollable: true,
+      noticeBarText: initNoticeBarText
     })
 
     wx.showShareMenu({
@@ -589,7 +590,6 @@ Page({
       isNoticeBar: wx.getStorageSync('isNoticeBar'),
       noticeBarText: initNoticeBarText
     })
-    console.log('gggggffffdlgldlg')
 
     // 如果是结束预览图片触发return
     if (isViewImg) {
@@ -902,6 +902,7 @@ Page({
   onHide() {
     this.setData({
       isNoticeScrollable: false, // 顶部通知停止滚动
+      noticeBarText: initNoticeBarText
     })
 
     // 如果是预览图片触发hide直接return
@@ -920,6 +921,7 @@ Page({
   onUnload() {
     this.setData({
       isNoticeScrollable: false, // 顶部通知停止滚动
+      noticeBarText: initNoticeBarText
     })
   },
 })

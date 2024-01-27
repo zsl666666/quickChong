@@ -43,6 +43,11 @@ App({
       }
     })
   },
+  onShow() {
+    if (typeof this.asyncOkCb === 'function') {
+      this.asyncOkCb(this.globalData)
+    }
+  },
   globalData: {
     userInfo: null,
     navBarHeight: 0, // 导航栏高度

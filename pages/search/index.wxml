@@ -56,6 +56,11 @@
             <text>{{item.distance}}</text>
             <text class="checked-content-address">{{item.name}}</text>
           </view>
+          <view>
+            <text class="device-intro-desc">{{!item.is_scancode ? '不支持' : ''}}扫码充电</text>
+            <text class="device-intro-desc">{{!item.is_rainshelter ? '无' : '有'}}防雨措施</text>
+            <text class="device-intro-desc">{{!item.is_charger ? '无需' : '需'}}自备充电器</text>
+          </view>
           <view class="checked-pinlun-wrapper">
             <van-rate
               value="{{item.star_level}}"
