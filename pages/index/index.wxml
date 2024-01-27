@@ -21,11 +21,10 @@
       style="top: calc({{navBarHeight}}px + 220rpx)"
     >
       <van-notice-bar
-        speed="{{45}}"
         background="#FFFFFF"
         color="#6b6b6b"
-        scrollable
-        text="请您注意骑行安全，远离大车盲区，减速慢行注意避让；请您注意消防安全，禁止电动车及电池室内停放或充电。"
+        scrollable="{{isNoticeScrollable}}"
+        text="{{noticeBarText}}"
       >
         <image
           class="notice-bar-left-icon"

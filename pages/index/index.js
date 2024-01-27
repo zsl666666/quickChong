@@ -25,10 +25,15 @@ const selectMapIcon = {
 // 是否是预览图片，为了解决预览图片触发onHide的问题
 let isViewImg = false
 
+
+const initNoticeBarText = '请您注意骑行安全，远离大车盲区，减速慢行注意避让；请您注意消防安全，禁止电动车及电池室内停放或充电。'
+
 Page({
   data: {
     navBarHeight: app.globalData.navBarHeight,
     isNoticeBar: false, // 顶部通知
+    isNoticeScrollable: false, // 顶部通知是否支持滚动
+    noticeBarText: initNoticeBarText, // 顶部通知的内容
     chargeBtnArray: [{
       name: '全部',
       id: 1,
@@ -115,6 +120,10 @@ Page({
   },
 
   onLoad: function (options) {
+    this.setData({
+      isNoticeScrollable: true,
+    })
+
     wx.showShareMenu({
       withShareTicket: true,
       menus: ['shareAppMessage', 'shareTimeline']
@@ -576,8 +585,11 @@ Page({
   onShow() {
     // 地图顶部通知
     this.setData({
-      isNoticeBar: wx.getStorageSync('isNoticeBar')
+      isNoticeScrollable: true,
+      isNoticeBar: wx.getStorageSync('isNoticeBar'),
+      noticeBarText: initNoticeBarText
     })
+    console.log('gggggffffdlgldlg')
 
     // 如果是结束预览图片触发return
     if (isViewImg) {
@@ -888,6 +900,10 @@ Page({
   },
 
   onHide() {
+    this.setData({
+      isNoticeScrollable: false, // 顶部通知停止滚动
+    })
+
     // 如果是预览图片触发hide直接return
     if (isViewImg) return
 
@@ -896,7 +912,16 @@ Page({
     //   mapScal: 15
     // })
     // this.closeMarkDetail()
-  }
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload() {
+    this.setData({
+      isNoticeScrollable: false, // 顶部通知停止滚动
+    })
+  },
 })
 
 

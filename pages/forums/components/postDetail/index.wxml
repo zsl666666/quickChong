@@ -96,8 +96,10 @@
             <view
               wx:if="{{item.reply_number}}"
               class="comment-reply-operation"
+              data-item="{{item}}"
+              catch:tap="handleViewReply"
             >
-              <text data-item="{{item}}" catch:tap="handleViewReply">共{{item.reply_number}}条回复</text>
+              <text>共{{item.reply_number}}条回复</text>
               <van-icon name="arrow" />
             </view>
             <view class="date-and-collect">

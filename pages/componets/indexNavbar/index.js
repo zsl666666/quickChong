@@ -39,6 +39,15 @@ Component({
       }
     }
   },
+  pageLifetimes: {
+    show() {
+      app.asyncOkCb = (res) => {
+        this.setData({
+          currentCity: res.curPositionInfo?.city,
+        })
+      }
+    }
+  },
 
   /**
    * 组件的方法列表

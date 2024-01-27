@@ -12,6 +12,7 @@
   show="{{showPopup}}"
   overlay="{{true}}"
   round
+  close-on-slide-down
 >
   <van-sticky>
     <view class="top-cont">
