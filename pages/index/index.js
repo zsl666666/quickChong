@@ -365,7 +365,7 @@ Page({
     const id = e.currentTarget.dataset.id
     const detail = e.currentTarget.dataset.detail
     wx.navigateTo({
-      url: `/pages/errorCorrection/index?id=${id}&detail=${JSON.stringify(detail)}`,
+      url: `/pages/errorCorrection/index?id=${id}&detail=${encodeURIComponent(JSON.stringify(detail))}`,
     })
   },
 

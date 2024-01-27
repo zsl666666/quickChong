@@ -9,6 +9,10 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    disabled: {
+      type: Boolean,
+      value: false
+    },
     title: {
       type: String,
       value: ''
@@ -255,11 +259,14 @@ Component({
 
     // 点击地图
     clickMap() {
+      if (this.data.disabled) return
       this.chooseLocation()
     },
 
     // 触摸地图
     mapTouchstart() {
+      if (this.data.disabled) return
+
       this.chooseLocation()
     },
 
@@ -269,6 +276,8 @@ Component({
     },
     // 位置-省市区输入框聚焦时
     devicePositionFocus() {
+      if (this.data.disabled) return
+
       this.chooseLocation()
     }
   }

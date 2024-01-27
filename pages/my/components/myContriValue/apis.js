@@ -48,9 +48,25 @@ export const getCommentList = (params = {}) => {
   )
 }
 
+// 获取设备详情接口
+export const getDeviceDetail = (params = {}) => {
+  return request(
+    {
+      url: '/api/device/detail',
+      method: 'GET',
+      data: {
+        ...params
+      }
+    },
+    {
+      isLoading: true,
+    }
+  )
+}
 
 export default {
   getAddDeviceList,
   getCorrectList,
-  getCommentList
+  getCommentList,
+  getDeviceDetail
 }

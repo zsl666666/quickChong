@@ -23,14 +23,16 @@
       <van-field
         custom-style="padding-left: 4rpx;padding-right: 4rpx;"
         clearable
-        icon="/image/map/map-back.png"
+        icon="{{!disabled && '/image/map/map-back.png'}}"
         placeholder="选择位置"
         bind:click-icon="onClickIcon"
         bind:click-input='devicePositionFocus'
         readonly
+        disabled="{{disabled}}"
         model:value="{{ devicePosition }}"
       />
       <van-field
+        disabled="{{disabled}}"
         custom-style="padding-left: 4rpx;padding-right: 4rpx;"
         clearable
         placeholder="详细地址（例如**街**号**）"

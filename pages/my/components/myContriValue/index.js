@@ -30,8 +30,7 @@ Page({
   },
 
   onLoad(options) {
-    console.log('userData', options)
-    const params = JSON.parse(options.userData || '{}')
+    const params = JSON.parse(decodeURIComponent(options.userData) || '{}')
     this.setData({
       contributeValueData: params
     })
@@ -200,11 +199,38 @@ Page({
   },
 
   // 跳转纠错详情回显
-  goCorrectDetail() {
-    console.log('点击跳转纠错详情回显')
+  goCorrectDetail(e) {
+    const data = e.currentTarget.dataset.item
+    // apis.getDeviceDetail({
+    //   id: data.device_id,
+    //   coordinate: data.coordinate
+    // }).then(res => {
+    //   const resResponse = {
+    //     ...(res.data || {}),
+    //     error_type: data.error_type
+    //   }
+    //   wx.navigateTo({
+    //     url: `/pages/errorCorrection/index?id=${data.device_id}&type=view&detail=${encodeURIComponent(JSON.stringify(resResponse))}`,
+    //   })
+    // }).catch(err => {
+    //   return wx.showToast({
+    //     title: err.data.msg || '获取设备信息失败',
+    //     icon: 'error',
+    //   })    
+    // })
+
+    wx.navigateTo({
+      url: `/pages/errorCorrection/index?id=${data.device_id}&type=view&detail=${encodeURIComponent(JSON.stringify(data))}`,
+    })
   },
 
   handleScrollToLower() {
     console.log('贡献值列表到底')
+    const { filterParams, isEndPage } = this.data
+    if (!isEndPage) {
+      this.handleSearch({
+        page: filterParams.page + 1
+      })
+    }
   }
 })

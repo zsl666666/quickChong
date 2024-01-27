@@ -119,7 +119,7 @@
   width: 714rpx;
   background: #FFFFFF;
   border-radius: 18rpx;
-  margin: 20rpx auto 40rpx;
+  margin: 20rpx auto 0rpx;
   padding: 28rpx;
   /* min-height: calc(100vh - 320rpx); */
   min-height: 300rpx;
@@ -294,6 +294,15 @@
   border-bottom: 0;
   /* background: rgba(216,216,216,0); */
   box-shadow: inset 0rpx -1rpx 0rpx 0rpx rgba(0,0,0,0.05);
+}
+.content-end-wrap {
+  text-align: center;
+  height: 100rpx;
+  font-size: 24rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.3);
+  line-height: 50rpx;
 }
 
 .reject-class {

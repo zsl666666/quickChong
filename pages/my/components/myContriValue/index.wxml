@@ -131,12 +131,13 @@
       <view
         wx:if="{{contributeType === CONTRIBUTE_TYPE_CORRECTION}}"
         class="contribute-content-wrap"
-        bind:tap="goCorrectDetail"
       >
         <view
           wx:for="{{list}}"
           wx:key="index"
           class="correction-list-box"
+          data-item="{{item}}"
+          catch:tap="goCorrectDetail"
         >
           <view class="correction-type-wrap">
             <text>{{item.error_type}}</text>
@@ -206,6 +207,7 @@
       >{{item.label}}</popover-item>
     </popover>
   </view>
+  <view wx:if="{{isEndPage && total}}" class="content-end-wrap">到底啦~</view>
 </scroll-view>
 
 <van-dialog id="van-dialog" custom-class="reject-class" />

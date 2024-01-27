@@ -143,7 +143,7 @@ Page({
   // 跳转我的贡献值
   goMyContributeValue() {
     wx.navigateTo({
-      url: '/pages/my/components/myContriValue/index' + `?userData=${JSON.stringify(this.data.userData)}`,
+      url: '/pages/my/components/myContriValue/index' + `?userData=${encodeURIComponent(JSON.stringify(this.data.userData))}`,
     })
   },
 
