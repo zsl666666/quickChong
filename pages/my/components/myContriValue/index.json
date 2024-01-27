@@ -7,6 +7,7 @@
     "van-icon": "@vant/weapp/icon/index",
     "van-popup": "@vant/weapp/popup/index",
     "popover": "/pages/componets/popover/popover",
-    "popover-item": "/pages/componets/popover/popover-item"
+    "popover-item": "/pages/componets/popover/popover-item",
+    "van-dialog": "@vant/weapp/dialog/index"
   }
 }

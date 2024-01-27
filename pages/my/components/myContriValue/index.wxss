@@ -295,3 +295,18 @@
   /* background: rgba(216,216,216,0); */
   box-shadow: inset 0rpx -1rpx 0rpx 0rpx rgba(0,0,0,0.05);
 }
+
+.reject-class {
+  text-align: center;
+}
+.reject-class .van-button{
+  width: 422rpx;
+  height: 80rpx;
+  background: #0D7AC2;
+  border-radius: 40rpx;
+  font-size: 30rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 600;
+  color: #FFFFFF;
+  line-height: 44rpx;
+}

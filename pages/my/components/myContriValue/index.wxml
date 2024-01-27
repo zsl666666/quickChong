@@ -12,7 +12,7 @@
   <view class="contri-value-wrap">
     <view class="contri-background-wrap">
       <view class="contri-background-all">
-        <text class="contri-background-all-value">500</text>
+        <text class="contri-background-all-value">{{contributeValueData.contribute || 0}}</text>
         <view class="contri-background-all-desc-wrap">
           <text>我的总贡献值</text>
           <van-icon
@@ -30,17 +30,17 @@
     <view class="contribute-view-wrap contri-every-wrap">
       <view class="contribute-type-wrap">
         <view class="contribute-type-box">
-          <text class="contribute-type-value">{{'500'}}</text>
+          <text class="contribute-type-value">{{contributeValueData.device_value || 0}}</text>
           <text class="contribute-type-name">添加设备贡献</text>
         </view>
         <view class="contri-custom-divider"></view>
         <view class="contribute-type-box">
-          <text class="contribute-type-value">{{'500'}}</text>
+          <text class="contribute-type-value">{{contributeValueData.correct_value || 0}}</text>
           <text class="contribute-type-name">纠错设备贡献</text>
         </view>
         <view class="contri-custom-divider"></view>
         <view class="contribute-type-box">
-          <text class="contribute-type-value">{{'500'}}</text>
+          <text class="contribute-type-value">{{contributeValueData.comment_value || 0}}</text>
           <text class="contribute-type-name">评论设备贡献</text>
         </view>
       </view>
@@ -104,25 +104,25 @@
         class="contribute-content-wrap"
       >
         <view
-          wx:for="{{[{status: 'pass'}, {status: 'doing'},{status: 'reject'},4,5,6,7,8,9,10]}}"
+          wx:for="{{list}}"
           wx:key="index"
           class="type-list-box"
           bind:tap="goAddDetail"
         >
           <van-image
-            src="https://img.yzcdn.cn/vant/cat.jpeg"
-            image-class="fffff"
+            src="{{item.pic_cover}}"
             class="list-image"
           />
           <view class="add-type-box">
-            <view class="add-type-title">充电桩</view>
+            <view class="add-type-title">{{item.device_type}}</view>
             <view class="add-type-address-status">
               <view
                 class="add-approve-status"
                 style="color: {{APPROVE_STATUS_OBJ[item.status].nameStyle.color}}; background: {{APPROVE_STATUS_OBJ[item.status].nameStyle.background}};"
+                data-item="{{item}}"
                 catch:tap="handleViewReject"
               >{{APPROVE_STATUS_OBJ[item.status].label}}<van-icon name="arrow" wx:if="{{item.status === APPROVE_STATUS_REJECT}}" /></view>
-              <text class="add-address">朝阳区酒仙桥啊啊朝阳区酒仙桥啊啊朝阳区酒仙桥啊啊朝阳区酒仙桥啊啊</text>
+              <text class="add-address">{{item.address}}</text>
             </view>
           </view>
         </view>
@@ -134,21 +134,48 @@
         bind:tap="goCorrectDetail"
       >
         <view
-          wx:for="{{[{status: 'pass'}, {status: 'doing'},{status: 'reject'}, 1,2,3,4,5,6,7,8,9,10]}}"
+          wx:for="{{list}}"
           wx:key="index"
           class="correction-list-box"
         >
           <view class="correction-type-wrap">
-            <text>修改设备地址</text>
+            <text>{{item.error_type}}</text>
             <!-- <text class="add-approve-status">审批通过</text> -->
             <view
               class="add-approve-status"
               style="color: {{APPROVE_STATUS_OBJ[item.status].nameStyle.color}}; background: {{APPROVE_STATUS_OBJ[item.status].nameStyle.background}};"
-            >{{APPROVE_STATUS_OBJ[item.status].label}}<van-icon name="arrow" wx:if="{{item.status === APPROVE_STATUS_REJECT}}" /></view>
+            >
+              {{APPROVE_STATUS_OBJ[item.status].label}}
+              <!-- <van-icon name="arrow" wx:if="{{item.status === APPROVE_STATUS_REJECT}}" /> -->
+            </view>
           </view>
           <view class="correction-type-detail">
-            <text>设备名称：巴拉巴拉设备名称</text>
-            <text>正确地址:沟沟壑壑设备名称：巴拉巴拉设备名称：巴拉巴拉设备名称：巴拉巴拉设备名称：巴拉巴拉</text>
+            <text>设备名称：{{item.brand ? item.brand + ' | ' : ''}}{{item.device_type || '-'}}</text>
+            <text>设备地址：{{item.address || '-'}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view
+        wx:if="{{contributeType === CONTRIBUTE_TYPE_COMMENT}}"
+        class="contribute-content-wrap"
+      >
+        <view
+          wx:for="{{list}}"
+          wx:key="index"
+          class="type-list-box"
+          bind:tap="goAddDetail"
+        >
+          <van-image
+            src="https://img.yzcdn.cn/vant/cat.jpeg"
+            image-class="fffff"
+            class="list-image"
+          />
+          <view class="add-type-box">
+            <view class="add-type-title">{{item.address}}</view>
+            <view class="add-type-address-status">
+              <text class="add-address">评论：{{item.comment}}</text>
+            </view>
           </view>
         </view>
       </view>
@@ -180,6 +207,8 @@
     </popover>
   </view>
 </scroll-view>
+
+<van-dialog id="van-dialog" custom-class="reject-class" />
 
 <!-- <page-container 
   show="{{show}}"

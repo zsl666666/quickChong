@@ -17,9 +17,9 @@ export const CONTRIBUTE_TYPE_LIST = [
   }
 ]
 
-export const APPROVE_STATUS_PASS = 'pass' // 审批通过
-export const APPROVE_STATUS_DOING = 'doing' // 审批中
-export const APPROVE_STATUS_REJECT = 'reject' // 审批驳回
+export const APPROVE_STATUS_PASS = 1 // 审批通过
+export const APPROVE_STATUS_DOING = 0 // 审批中
+export const APPROVE_STATUS_REJECT = 2 // 审批驳回
 export const APPROVE_STATUS_ALL = '' // 全部
 export const APPROVE_STATUS_LIST = [
   {
@@ -53,7 +53,7 @@ export const APPROVE_STATUS_LIST = [
 ]
 export const APPROVE_STATUS_OBJ = {}
 APPROVE_STATUS_LIST.forEach(item => {
-  if (item.value) {
+  if (item.value !== APPROVE_STATUS_ALL) {
     APPROVE_STATUS_OBJ[item.value] = item
   } 
 })
