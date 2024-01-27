@@ -79,6 +79,7 @@ Page({
     initPosData: {}, // 接口返回地图位置数据
     mapData: {}, // 地图相关数据
     type: '', // 页面类型，view表示是查看纠错数据，不可编辑
+    submitLoading: false, // 提交按钮loading
   },
 
   /**
@@ -329,6 +330,9 @@ Page({
     // 为查看页面类型时
     if (data.type === 'view') return
 
+    // 防重复点击
+    if (data.submitLoading) return
+
     const mapData = data.mapData
     // 校验纠错设备信息
     if (!data.choiceDataValue) {
@@ -364,6 +368,11 @@ Page({
       picture: data.picture, // 设备照片
     }
     console.log('纠错提交接口参数', params)
+
+    this.setData({
+      submitLoading: true
+    })
+
     wx.request({
       url: url + '/api/user/correct',
       method: 'POST',
@@ -382,6 +391,9 @@ Page({
             icon: 'success',
           })
           setTimeout(() => {
+            this.setData({
+              submitLoading: false
+            })
             wx.navigateBack({
               delta: 1 // 返回上一级页面
             })
@@ -391,12 +403,18 @@ Page({
             title: res.data.msg || '提交失败',
             icon: 'fail'
           })
+          this.setData({
+            submitLoading: false
+          })
         }
       },
       fail: (err) => {
         wx.showToast({
           title: '提交失败',
           icon: 'fail'
+        })
+        this.setData({
+          submitLoading: false
         })
       }
     })

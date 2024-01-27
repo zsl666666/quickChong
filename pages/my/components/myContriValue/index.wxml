@@ -190,9 +190,10 @@
     >
       <view class="contribute-explain-popup">
         <view>贡献值明细：</view>
-        <view>1、总贡献值=添加设备贡献+纠错设备贡献</view>
-        <view>2、添加设备贡献=成功添加设数（含照片）*100 + 不含照片 *50</view>
+        <view>1、总贡献值=添加设备贡献+纠错设备贡献+评价设备贡献</view>
+        <view>2、添加设备贡献=成功添加设备数（含真实照片）*100+不含照片*50</view>
         <view>3、纠错设备贡献=成功纠错设备数*10</view>
+        <view>4、评价设备贡献=评价次数*2</view>
       </view>
     </van-popup>
 
@@ -210,7 +211,10 @@
   <view wx:if="{{isEndPage && total}}" class="content-end-wrap">到底啦~</view>
 </scroll-view>
 
-<van-dialog id="van-dialog" custom-class="reject-class" />
+<van-dialog
+  id="van-dialog"
+  custom-class="reject-class"
+/>
 
 <!-- <page-container 
   show="{{show}}"

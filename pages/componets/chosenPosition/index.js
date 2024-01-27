@@ -50,6 +50,7 @@ Component({
     district: '', // 区
     town: '', // 乡镇街道
     myPosition: {}, // 我的位置信息，后面点击回到我的位置直接使用
+    isShowMap: false, // 是否已经打开地图选点
   },
 
   observers: {
@@ -222,26 +223,36 @@ Component({
       const data = this.data
       const that = this
       const { latitude = data.latitude, longitude = data.longitude } = params
-      wx.chooseLocation({
-        latitude,
-        longitude,
-        success: function(res) {
-          console.log("chooseLocation-chooseLocation-chooseLocation", res)
-          that.setData({
-            latitude: res.latitude,
-            longitude: res.longitude,
-            devicePosition: res.name,
-            address: res.address
-          }, () => {
-            that.getReverseGeocoder({
+
+      if (data.isShowMap) return
+      this.setData({
+        isShowMap: true
+      }, () => {
+        wx.chooseLocation({
+          latitude,
+          longitude,
+          success: function(res) {
+            console.log("chooseLocation-chooseLocation-chooseLocation", res)
+            that.setData({
               latitude: res.latitude,
               longitude: res.longitude,
+              devicePosition: res.name,
+              address: res.address,
+              isShowMap: false
+            }, () => {
+              that.getReverseGeocoder({
+                latitude: res.latitude,
+                longitude: res.longitude,
+              })
             })
-          })
-        },
-        fail: function(err) {
-          console.log("errrrrrrrrr", err)
-        }
+          },
+          fail: function(err) {
+            console.log("errrrrrrrrr", err)
+            that.setData({
+              isShowMap: false
+            })
+          }
+        })
       })
     },
 
@@ -260,12 +271,19 @@ Component({
     // 点击地图
     clickMap() {
       if (this.data.disabled) return
+
+      // 是否已经打开地图选，防止重复打开
+      if (this.data.isShowMap) return
+
       this.chooseLocation()
     },
 
     // 触摸地图
     mapTouchstart() {
       if (this.data.disabled) return
+
+      // 是否已经打开地图选，防止重复打开
+      if (this.data.isShowMap) return
 
       this.chooseLocation()
     },
@@ -277,6 +295,9 @@ Component({
     // 位置-省市区输入框聚焦时
     devicePositionFocus() {
       if (this.data.disabled) return
+
+      // 是否已经打开地图选，防止重复打开
+      if (this.data.isShowMap) return
 
       this.chooseLocation()
     }

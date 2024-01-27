@@ -142,7 +142,7 @@
   </view>
 
   <view class="device-bottom-submit-wrapper">
-    <view class="submit-btn" catchtap="addDeviceHandle">提交</view>
+    <view class="submit-btn {{submitLoading ? 'submit-btn-disabled' : ''}}" catchtap="addDeviceHandle">提交</view>
   </view>
   <van-popup
     show="{{ addressShow }}"

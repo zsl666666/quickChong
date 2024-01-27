@@ -132,6 +132,10 @@
   color: #FFFFFF;
   text-align: center;
 }
+.submit-btn-disabled {
+  background: #0D7AC2;
+  opacity: 0.3;
+}
 .add-device-addAddress {
   width: 700rpx;
   margin: 0 auto;

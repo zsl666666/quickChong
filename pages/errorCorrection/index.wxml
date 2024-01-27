@@ -139,7 +139,7 @@
   </view>
 
   <view class="device-bottom-submit-wrapper">
-    <view class="submit-btn {{type === 'view' ? 'submit-btn-disabled' : ''}}" catchtap='errorCorrection'>提交</view>
+    <view class="submit-btn {{type === 'view' || submitLoading ? 'submit-btn-disabled' : ''}}" catchtap='errorCorrection'>提交</view>
   </view>
   <van-toast id="van-toast" />
   <view class="process-wrapper" wx:if="{{showProcess}}">

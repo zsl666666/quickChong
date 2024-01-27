@@ -88,6 +88,7 @@ Page({
     }],
     isExpansion: false, // 是否展开
     mapData: {}, // 选择地图位置相关数据，省市区，经度纬度等
+    submitLoading: false, // 提交按钮loading
   },
 
   // 展开收起
@@ -293,7 +294,11 @@ Page({
 
   // 提交
   addDeviceHandle() {
-    const { deveiceData, mapData } = this.data
+    const { deveiceData, mapData, submitLoading } = this.data
+
+    // 防重复点击
+    if (submitLoading) return
+
     if (!deveiceData.device_type) {
       return Toast('充电设备类型不能为空')
     }
@@ -303,6 +308,9 @@ Page({
     // if (this.data.deveiceData.picture.length < 3) {
     //   return Toast('设备图片至少三张')
     // }
+    this.setData({
+      submitLoading: true
+    })
     wx.request({
       url: url + '/api/device/add',
       method: 'POST',
@@ -330,6 +338,9 @@ Page({
             icon: 'success'
           })
           setTimeout(() => {
+            this.setData({
+              submitLoading: false
+            })
             wx.navigateBack({
               delta: 1
             })
@@ -339,12 +350,18 @@ Page({
             title: res.data.msg,
             icon: 'fail'
           })
+          this.setData({
+            submitLoading: false
+          })
         }
       },
       fail: (err) => {
         wx.showToast({
           title: '添加失败',
           icon: 'fail'
+        })
+        this.setData({
+          submitLoading: false
         })
       }
     })

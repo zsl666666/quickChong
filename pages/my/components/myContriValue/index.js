@@ -190,6 +190,7 @@ Page({
       title: '驳回原因',
       message: data.reject_msg || '暂无原因',
       confirmButtonText: '我知道啦',
+      closeOnClickOverlay: true
     })
   },
 

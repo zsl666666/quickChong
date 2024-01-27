@@ -167,6 +167,8 @@
   width: 94rpx;
   height: 94rpx;
   margin-right: 18rpx;
+  border-radius: 18rpx;
+  overflow: hidden;
 }
 .list-image .van-image__img {
   width: 94rpx;
