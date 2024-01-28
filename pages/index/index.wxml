@@ -112,7 +112,7 @@
           <text>{{deviceDetail.distance}}</text>
           <text class="checked-content-address">{{deviceDetail.name}}</text>
         </view>
-        <view>
+        <view class="device-intro-desc-wrap">
           <text class="device-intro-desc">{{!deviceDetail.is_scancode ? '不支持' : ''}}扫码充电</text>
           <text class="device-intro-desc">{{!deviceDetail.is_rainshelter ? '无' : '有'}}防雨措施</text>
           <text class="device-intro-desc">{{!deviceDetail.is_charger ? '无需' : '需'}}自备充电器</text>
@@ -132,9 +132,9 @@
       </view>
     </view>
     <view class="mark-content-bottom">
-      <view class="checked-content-bottom">
+      <view class="checked-content-bottom {{deviceDetail.loc_type === 1 ? 'checked-content-bottom-estate': ''}}">
         <view class="checked-content-bg">
-          <image src="/image/home-checked-juxing.png" />
+          <image src="{{deviceDetail.loc_type === 1 ? '/image/index/housingPostIcon.png' : '/image/home-checked-juxing.png'}}" />
           <text class="checked-content-type-text">{{ deviceDetail.loc_type === 1 ? '小区' : '公用'}}</text>
         </view>
         <text class="type-chatou-num">端口：{{deviceDetail.device_port}}个</text>

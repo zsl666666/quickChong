@@ -259,6 +259,10 @@
   font-weight: 400;
   color: #2AA596;
 }
+.checked-content-bottom-estate {
+  background: #FFF8EF;
+  color: #FF9E28;
+}
 .checked-content-bg {
   position: absolute;
   width: 80rpx;
@@ -283,7 +287,7 @@
 }
 .type-chatou-num {
   position: relative;
-  left: 80rpx;  
+  left: 86rpx;  
 }
 .checked-content-go-wrapper {
   width: 172rpx;
@@ -316,6 +320,9 @@
   display: inline-block;
   content: '|';
   margin: 0 6rpx;
+}
+.device-intro-desc-wrap {
+  margin-bottom: 10rpx;
 }
 .checked-mark-close {
   display: inline-block;

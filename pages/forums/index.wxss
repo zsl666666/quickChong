@@ -6,6 +6,8 @@
 }
 .top-custom-nav-bar-title {
   font-weight: bolder;
+  width: 76rpx;
+  height: 33rpx;
 }
 .forums-search-wrap {
   box-sizing: border-box;

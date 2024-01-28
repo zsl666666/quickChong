@@ -85,33 +85,36 @@
 }
 .checked-mark-wrapper {
   width: 100vw;
-  height: 326rpx;
+  /* height: 326rpx; */
   background: #FFFFFF;
 }
 .checked-mark-wrapper::after {
-  display: inline-block;
+  display: block;
   content: '';
-  height: 1px;
-  width: 700rpx;
-  background: #eee;
-  margin-left: 25rpx;
+  margin: 0rpx auto;
+  padding-bottom: 42rpx;
+  width: 682rpx;
+  height: 2rpx;
+  background: #FFFFFF;
+  box-shadow: inset 0rpx -1rpx 0rpx 0rpx rgba(0,0,0,0.05);
 }
 .mark-content-top {
-  padding: 34rpx;
+  padding: 42rpx 34rpx 22rpx 34rpx;
   display: flex;
   align-items: center;
+  /* height: max-content; */
 }
 .content-img {
-  width: 152rpx;
-  height: 151rpx;
+  width: 182rpx;
+  height: 182rpx;
   border-radius: 18rpx;
   overflow: hidden;
   margin-right: 18rpx;
 }
 .content-img image {
   display: inline-block;
-  width: 152rpx;
-  height: 152rpx;
+  width: 182rpx;
+  height: 182rpx;
 }
 .checked-content-title {
   font-size: 32rpx;
@@ -123,6 +126,9 @@
   display: flex;
   align-items: center;
 }
+.device-intro-desc-wrap {
+  margin-bottom: 10rpx;
+}
 .checked-content-detail {
   display: flex;
   align-items: center;
@@ -130,6 +136,7 @@
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: rgba(0,0,0,0.5);
+  /* color: #050505; */
   margin: 9rpx 0 9rpx 0;
 }
 .checked-content-pinlun {
@@ -158,6 +165,10 @@
   font-weight: 400;
   color: #2AA596;
 }
+.checked-content-bottom-estate {
+  background: #FFF8EF;
+  color: #FF9E28;
+}
 .checked-content-bg {
   position: absolute;
   width: 80rpx;
@@ -181,7 +192,7 @@
 }
 .type-chatou-num {
   position: relative;
-  left: 80rpx;  
+  left: 86rpx;  
 }
 .checked-content-go-wrapper {
   width: 172rpx;

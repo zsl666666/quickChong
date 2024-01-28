@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "论坛",
+  "navigationStyle": "custom",
   "usingComponents": {
     "van-nav-bar": "@vant/weapp/nav-bar/index",
     "van-sticky": "@vant/weapp/sticky/index",

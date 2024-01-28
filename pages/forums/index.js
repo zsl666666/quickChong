@@ -2,6 +2,8 @@
 import { verifyLogin } from 'utils/index'
 import apis from './apis'
 
+const app = getApp()
+
 // 轮询未读消息数
 let timer = null
 
@@ -11,6 +13,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    navBarHeight: app.globalData.navBarHeight,
     searchBoxHeight: 0,
     triggered: false,
     // serachValue: '', // 搜索框值

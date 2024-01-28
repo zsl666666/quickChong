@@ -1,11 +1,12 @@
 <!--pages/forums/index.wxml-->
 <view class="forums">
   <!-- 自定义navbar -->
-  <!-- <van-nav-bar fixed>
-    <text slot="left" class="top-custom-nav-bar-title">论坛</text>
-  </van-nav-bar> -->
+  <van-nav-bar fixed>
+    <!-- <text slot="left" class="top-custom-nav-bar-title">论坛</text> -->
+    <image slot="left" src="/image/forum/navBarIcon.png" class="top-custom-nav-bar-title" />
+  </van-nav-bar>
 
-  <van-sticky>
+  <van-sticky style="top: {{navBarHeight}}px;position: relative;">
     <view class="forums-search-wrap">
       <van-search
         value="{{filterParams.keywords}}"
@@ -41,7 +42,7 @@
     refresher-enabled
     refresher-triggered="{{triggered}}"
     bindrefresherrefresh="handleScrollRefresh"
-    style="height: calc(100vh - {{searchBoxHeight}}px)"
+    style="height: calc(100vh - {{searchBoxHeight}}px - {{navBarHeight}}px); top: {{navBarHeight}}px;position: relative;"
   >
     <view wx:if="{{!list.length}}" class="empty-data-wrap">暂无数据</view>
     <view
