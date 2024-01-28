@@ -189,6 +189,9 @@
   font-weight: 500;
   color: rgba(0,0,0,0.7);
   line-height: 46rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .add-type-address-status {
   overflow: hidden;

@@ -190,7 +190,7 @@
   color: #0D7AC2;
   /* margin-bottom: 10rpx; */
   padding-top: 10rpx;
-  padding-bottom: 6rpx;
+  padding-bottom: 10rpx;
 }
 .empty-comment-wrap {
   display: flex;

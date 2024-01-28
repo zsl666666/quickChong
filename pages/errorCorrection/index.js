@@ -80,6 +80,7 @@ Page({
     mapData: {}, // 地图相关数据
     type: '', // 页面类型，view表示是查看纠错数据，不可编辑
     submitLoading: false, // 提交按钮loading
+    isShowConfirmPopup: false, // 是否显示二次确认弹窗
   },
 
   /**
@@ -321,11 +322,10 @@ Page({
   },
 
   // 提交纠错
-  errorCorrection() {
-    // const nameData = this.data.quickData.filter(item => this.data.choiceData.includes(item.id))
-    // const tempName = nameData.map(item => item.name)
-
+  postDeviceCorrection() {
     const data = this.data
+
+    const mapData = data.mapData
 
     // 为查看页面类型时
     if (data.type === 'view') return
@@ -333,25 +333,20 @@ Page({
     // 防重复点击
     if (data.submitLoading) return
 
-    const mapData = data.mapData
-    // 校验纠错设备信息
-    if (!data.choiceDataValue) {
-      return Toast('纠错设备信息不能为空')
-    }
-    // 校验纠错设备信息-位置有误的情况
-    if (data.choiceDataValue === '位置有误') {
-      if (!mapData.name || !mapData.city || !mapData.address) {
-        return Toast('位置信息不能为空')
-      }
-    }
-    // 校验纠错设备信息-设备信息有误，充电设备类型
-    if (data.choiceDataValue === '设备信息有误' && !data.deveiceData.device_type) {
-      return Toast('充电设备类型不能为空') 
-    }
-
-    // 校验设备照片
-    // if (this.data.picture.length < 3) {
-    //   return Toast('设备图片至少三张')
+    // const mapData = data.mapData
+    // // 校验纠错设备信息
+    // if (!data.choiceDataValue) {
+    //   return Toast('纠错设备信息不能为空')
+    // }
+    // // 校验纠错设备信息-位置有误的情况
+    // if (data.choiceDataValue === '位置有误') {
+    //   if (!mapData.name || !mapData.city || !mapData.address) {
+    //     return Toast('位置信息不能为空')
+    //   }
+    // }
+    // // 校验纠错设备信息-设备信息有误，充电设备类型
+    // if (data.choiceDataValue === '设备信息有误' && !data.deveiceData.device_type) {
+    //   return Toast('充电设备类型不能为空') 
     // }
 
     const params = {
@@ -371,6 +366,10 @@ Page({
 
     this.setData({
       submitLoading: true
+    })
+
+    wx.showLoading({
+      title: '提交中...',
     })
 
     wx.request({
@@ -416,8 +415,46 @@ Page({
         this.setData({
           submitLoading: false
         })
+      },
+      complete: () => {
+        wx.hideLoading()
       }
     })
+  },
+
+  errorCorrection() {
+    const data = this.data
+
+    // 为查看页面类型时
+    if (data.type === 'view') return
+
+    // 防重复点击
+    if (data.submitLoading) return
+
+    const mapData = data.mapData
+    // 校验纠错设备信息
+    if (!data.choiceDataValue) {
+      return Toast('纠错设备信息不能为空')
+    }
+    // 校验纠错设备信息-位置有误的情况
+    if (data.choiceDataValue === '位置有误') {
+      if (!mapData.name || !mapData.city || !mapData.address) {
+        return Toast('位置信息不能为空')
+      }
+    }
+    // 校验纠错设备信息-设备信息有误，充电设备类型
+    if (data.choiceDataValue === '设备信息有误' && !data.deveiceData.device_type) {
+      return Toast('充电设备类型不能为空') 
+    }
+
+    // 显示二次确认弹窗
+    this.setData({
+      isShowConfirmPopup: true
+    })
+  },
+
+  handleConfirmSubmit() {
+    this.postDeviceCorrection()
   },
 
   /**

@@ -153,4 +153,13 @@
     bind:close="onCloseAction"
     bind:select="onSelect"
   />
+
+  <confirmPopup
+    show="{{isShowConfirmPopup}}"
+    title="请确认"
+    content="请确认您修改的：电动自行车/电瓶车充电位置、信息准确无误；错误的位置会影响路线导航，对其他人造成困扰"
+    okButtonText="信息无误，提交"
+    cancelButtonText="再看看"
+    bind:onOk="handleConfirmSubmit"
+  ></confirmPopup>
 </view>

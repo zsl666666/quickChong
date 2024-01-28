@@ -1,0 +1,72 @@
+/* pages/componets/addDeviceConfirmPopup/index.wxss */
+.van-overlay-confirm-popup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+.confirm-device-popup-wrap {
+  box-sizing: border-box;
+  position: fixed;
+  width: 538rpx;
+  height: 678rpx;
+  background: #FFFFFF;
+  border-radius: 30rpx;
+  margin: 0 auto;
+  transition: all 0.2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.popup-title-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30rpx;
+}
+.popup-title-wrap-icon {
+  width: 200rpx;
+  height: 200rpx;
+  margin-bottom: 10rpx;
+}
+.popup-title-wrap-title {
+  height: 60rpx;
+  font-size: 42rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 600;
+  color: rgba(0,0,0,0.9);
+  line-height: 60rpx;
+}
+.popup-content-wrap {
+  box-sizing: border-box;
+  font-size: 28rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.7);
+  line-height: 40rpx;
+  padding: 0rpx 33rpx;
+  text-align: center;
+  margin-bottom: 26rpx;
+}
+
+.popup-bottom {
+  text-align: center;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+}
+.confirm-btn .van-button--primary {
+  width: 446rpx !important;
+  color: red !important;
+  background: #fff !important;
+}
+.cancel-btn {
+  font-size: 30rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: #0D7AC2;
+  line-height: 42rpx;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  margin-top: 4rpx;
+}

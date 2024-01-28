@@ -1,0 +1,27 @@
+<van-overlay
+  show="{{ show }}"
+  custom-class="van-overlay-confirm-popup"
+  z-index="10000"
+>
+  <view class="confirm-device-popup-wrap">
+    <view class="popup-title-wrap">
+      <image class="popup-title-wrap-icon" src="/image/addDevice/addConfirmPopupIcon.png" />
+      <view class="popup-title-wrap-title">{{title}}</view>
+    </view>
+    <view class="popup-content-wrap">
+      {{content}}
+    </view>
+    <view class="popup-bottom">
+      <van-button
+        type="primary"
+        class="confirm-btn"
+        round
+        color="#0D7AC2"
+        custom-style="width: 446rpx; margin: 0 auto;"
+        catch:tap="handleSubmit"
+      >{{okButtonText}}</van-button>
+      <!-- <van-button type="info" colo>块级元素</van-button> -->
+      <view class="cancel-btn" catch:tap="handleCancel">{{cancelButtonText}}</view>
+    </view>
+  </view>
+</van-overlay>

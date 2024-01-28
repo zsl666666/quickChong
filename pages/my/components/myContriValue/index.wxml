@@ -168,12 +168,12 @@
           bind:tap="goAddDetail"
         >
           <van-image
-            src="https://img.yzcdn.cn/vant/cat.jpeg"
+            src="{{item.pic_cover}}"
             image-class="fffff"
             class="list-image"
           />
           <view class="add-type-box">
-            <view class="add-type-title">{{item.address}}</view>
+            <view class="add-type-title">{{item.device_type}} | {{item.address}}</view>
             <view class="add-type-address-status">
               <text class="add-address">评论：{{item.comment}}</text>
             </view>
