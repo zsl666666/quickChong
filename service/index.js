@@ -53,7 +53,9 @@ export const request = (options, optionals) => {
       },
       complete: res => {
         if (isLoading) {
-          wx.hideLoading()
+          wx.hideLoading({
+            noConflict: true
+          })
         }
       }
     })
