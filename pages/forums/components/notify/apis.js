@@ -16,6 +16,23 @@ export const getMessageList = (params = {}) => {
   )
 }
 
+// 详情接口
+export const getDetail = (params = {}) => {
+  return request(
+    {
+      url: '/api/forum/postDetail',
+      method: 'GET',
+      data: {
+        ...params
+      }
+    },
+    {
+      isLoading: true,
+    }
+  )
+}
+
 export default {
-  getMessageList
+  getMessageList,
+  getDetail
 }

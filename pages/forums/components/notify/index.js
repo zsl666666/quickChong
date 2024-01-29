@@ -139,8 +139,12 @@ Page({
     if (!msg?.post_id) {
       return Toast('帖子已不存在了~')
     }
-    wx.navigateTo({
-      url: '/pages/forums/components/postDetail/index' + `?postId=${msg.post_id}&isNotifyPage=true`,
+    apis.getDetail({
+      post_id: msg.post_id
+    }).then(res => {
+      wx.navigateTo({
+        url: '/pages/forums/components/postDetail/index' + `?postId=${msg.post_id}&isNotifyPage=true`,
+      })
     })
   }
 })

@@ -329,8 +329,9 @@
   position: absolute;
   width: 44rpx;
   height: 44rpx;
-  top: 12rpx;
-  right: 12rpx;
+  top: 0rpx;
+  padding: 16rpx;
+  right: 0rpx;
 }
 .hide {
   display: none;

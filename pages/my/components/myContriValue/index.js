@@ -195,8 +195,23 @@ Page({
   },
 
   //跳转添加详情回显
-  goAddDetail() {
+  goAddDetail(e) {
     console.log('点击跳转添加设备详情回显')
+    const tempObj = e.currentTarget.dataset.item
+
+    // 添加列表不是已经审核通过的不能跳转地图卡片
+    if (tempObj.status !== CONFIG.APPROVE_STATUS_PASS) return
+
+    const latitude = tempObj.coordinate.split(',')[0]
+    const longitude = tempObj.coordinate.split(',')[1]
+    wx.setStorageSync('detailObj', JSON.stringify({
+      id: tempObj.id,
+      latitude,
+      longitude
+    }))
+    wx.switchTab({
+      url: `/pages/index/index?id=${tempObj.id}&&latitude=${latitude}&&longitude=${longitude}`,
+    })
   },
 
   // 跳转纠错详情回显
@@ -233,5 +248,33 @@ Page({
         page: filterParams.page + 1
       })
     }
-  }
+  },
+
+  handleClick(e) {
+    const tempObj = e.currentTarget.dataset.item
+    const latitude = tempObj.coordinate.split(',')[0]
+    const longitude = tempObj.coordinate.split(',')[1]
+    wx.setStorageSync('detailObj', JSON.stringify({
+      id: tempObj.device_id,
+      latitude,
+      longitude
+    }))
+    wx.switchTab({
+      url: `/pages/index/index?id=${tempObj.id}&&latitude=${latitude}&&longitude=${longitude}`,
+    })
+  },
+
+  goCommentDetail(e) {
+    const tempObj = e.currentTarget.dataset.item
+    const latitude = tempObj.coordinate.split(',')[0]
+    const longitude = tempObj.coordinate.split(',')[1]
+    wx.setStorageSync('detailObj', JSON.stringify({
+      id: tempObj.device_id,
+      latitude,
+      longitude
+    }))
+    wx.switchTab({
+      url: `/pages/index/index?id=${tempObj.id}&&latitude=${latitude}&&longitude=${longitude}`,
+    })
+  },
 })

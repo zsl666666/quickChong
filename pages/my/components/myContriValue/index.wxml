@@ -107,6 +107,7 @@
           wx:for="{{list}}"
           wx:key="index"
           class="type-list-box"
+          data-item="{{item}}"
           bind:tap="goAddDetail"
         >
           <van-image
@@ -137,7 +138,7 @@
           wx:key="index"
           class="correction-list-box"
           data-item="{{item}}"
-          catch:tap="goCorrectDetail"
+          catch:tap="handleClick"
         >
           <view class="correction-type-wrap">
             <text>{{item.error_type}}</text>
@@ -145,6 +146,8 @@
             <view
               class="add-approve-status"
               style="color: {{APPROVE_STATUS_OBJ[item.status].nameStyle.color}}; background: {{APPROVE_STATUS_OBJ[item.status].nameStyle.background}};"
+              data-item="{{item}}"
+              catch:tap="goCorrectDetail"
             >
               {{APPROVE_STATUS_OBJ[item.status].label}}
               <!-- <van-icon name="arrow" wx:if="{{item.status === APPROVE_STATUS_REJECT}}" /> -->
@@ -153,6 +156,7 @@
           <view class="correction-type-detail">
             <text>设备名称：{{item.brand ? item.brand + ' | ' : ''}}{{item.device_type || '-'}}</text>
             <text>设备地址：{{item.address || '-'}}</text>
+            <text>纠错描述：{{item.description || '-'}}</text>
           </view>
         </view>
       </view>
@@ -165,7 +169,8 @@
           wx:for="{{list}}"
           wx:key="index"
           class="type-list-box"
-          bind:tap="goAddDetail"
+          data-item="{{item}}"
+          bind:tap="goCommentDetail"
         >
           <van-image
             src="{{item.pic_cover}}"

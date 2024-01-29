@@ -52,7 +52,7 @@
 }
 .device-excharge-content {
   width: 714rpx;
-  height: 440rpx;
+  /* height: 440rpx; */
   background: #FFFFFF;
   border-radius: 18rpx;
   margin: 0rpx auto 14rpx;
