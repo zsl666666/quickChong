@@ -53,11 +53,11 @@
             class="content-img-style"
           />
         </view>
-        <view>
+        <view class="search-result-content-wrap">
           <text class="checked-content-title">{{item.device_type}}</text>
           <view class="checked-content-detail">
-            <text>{{item.distance}}</text>
-            <text class="checked-content-address">{{item.name}}</text>
+            <text>{{item.distance}} | {{item.name}}</text>
+            <!-- <text class="checked-content-address">{{item.name}}</text> -->
           </view>
           <view class="device-intro-desc-wrap">
             <text class="device-intro-desc">{{!item.is_scancode ? '不支持' : ''}}扫码充电</text>

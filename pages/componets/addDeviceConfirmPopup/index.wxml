@@ -9,7 +9,8 @@
       <view class="popup-title-wrap-title">{{title}}</view>
     </view>
     <view class="popup-content-wrap">
-      {{content}}
+      <!-- {{content}} -->
+      <rich-text nodes="{{content}}" space="nbsp"></rich-text>
     </view>
     <view class="popup-bottom">
       <van-button

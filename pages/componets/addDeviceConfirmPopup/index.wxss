@@ -46,7 +46,7 @@
   color: rgba(0,0,0,0.7);
   line-height: 40rpx;
   padding: 0rpx 33rpx;
-  text-align: center;
+  /* text-align: center; */
   margin-bottom: 26rpx;
 }
 

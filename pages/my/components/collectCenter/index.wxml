@@ -20,7 +20,7 @@
     >
       <view class="mark-content-top">
         <view class="content-img">
-          <image src="{{item.pic_cover || '/image/list-position.png'}}" mode="aspectFit" class="content-img-style" />
+          <image src="{{item.pic_cover || '/image/list-position.png'}}" class="content-img-style" />
         </view>
         <view>
           <text class="checked-content-title">{{item.device_type}}</text>
