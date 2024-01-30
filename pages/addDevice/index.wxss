@@ -13,12 +13,22 @@
   border-radius: 18rpx;
   margin: 18rpx auto 14rpx;
 }
+.add-device-type-wrap {
+  display: flex;
+  align-items: center;
+  padding: 34rpx 0 30rpx 28rpx;
+}
+.add-device-type-icon {
+  width: 38rpx;
+  height: 38rpx;
+  margin-right: 10rpx;
+}
 .excharge-type-title {
   font-size: 28rpx;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: rgba(0,0,0,0.6);
-  padding: 34rpx 0 30rpx 28rpx;
+  /* padding: 34rpx 0 30rpx 28rpx; */
 }
 .excharge-type-data-wrapper {
   display: flex;

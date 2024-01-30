@@ -1,7 +1,11 @@
 <!--pages/addDevice/index.wxml-->
 <view class="device-page-wrapper">
   <view class="device-excharge-type-wrapper">
-    <view class="excharge-type-title custom-required-ident">充电设备类型</view>
+    <view class="add-device-type-wrap">
+      <image class="add-device-type-icon" src="/image/addDevice/deviceTypeIcon.png" />
+      <!-- <view class="excharge-type-title custom-required-ident">充电设备类型</view> -->
+      <view class="excharge-type-title">充电设备类型</view>
+    </view>
     <view class="excharge-type-data-wrapper">
       <view
         wx:for="{{deviceData}}"

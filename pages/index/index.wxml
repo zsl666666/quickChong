@@ -20,6 +20,21 @@
       class="map-notice-bar"
       style="top: calc({{navBarHeight}}px + 220rpx)"
     >
+        <!-- <image
+          class="notice-bar-left-icon"
+          src="/image/index/mapTopNoticeBarIcon.png"
+          slot="left-icon"
+        />
+        <view class="map-notice-content">
+          {{noticeBarText}}
+        </view>
+        <van-icon
+          name="cross"
+          slot="right-icon"
+          class="map-notice-bar-close-icon"
+          catch:tap="handleCloseNoticeBar"
+        /> -->
+
       <van-notice-bar
         background="#FFFFFF"
         color="#6b6b6b"
