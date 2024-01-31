@@ -407,7 +407,7 @@ Page({
       success: (res) => {
         if (!res.data.code) {
           wx.showToast({
-            title: '等待审核',
+            title: '提交成功，等待审核',
             icon: 'success'
           })
           setTimeout(() => {
@@ -438,7 +438,7 @@ Page({
         })
       },
       complete: () => {
-        wx.hideLoading()
+        wx.hideLoading({ noConflict: true })
       }
     })
   },
@@ -463,14 +463,17 @@ Page({
     apis.getAddTimes().then(res => {
       const timesNum = res?.data
       if (timesNum > 3) {
-        this.postAddDevice()
+        this.setData({
+          submitLoading: false
+        }, () => {
+          this.postAddDevice()
+        })
       } else {
         this.setData({
           isShowConfirmPopup: true,
-          submitLoading: false
         })
       }
-    }).catch(() => {
+    }).finally(() => {
       this.setData({
         submitLoading: false
       })

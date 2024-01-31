@@ -115,7 +115,7 @@
           <image src="/image/upload-icon.png" class="content-img-style2" />
         </van-uploader>
       </view>
-      <view>
+      <view class="search-result-content-wrap">
         <text class="checked-content-title">{{deviceDetail.device_type}}</text>
         <!-- <view class="checked-tag-wrapper">
           <text class="tag-item" wx:if="{{deviceDetail.is_scancode}}">扫码充电</text>
@@ -123,10 +123,16 @@
           <text class="tag-item" wx:if="{{!deviceDetail.is_charger}}">无需自备充电器</text>
           <text class="tag-item" wx:if="{{deviceDetail.is_charger}}">需自备充电器</text>
         </view>  -->
+
         <view class="checked-content-detail">
+          <text>{{deviceDetail.distance}} | {{deviceDetail.name}}</text>
+          <!-- <text class="checked-content-address">{{deviceDetail.name}}</text> -->
+        </view>
+        <!-- <view class="checked-content-detail">
           <text>{{deviceDetail.distance}}</text>
           <text class="checked-content-address">{{deviceDetail.name}}</text>
-        </view>
+        </view> -->
+
         <view class="device-intro-desc-wrap">
           <text class="device-intro-desc">{{!deviceDetail.is_scancode ? '不支持' : ''}}扫码充电</text>
           <text class="device-intro-desc">{{!deviceDetail.is_rainshelter ? '无' : '有'}}防雨措施</text>

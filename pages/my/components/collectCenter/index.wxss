@@ -26,9 +26,15 @@
   display: flex;
   align-items: center;
 }
+.search-result-content-wrap {
+  flex: 1;
+  overflow: hidden;
+}
 .content-img {
-  width: 152rpx;
-  height: 152rpx;
+  /* width: 152rpx;
+  height: 152rpx; */
+  width: 182rpx;
+  height: 182rpx;
   border-radius: 18rpx;
   overflow: hidden;
   margin-right: 18rpx;
@@ -52,13 +58,17 @@
   align-items: center;
 }
 .checked-content-detail {
-  display: flex;
-  align-items: center;
+  /* display: flex;
+  align-items: center; */
   font-size: 24rpx;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: rgba(0,0,0,0.6);
   margin: 9rpx 0 9rpx 0;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .checked-content-pinlun {
   font-size: 24rpx;

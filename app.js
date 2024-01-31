@@ -47,6 +47,7 @@ App({
     const that = this;
 
     if (!this.globalData.address || !this.globalData.curPositionInfo.latitude) {
+      console.log('城市位置信息为空，重新获取当前位置相关信息', this.globalData)
       QQMapWXReverseGeocoder({
         success: function(res) {
           console.log('逆地址解析接口-getReverseGeocoder', res, that.globalData)

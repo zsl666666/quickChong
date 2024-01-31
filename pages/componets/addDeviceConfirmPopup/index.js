@@ -50,8 +50,8 @@ Component({
         loading: true
       })
 
-      this.handleCancel()
       this.triggerEvent('onOk')
+      this.handleCancel()
 
       setTimeout(() => {
         this.setData({

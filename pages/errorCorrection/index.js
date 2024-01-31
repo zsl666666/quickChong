@@ -417,7 +417,7 @@ Page({
         })
       },
       complete: () => {
-        wx.hideLoading()
+        wx.hideLoading({ noConflict: true })
       }
     })
   },
