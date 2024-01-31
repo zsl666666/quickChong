@@ -34,13 +34,13 @@
         </view>
         <van-icon name="arrow" />
       </view>
-      <view class="my-user-item" catchtap="cooperateHandle">
+      <!-- <view class="my-user-item" catchtap="cooperateHandle">
         <view class="my-item-left">
           <image src="/image/hezuo.png" class="my-item-img" />
           <text>我要合作</text>
         </view>
         <van-icon name="arrow" />
-      </view>
+      </view> -->
       <view class="my-user-item" catchtap="goCollectCenter">
         <view class="my-item-left">
           <image src="/image/my/myCollectEntryIcon.png" class="my-item-img" />
