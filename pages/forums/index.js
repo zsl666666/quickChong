@@ -27,7 +27,8 @@ Page({
     isEndPage: false,
     scrollTop: undefined,
     showLogin: false,
-    unReadNum: 0
+    unReadNum: 0,
+    isViewPage: wx.getStorageSync('isView')
   },
 
   /**
@@ -48,7 +49,7 @@ Page({
   onReady() {
     wx.createSelectorQuery().select('.forums-search-wrap').boundingClientRect(rect=>{
       this.setData({
-        searchBoxHeight: rect.height
+        searchBoxHeight: rect?.height
       })
     }).exec();
     this.handleSearch({ page: 1 })
@@ -58,6 +59,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    this.setData({
+      isViewPage: wx.getStorageSync('isView')
+    })
+
     // 判断是否登录状态
     const loginStatus = verifyLogin()
     // 登录获取未读消息数

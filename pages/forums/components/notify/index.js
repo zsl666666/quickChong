@@ -21,6 +21,7 @@ Page({
     },
     isEndPage: false,
     scrollTop: undefined,
+    isViewPage: wx.getStorageSync('isView')
   },
 
   onReady() {
@@ -28,6 +29,11 @@ Page({
   },
   onLoad() {
     this.handleSearch({ page: 1 })
+  },
+  onShow() {
+    this.setData({
+      isViewPage: wx.getStorageSync('isView')
+    })
   },
 
   // 获取消息列表

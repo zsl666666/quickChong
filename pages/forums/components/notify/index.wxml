@@ -1,6 +1,11 @@
 <!--pages/forums/components/notify/index.wxml-->
 <wxs module="forumsFn" src="../../utils.wxs"></wxs>
 
+
+<view wx:if="{{!isViewPage}}" style="width:100%;height: 100vh;margin: 0rpx auto;text-align: center;position: fixed;z-index: 100000;background: #ffffff;line-height: 100vh;">
+  暂无数据
+</view>
+
 <van-nav-bar
   fixed
   placeholder
@@ -25,6 +30,7 @@
 </van-nav-bar>
 
 <scroll-view
+  wx:if="{{isViewPage}}"
   bindscrolltolower="handleScrollToLower"
   scroll-y="true"
   scroll-top="{{scrollTop}}"

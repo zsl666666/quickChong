@@ -59,6 +59,7 @@ Page({
     },
     isNotifyPage: false, // 是否消息通知页面跳转过来的
     showLogin: false, // 是否显示登录弹窗
+    isViewPage: wx.getStorageSync('isView')
   },
 
   handleLinktap(e) {
@@ -93,7 +94,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-  
+    this.setData({
+      isViewPage: wx.getStorageSync('isView')
+    })
   },
 
   /**

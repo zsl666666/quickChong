@@ -15,7 +15,14 @@ Page({
     content: '', // 帖子正文
     contentCode: "", // 帖子内容html dom用户话题高亮
     fileList: [], // 帖子照片
+    isViewPage: wx.getStorageSync('isView')
   },
+  onShow() {
+    this.setData({
+      isViewPage: wx.getStorageSync('isView')
+    })
+  },
+
   handleChangeTitleValue(e) {
     this.setData({
       titleValue: e.detail.value

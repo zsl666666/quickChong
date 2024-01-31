@@ -1,5 +1,9 @@
 <!--pages/forums/components/postMessage/index.wxml-->
-<view class="post-message">
+<view wx:if="{{!isViewPage}}" style="width:100%;height: 100vh;margin: 0rpx auto;text-align: center;position: fixed;z-index: 100000;background: #ffffff;line-height: 100vh;">
+  暂无数据
+</view>
+
+<view wx:else class="post-message">
   <view class="post-content">
     <van-field
       value="{{ titleValue }}"

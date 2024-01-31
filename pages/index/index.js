@@ -584,6 +584,24 @@ Page({
   },
 
   onShow() {
+    // 处理全局开关
+    wx.request({
+      url: url + '/api/forum/viewswitch',
+      method: 'GET',
+      data: {},
+      success: function(res) {
+        const resData = res?.data || {}
+        if (resData.code === 0) {
+          wx.setStorageSync('isView', resData.data)
+        } else {
+          wx.setStorageSync('isView', false)
+        }
+      },
+      fail: function(err) {
+        wx.setStorageSync('isView', false)
+      }
+    })
+
     // 地图顶部通知
     this.setData({
       isNoticeScrollable: true,
