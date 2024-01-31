@@ -128,13 +128,13 @@ Page({
 
   // 我要合作
   cooperateHandle() {
-    if (!wx.getStorageSync('nickName')) {
-      this.getUserInfoHanle()
-    } else {
-      wx.navigateTo({
-        url: '/pages/cooperate/index',
-      })
-    }
+    // if (!wx.getStorageSync('nickName')) {
+    //   this.getUserInfoHanle()
+    // } else {
+    //   wx.navigateTo({
+    //     url: '/pages/cooperate/index',
+    //   })
+    // }
   },
 
   contributeHandle() {
