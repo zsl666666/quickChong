@@ -78,15 +78,29 @@ Page({
     }],
     initPosData: {}, // 接口返回地图位置数据
     mapData: {}, // 地图相关数据
+    type: '', // 页面类型，view表示是查看纠错数据，不可编辑
+    submitLoading: false, // 提交按钮loading
+    isShowConfirmPopup: false, // 是否显示二次确认弹窗
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    const detail = JSON.parse(options.detail || '{}')
+    const type = options.type
+    const detail = JSON.parse(decodeURIComponent(options.detail) || '{}')
     const coordinateArr = detail.coordinate.split(',')
+
+    // 设备照片
+    const pictures = detail.pictures.length
+      ? detail.pictures.map(item => ({
+        url: item.pic_url || item,
+        name: "图片",
+        deletable: type !== 'view',
+      })) : []
+
     this.setData({
+      type: type,
       deviceId: options.id,
       deviceDetail: detail,
       initPosData: {
@@ -107,6 +121,12 @@ Page({
       brand: detail.brand, // 设备品牌
       brand_contact: detail.brand_contact, // 联系方式
       around_monitor: detail.around_monitor, // 设备周围监控
+      fileList: pictures, // 设备照片
+      comment: detail.description, // 描述
+      // 查看纠错信息时，回显纠错设备信息类型
+      ...(type === 'view' ? {
+        choiceDataValue: detail.error_type || ''
+      } : {})
     })
   },
 
@@ -126,6 +146,10 @@ Page({
     //     element.selected = false
     //   }
     // });
+
+    // 为查看页面类型时
+    if (this.data.type === 'view') return
+
     this.setData({
       // choiceData: arr,
       choiceDataValue: e.currentTarget.dataset.value,
@@ -209,6 +233,9 @@ Page({
 
   // 选择充电设备类型
   choiceDeviceType(e) {
+    // 为查看页面类型时
+    if (this.data.type === 'view') return
+
     this.setData({
       deveiceData: {
         ...this.data.deveiceData,
@@ -276,6 +303,9 @@ Page({
 
   // 选择类型-公共充电设备，还是小区充电设备
   publicPlotType(e) {
+    // 为查看页面类型时
+    if (this.data.type === 'view') return
+
     this.setData({
       deveiceData: {
         ...this.data.deveiceData,
@@ -292,29 +322,31 @@ Page({
   },
 
   // 提交纠错
-  errorCorrection() {
-    // const nameData = this.data.quickData.filter(item => this.data.choiceData.includes(item.id))
-    // const tempName = nameData.map(item => item.name)
+  postDeviceCorrection() {
     const data = this.data
-    const mapData = data.mapData
-    // 校验纠错设备信息
-    if (!data.choiceDataValue) {
-      return Toast('纠错设备信息不能为空')
-    }
-    // 校验纠错设备信息-位置有误的情况
-    if (data.choiceDataValue === '位置有误') {
-      if (!mapData.name || !mapData.city || !mapData.address) {
-        return Toast('位置信息不能为空')
-      }
-    }
-    // 校验纠错设备信息-设备信息有误，充电设备类型
-    if (data.choiceDataValue === '设备信息有误' && !data.deveiceData.device_type) {
-      return Toast('充电设备类型不能为空') 
-    }
 
-    // 校验设备照片
-    // if (this.data.picture.length < 3) {
-    //   return Toast('设备图片至少三张')
+    const mapData = data.mapData
+
+    // 为查看页面类型时
+    if (data.type === 'view') return
+
+    // 防重复点击
+    if (data.submitLoading) return
+
+    // const mapData = data.mapData
+    // // 校验纠错设备信息
+    // if (!data.choiceDataValue) {
+    //   return Toast('纠错设备信息不能为空')
+    // }
+    // // 校验纠错设备信息-位置有误的情况
+    // if (data.choiceDataValue === '位置有误') {
+    //   if (!mapData.name || !mapData.city || !mapData.address) {
+    //     return Toast('位置信息不能为空')
+    //   }
+    // }
+    // // 校验纠错设备信息-设备信息有误，充电设备类型
+    // if (data.choiceDataValue === '设备信息有误' && !data.deveiceData.device_type) {
+    //   return Toast('充电设备类型不能为空') 
     // }
 
     const params = {
@@ -331,6 +363,15 @@ Page({
       picture: data.picture, // 设备照片
     }
     console.log('纠错提交接口参数', params)
+
+    this.setData({
+      submitLoading: true
+    })
+
+    wx.showLoading({
+      title: '提交中...',
+    })
+
     wx.request({
       url: url + '/api/user/correct',
       method: 'POST',
@@ -349,6 +390,9 @@ Page({
             icon: 'success',
           })
           setTimeout(() => {
+            this.setData({
+              submitLoading: false
+            })
             wx.navigateBack({
               delta: 1 // 返回上一级页面
             })
@@ -358,6 +402,9 @@ Page({
             title: res.data.msg || '提交失败',
             icon: 'fail'
           })
+          this.setData({
+            submitLoading: false
+          })
         }
       },
       fail: (err) => {
@@ -365,8 +412,49 @@ Page({
           title: '提交失败',
           icon: 'fail'
         })
+        this.setData({
+          submitLoading: false
+        })
+      },
+      complete: () => {
+        wx.hideLoading({ noConflict: true })
       }
     })
+  },
+
+  errorCorrection() {
+    const data = this.data
+
+    // 为查看页面类型时
+    if (data.type === 'view') return
+
+    // 防重复点击
+    if (data.submitLoading) return
+
+    const mapData = data.mapData
+    // 校验纠错设备信息
+    if (!data.choiceDataValue) {
+      return Toast('纠错设备信息不能为空')
+    }
+    // 校验纠错设备信息-位置有误的情况
+    if (data.choiceDataValue === '位置有误') {
+      if (!mapData.name || !mapData.city || !mapData.address) {
+        return Toast('位置信息不能为空')
+      }
+    }
+    // 校验纠错设备信息-设备信息有误，充电设备类型
+    if (data.choiceDataValue === '设备信息有误' && !data.deveiceData.device_type) {
+      return Toast('充电设备类型不能为空') 
+    }
+
+    // 显示二次确认弹窗
+    this.setData({
+      isShowConfirmPopup: true
+    })
+  },
+
+  handleConfirmSubmit() {
+    this.postDeviceCorrection()
   },
 
   /**

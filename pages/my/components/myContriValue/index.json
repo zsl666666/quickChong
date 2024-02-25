@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "我的贡献",
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#0D7AC2",
+  "usingComponents": {
+    "van-image": "@vant/weapp/image/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "popover": "/pages/componets/popover/popover",
+    "popover-item": "/pages/componets/popover/popover-item",
+    "van-dialog": "@vant/weapp/dialog/index"
+  }
+}

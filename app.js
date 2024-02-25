@@ -18,30 +18,60 @@ App({
     this.globalData.menuTop=  menuButtonInfo.top;
     this.globalData.menuHeight = menuButtonInfo.height;
 
-    // 当前位置信息
-    QQMapWXReverseGeocoder({
-      success: function(res) {
-        console.log('逆地址解析接口-getReverseGeocoder', res, that.globalData)
-        const result = res.result
-        const ad_info = result?.ad_info || {}
-        const params = {
-          province: ad_info.province,
-          city: ad_info.city,
-          district: ad_info.district,
-          town: result.address_reference?.town?.title || '',
-          name: result.address_reference.landmark_l2.title,
-          address: result.formatted_addresses.recommend,
-          location: result.location,
-          latitude: result.location.lat,
-          longitude: result.location.lng,
+    // // 当前位置信息
+    // QQMapWXReverseGeocoder({
+    //   success: function(res) {
+    //     console.log('逆地址解析接口-getReverseGeocoder', res, that.globalData)
+    //     const result = res.result
+    //     const ad_info = result?.ad_info || {}
+    //     const params = {
+    //       province: ad_info.province,
+    //       city: ad_info.city,
+    //       district: ad_info.district,
+    //       town: result.address_reference?.town?.title || '',
+    //       name: result.address_reference.landmark_l2.title,
+    //       address: result.formatted_addresses.recommend,
+    //       location: result.location,
+    //       latitude: result.location.lat,
+    //       longitude: result.location.lng,
+    //     }
+    //     that.globalData.curPositionInfo = params
+    //     that.globalData.address = params.city
+    //     if (typeof that.asyncOkCb === 'function') {
+    //       that.asyncOkCb(that.globalData)
+    //     }
+    //   }
+    // })
+  },
+  onShow() {
+    const that = this;
+
+    if (!this.globalData.address || !this.globalData.curPositionInfo.latitude) {
+      console.log('城市位置信息为空，重新获取当前位置相关信息', this.globalData)
+      QQMapWXReverseGeocoder({
+        success: function(res) {
+          console.log('逆地址解析接口-getReverseGeocoder', res, that.globalData)
+          const result = res.result
+          const ad_info = result?.ad_info || {}
+          const params = {
+            province: ad_info.province,
+            city: ad_info.city,
+            district: ad_info.district,
+            town: result.address_reference?.town?.title || '',
+            name: result.address_reference.landmark_l2.title,
+            address: result.formatted_addresses.recommend,
+            location: result.location,
+            latitude: result.location.lat,
+            longitude: result.location.lng,
+          }
+          that.globalData.curPositionInfo = params
+          that.globalData.address = params.city
+          if (typeof that.asyncOkCb === 'function') {
+            that.asyncOkCb(that.globalData)
+          }
         }
-        that.globalData.curPositionInfo = params
-        that.globalData.address = params.city
-        if (typeof that.asyncOkCb === 'function') {
-          that.asyncOkCb(that.globalData)
-        }
-      }
-    })
+      })
+    }
   },
   globalData: {
     userInfo: null,

@@ -1,0 +1,232 @@
+<!--pages/my/components/myContriValue/index.wxml-->
+
+<scroll-view
+  bindscrolltolower="handleScrollToLower"
+  scroll-y="true"
+  enhanced="{{true}}"
+  enable-passive="{{true}}"
+  lower-threshold="80"
+  enable-back-to-top="{{true}}"
+  style="height: 100vh;background: #F4F4F4;"
+>
+  <view class="contri-value-wrap">
+    <view class="contri-background-wrap">
+      <view class="contri-background-all">
+        <text class="contri-background-all-value">{{contributeValueData.contribute || 0}}</text>
+        <view class="contri-background-all-desc-wrap">
+          <text>我的总贡献值</text>
+          <van-icon
+            bind:tap="onContributeExplainPopup"
+            name="question-o"
+            color="#B2B2B2"
+            size="34rpx"
+            custom-style="width: 34rpx; height: 34rpx; color: #ffffff; padding: 8rpx"
+          />
+        </view>
+      </view>
+      <image src="/image/my/contriValueBackground.png" class="contri-background-all-logo" />
+    </view>
+
+    <view class="contribute-view-wrap contri-every-wrap">
+      <view class="contribute-type-wrap">
+        <view class="contribute-type-box">
+          <text class="contribute-type-value">{{contributeValueData.device_value || 0}}</text>
+          <text class="contribute-type-name">添加设备贡献</text>
+        </view>
+        <view class="contri-custom-divider"></view>
+        <view class="contribute-type-box">
+          <text class="contribute-type-value">{{contributeValueData.correct_value || 0}}</text>
+          <text class="contribute-type-name">纠错设备贡献</text>
+        </view>
+        <view class="contri-custom-divider"></view>
+        <view class="contribute-type-box">
+          <text class="contribute-type-value">{{contributeValueData.comment_value || 0}}</text>
+          <text class="contribute-type-name">评论设备贡献</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="my-contribute-value-wrap" bind:tap="bindTap">
+    <!-- <view class="contribute-view-wrap">
+      <view class="contribute-name-box">
+        <text class="contribute-title">我的贡献值</text>
+        <view bind:tap="onContributeExplainPopup">
+          <van-icon
+            name="question-o"
+            color="#B2B2B2"
+            size="34rpx"
+            custom-style="width: 34rpx; height: 34rpx;"
+          />
+        </view>
+      </view>
+      <view class="contribute-type-wrap">
+        <view class="contribute-type-box">
+          <text class="contribute-type-value">{{'500'}}</text>
+          <text class="contribute-type-name">总贡献值</text>
+        </view>
+        <view class="contribute-type-box">
+          <text class="contribute-type-value">{{'500'}}</text>
+          <text class="contribute-type-name">添加设备贡献</text>
+        </view>
+        <view class="contribute-type-box">
+          <text class="contribute-type-value">{{'500'}}</text>
+          <text class="contribute-type-name">纠错设备贡献</text>
+        </view>
+      </view>
+    </view> -->
+
+    <view class="contribute-detail-wrap">
+      <view class="contribute-detail-type-box">
+        <view class="contribute-detail-type">
+          <view
+            wx:for="{{CONTRIBUTE_TYPE_LIST}}"
+            wx:key="index"
+            class="contribute-detail-type-name {{contributeType === item.value ? 'active-contribute-type': '' }}"
+            data-item="{{item}}"
+            bind:tap="handleContributeTypeChange"
+          >
+            {{item.label}}
+          </view>
+        </view>
+
+        <view
+          wx:if="{{contributeType !== CONTRIBUTE_TYPE_COMMENT}}"
+          id="button"
+          bind:tap="onFilterContrbuteType"
+          data-ignore-click="true"
+          class="filter-tyoe-btn"
+        >筛选<van-icon name="arrow-down" style="margin-left: 6rpx;" /></view>
+      </view>
+
+      <view
+        wx:if="{{contributeType === CONTRIBUTE_TYPE_ADD}}"
+        class="contribute-content-wrap"
+      >
+        <view
+          wx:for="{{list}}"
+          wx:key="index"
+          class="type-list-box"
+          data-item="{{item}}"
+          bind:tap="goAddDetail"
+        >
+          <van-image
+            src="{{item.pic_cover}}"
+            class="list-image"
+          />
+          <view class="add-type-box">
+            <view class="add-type-title">{{item.device_type}}</view>
+            <view class="add-type-address-status">
+              <view
+                class="add-approve-status"
+                style="color: {{APPROVE_STATUS_OBJ[item.status].nameStyle.color}}; background: {{APPROVE_STATUS_OBJ[item.status].nameStyle.background}};"
+                data-item="{{item}}"
+                catch:tap="handleViewReject"
+              >{{APPROVE_STATUS_OBJ[item.status].label}}<van-icon name="arrow" wx:if="{{item.status === APPROVE_STATUS_REJECT}}" /></view>
+              <text class="add-address">{{item.address}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    
+      <view
+        wx:if="{{contributeType === CONTRIBUTE_TYPE_CORRECTION}}"
+        class="contribute-content-wrap"
+      >
+        <view
+          wx:for="{{list}}"
+          wx:key="index"
+          class="correction-list-box"
+          data-item="{{item}}"
+          catch:tap="handleClick"
+        >
+          <view class="correction-type-wrap">
+            <text>{{item.error_type}}</text>
+            <!-- <text class="add-approve-status">审批通过</text> -->
+            <view
+              class="add-approve-status"
+              style="color: {{APPROVE_STATUS_OBJ[item.status].nameStyle.color}}; background: {{APPROVE_STATUS_OBJ[item.status].nameStyle.background}};"
+              data-item="{{item}}"
+              catch:tap="goCorrectDetail"
+            >
+              {{APPROVE_STATUS_OBJ[item.status].label}}
+              <!-- <van-icon name="arrow" wx:if="{{item.status === APPROVE_STATUS_REJECT}}" /> -->
+            </view>
+          </view>
+          <view class="correction-type-detail">
+            <text>设备名称：{{item.brand ? item.brand + ' | ' : ''}}{{item.device_type || '-'}}</text>
+            <text>设备地址：{{item.address || '-'}}</text>
+            <text>纠错描述：{{item.description || '-'}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view
+        wx:if="{{contributeType === CONTRIBUTE_TYPE_COMMENT}}"
+        class="contribute-content-wrap"
+      >
+        <view
+          wx:for="{{list}}"
+          wx:key="index"
+          class="type-list-box"
+          data-item="{{item}}"
+          bind:tap="goCommentDetail"
+        >
+          <van-image
+            src="{{item.pic_cover}}"
+            image-class="fffff"
+            class="list-image"
+          />
+          <view class="add-type-box">
+            <view class="add-type-title">{{item.device_type}} | {{item.address}}</view>
+            <view class="add-type-address-status">
+              <text class="add-address">评论：{{item.comment}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <van-popup
+      show="{{ contributeExplainPopup }}"
+      position="top"
+      round
+      bind:close="onContributeExplainClose"
+    >
+      <view class="contribute-explain-popup">
+        <view>贡献值明细：</view>
+        <view>1、总贡献值=添加设备贡献+纠错设备贡献+评价设备贡献</view>
+        <view>2、添加设备贡献=成功添加设备数（含真实照片）*100+不含照片*50</view>
+        <view>3、纠错设备贡献=成功纠错设备数*10</view>
+        <view>4、评价设备贡献=评价次数*2</view>
+      </view>
+    </van-popup>
+
+    <popover class="filter-type-popover" id="popover" data-ignore-click="true">
+      <popover-item
+        wx:for="{{APPROVE_STATUS_LIST}}"
+        wx:key="index"
+        hasline="{{index !== APPROVE_STATUS_LIST.length - 1}}"
+        class="filter-type-popover-item {{filterType === item.value ? 'acticve-filter-type-popover-item' : ''}}"
+        data-value="{{item.value}}"
+        bind:tap="onPopoverItem"
+      >{{item.label}}</popover-item>
+    </popover>
+  </view>
+  <view wx:if="{{isEndPage && total}}" class="content-end-wrap">到底啦~</view>
+</scroll-view>
+
+<van-dialog
+  id="van-dialog"
+  custom-class="reject-class"
+/>
+
+<!-- <page-container 
+  show="{{show}}"
+  overlay="{{false}}"
+  bindbeforeenter="onBeforeEnter"
+>
+  <view class="detail-page">
+    <button type="primary" bindtap="exit">推出</button>
+  </view>
+</page-container> -->

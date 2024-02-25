@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-icon": "@vant/weapp/icon/index",
+    "keyboardTopInput": "/pages/componets/keyboardTopInput/index",
+    "get-nick": "/pages/componets/getNickName/index"
+  }
+}

@@ -27,11 +27,20 @@ Component({
     menuHeight: app.globalData.menuHeight,
     areaList,
     show: false,
-    currentCity: '',
+    currentCity: app.globalData?.curPositionInfo?.city || '',
   },
 
   lifetimes: {
     attached() {
+      app.asyncOkCb = (res) => {
+        this.setData({
+          currentCity: res.curPositionInfo?.city,
+        })
+      }
+    }
+  },
+  pageLifetimes: {
+    show() {
       app.asyncOkCb = (res) => {
         this.setData({
           currentCity: res.curPositionInfo?.city,

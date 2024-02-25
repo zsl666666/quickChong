@@ -21,9 +21,8 @@
         label="公司名称"
         placeholder="请输入"
         input-align="right"
-        disabled="{{!choiceDeviceValue}}"
         model:value="{{ company_name }}"
-        wx:if="{{!choiceDeviceValue}}"
+        wx:if="{{choiceDeviceValue === 1}}"
       />
       <van-field
         clearable

@@ -12,6 +12,7 @@
     "van-circle": "@vant/weapp/circle/index",
     "van-toast": "@vant/weapp/toast/index",
     "van-action-sheet": "@vant/weapp/action-sheet/index",
-    "chosen-position": "/pages/componets/chosenPosition/index"
+    "chosen-position": "/pages/componets/chosenPosition/index",
+    "confirmPopup": "/pages/componets/addDeviceConfirmPopup/index"
   }
 }

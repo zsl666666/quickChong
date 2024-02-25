@@ -1,0 +1,119 @@
+<!--pages/forums/components/notify/index.wxml-->
+<wxs module="forumsFn" src="../../utils.wxs"></wxs>
+
+
+<view wx:if="{{!isViewPage}}" style="width:100%;height: 100vh;margin: 0rpx auto;text-align: center;position: fixed;z-index: 100000;background: #ffffff;line-height: 100vh;">
+  暂无数据
+</view>
+
+<van-nav-bar
+  fixed
+  placeholder
+  z-index="{{101}}"
+  class="constom-message-nav-bar"
+>
+  <view slot="left" class="detail-nav-bar-left" catch:tap="goBack">
+    <van-icon
+      name="arrow-left"
+      size="18"
+      custom-style="font-weight: bolder;"
+    />
+  </view>
+  <view
+    slot="title"
+    class="contom-top-title"
+    catch:tap="handleChangeMeaasgeType"
+  >
+    {{MESSAGE_TYPE_OBJ[filterParams.type].label}}
+    <text class="triangle-icon"></text>
+  </view>
+</van-nav-bar>
+
+<scroll-view
+  wx:if="{{isViewPage}}"
+  bindscrolltolower="handleScrollToLower"
+  scroll-y="true"
+  scroll-top="{{scrollTop}}"
+  enhanced="{{true}}"
+  enable-passive="{{true}}"
+  lower-threshold="80"
+  refresher-enabled
+  refresher-triggered="{{triggered}}"
+  bindrefresherrefresh="handleScrollRefresh"
+  style="height: calc(100vh - {{navBarHeight}}px)"
+>
+  <view
+    wx:for="{{list}}"
+    wx:key="index"
+    data-item="{{item}}"
+    class="notify-content-box"
+    catch:tap="goDetail"
+  >
+    <view class="notify-conent">
+      <image
+        class="notify-people-icon"
+        src="{{forumsFn.getAvatar(item.avatar)}}"
+      />
+      <view>
+        <view class="reply-people-name">{{item.username}}</view>
+        <view class="notify-main-body">
+          <text>{{item.msg.content || '-'}}</text>
+          <text class="notify-time">{{item.create_time}}</text>
+        </view>
+        <!-- 暂时隐藏下列内容 -->
+        <!-- <view>
+          <view class="reply-collect-box">
+            <image
+              class="reply-collect-icon"
+              src="/image/forum/notifyReply.png"
+            />
+            <text>回复</text>
+          </view>
+          <view class="reply-collect-box">
+            <image
+              class="reply-collect-icon"
+              src="/image/forum/notifyCollect.png"
+            />
+            <text>回复</text>
+          </view>
+        </view> -->
+      </view>
+    </view>
+    <!-- <image
+      class="notify-comment-img"
+      src="https://img.ikstatic.cn/MTcwMzQxMTUwOTM0MSM3OTIjanBn.jpg"
+    /> -->
+  </view>
+</scroll-view>
+
+<van-popup
+  show="{{ showPopup }}"
+  position="top"
+  round
+  safe-area-inset-top
+  bind:close="handleClose"
+  custom-style="top: {{navBarHeight}}px;"
+  overlay-style="top: {{navBarHeight}}px;"
+>
+  <view class="message-type-select-popup">
+    <view
+      wx:for="{{MESSAGE_TYPE_LIST}}"
+      wx:key="index"
+      data-value="{{item.value}}"
+      class="message-type-select-box-popup"
+      catch:tap="handleSelectedMessageType"
+    >
+      <view class="messaeg-type-title-popup">
+        <image class="messaeg-type-icon-popup" src="{{item.icon}}" />
+        <text>{{item.label}}</text>
+      </view>
+      <image
+        wx:if="{{filterParams.type === item.value}}"
+        class="messaeg-type-selected-icon-popup"
+        src="/image/forum/notifySelected.png"
+      />
+    </view>
+  </view>
+</van-popup>
+
+<van-toast id="van-toast" />

@@ -1,6 +1,8 @@
 // index.js
 import { url, getUserInfo, QQMapWX } from '../../utils/util'
 import Toast from '@vant/weapp/toast/toast';
+import apis from './apis'
+
 // 获取应用实例
 const app = getApp()
 let timeId = 0
@@ -23,9 +25,15 @@ const selectMapIcon = {
 // 是否是预览图片，为了解决预览图片触发onHide的问题
 let isViewImg = false
 
+
+const initNoticeBarText = '请您注意骑行安全，远离大车盲区，减速慢行注意避让；请您注意消防安全，禁止电动车及电池室内停放或充电。'
+
 Page({
   data: {
     navBarHeight: app.globalData.navBarHeight,
+    isNoticeBar: false, // 顶部通知
+    isNoticeScrollable: false, // 顶部通知是否支持滚动
+    noticeBarText: initNoticeBarText, // 顶部通知的内容
     chargeBtnArray: [{
       name: '全部',
       id: 1,
@@ -72,7 +80,10 @@ Page({
     picture: [],
     showProcess: false,
     processValue: 0,
-    deviceId: 0
+    deviceId: 0,
+    loadObj: {
+      collectLoading: false
+    }
   },
   onReady: function (e) {
     this.mapCtx = wx.createMapContext('myMap')
@@ -109,6 +120,11 @@ Page({
   },
 
   onLoad: function (options) {
+    this.setData({
+      isNoticeScrollable: true,
+      noticeBarText: initNoticeBarText
+    })
+
     wx.showShareMenu({
       withShareTicket: true,
       menus: ['shareAppMessage', 'shareTimeline']
@@ -198,6 +214,7 @@ Page({
       },
       success: (res) => {
         wx.setStorageSync('ticket', res.data.data?.ticket)
+        wx.setStorageSync('isNoticeBar', true)
         this.appForLocation()
         this.onShow()
       },
@@ -358,7 +375,7 @@ Page({
     const id = e.currentTarget.dataset.id
     const detail = e.currentTarget.dataset.detail
     wx.navigateTo({
-      url: `/pages/errorCorrection/index?id=${id}&detail=${JSON.stringify(detail)}`,
+      url: `/pages/errorCorrection/index?id=${id}&detail=${encodeURIComponent(JSON.stringify(detail))}`,
     })
   },
 
@@ -567,6 +584,31 @@ Page({
   },
 
   onShow() {
+    // 处理全局开关
+    wx.request({
+      url: url + '/api/forum/viewswitch',
+      method: 'GET',
+      data: {},
+      success: function(res) {
+        const resData = res?.data || {}
+        if (resData.code === 0) {
+          wx.setStorageSync('isView', resData.data)
+        } else {
+          wx.setStorageSync('isView', false)
+        }
+      },
+      fail: function(err) {
+        wx.setStorageSync('isView', false)
+      }
+    })
+
+    // 地图顶部通知
+    this.setData({
+      isNoticeScrollable: true,
+      isNoticeBar: wx.getStorageSync('isNoticeBar'),
+      noticeBarText: initNoticeBarText
+    })
+
     // 如果是结束预览图片触发return
     if (isViewImg) {
       isViewImg = false
@@ -840,7 +882,47 @@ Page({
     this.onShow()
   },
 
+  // 收藏、取消收藏
+  handleCollectDevice(e) {
+    if (this.data.loadObj.collectLoading) {
+      return
+    }
+    const curDevice = e.currentTarget.dataset.detail
+    this.setData({
+      loadObj: { ...this.data.loadObj, collectLoading: true }
+    })
+
+    apis.collectDevice({
+      device_id: curDevice.id,
+      type: curDevice.is_collect === 1 ? 2 : 1, // 1-收藏 2-取消
+    }).then(res => {
+      this.setData({
+        deviceDetail: {
+          ...this.data.deviceDetail,
+          is_collect: curDevice.is_collect === 1 ? 0 : 1
+        }
+      })
+    }).finally(() => {
+      this.setData({
+        loadObj: { ...this.data.loadObj, collectLoading: false }
+      })
+    })
+  },
+
+  // 关闭NoticeBar通知
+  handleCloseNoticeBar() {
+    wx.removeStorageSync('isNoticeBar')
+    this.setData({
+      isNoticeBar: false
+    })
+  },
+
   onHide() {
+    this.setData({
+      isNoticeScrollable: false, // 顶部通知停止滚动
+      noticeBarText: initNoticeBarText
+    })
+
     // 如果是预览图片触发hide直接return
     if (isViewImg) return
 
@@ -849,7 +931,17 @@ Page({
     //   mapScal: 15
     // })
     // this.closeMarkDetail()
-  }
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload() {
+    this.setData({
+      isNoticeScrollable: false, // 顶部通知停止滚动
+      noticeBarText: initNoticeBarText
+    })
+  },
 })
 
 

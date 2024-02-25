@@ -1,13 +1,14 @@
 /**
  * 封装微信网络请求，
  */
-import { url } from "../utils"
+import { url } from "../utils/index"
 
 export const request = (options, optionals) => {
   const {
     isLoading = false, // 是否请求中loading
     loadingTitle = '加载中', // 请求中文案
     isErrToast = true, // 是否失败toast提示
+    successMsg = '', // 请求成功的提示
   } = (optionals || {})
 
   if (isLoading) {
@@ -25,7 +26,21 @@ export const request = (options, optionals) => {
         ticket: wx.getStorageSync('ticket'), // 身份信息
       },
       success: function(res) {
-        resolve(res)
+        if (res?.data.code === 0) {
+          if (successMsg) {
+            wx.showToast({
+              title: successMsg,
+              icon: 'success',
+            })
+          }
+          resolve(res?.data || {})
+        } else {
+          wx.showToast({
+            title: res?.data?.msg || '接口异常',
+            icon: 'error',
+          })
+          reject(res)
+        }
       },
       fail: function(err) {
         if (isErrToast) {
@@ -38,7 +53,9 @@ export const request = (options, optionals) => {
       },
       complete: res => {
         if (isLoading) {
-          wx.hideLoading()
+          wx.hideLoading({
+            noConflict: true
+          })
         }
       }
     })

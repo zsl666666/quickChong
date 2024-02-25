@@ -1,7 +1,11 @@
 <!--pages/addDevice/index.wxml-->
 <view class="device-page-wrapper">
   <view class="device-excharge-type-wrapper">
-    <view class="excharge-type-title custom-required-ident">充电设备类型</view>
+    <view class="add-device-type-wrap">
+      <image class="add-device-type-icon" src="/image/addDevice/deviceTypeIcon.png" />
+      <!-- <view class="excharge-type-title custom-required-ident">充电设备类型</view> -->
+      <view class="excharge-type-title">充电设备类型</view>
+    </view>
     <view class="excharge-type-data-wrapper">
       <view
         wx:for="{{deviceData}}"
@@ -142,7 +146,7 @@
   </view>
 
   <view class="device-bottom-submit-wrapper">
-    <view class="submit-btn" catchtap="addDeviceHandle">提交</view>
+    <view class="submit-btn {{submitLoading ? 'submit-btn-disabled' : ''}}" catchtap="addDeviceHandle">提交</view>
   </view>
   <van-popup
     show="{{ addressShow }}"
@@ -194,4 +198,13 @@
     bind:close="onCloseAction"
     bind:select="onSelect"
   />
+
+  <confirmPopup
+    show="{{isShowConfirmPopup}}"
+    title="请确认"
+    content="您添加的电瓶车充电位置、充电信息的准确性！！<br/>错误的位置会影响导航，对其他骑友造成困扰！"
+    okButtonText="信息无误，提交"
+    cancelButtonText="再看看"
+    bind:onOk="handleConfirmSubmit"
+  ></confirmPopup>
 </view>

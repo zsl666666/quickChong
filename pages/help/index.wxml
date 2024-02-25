@@ -1,5 +1,5 @@
 <!--pages/help/index.wxml-->
-<page-meta>
+<view style="background: rgba(245, 245, 245, 1);height: 100vh; overflow: auto;">
   <view class="my-help-top">
     <view>
       <view class="hepl-top-first">欢迎来到帮助中心！</view>
@@ -8,7 +8,7 @@
     <image src="/image/bangzhujiqiren.png" class="bangzhujiqiren" />
   </view>
   <view class="help-content">
-    <van-collapse accordion value="{{ activeName }}" bind:change="onChange" border="{{false}}">
+    <van-collapse class="custom-collapse" accordion value="{{ activeName }}" bind:change="onChange" border="{{false}}">
       <van-collapse-item title="充电桩、充电柜、换电柜区别" name="1" border="{{false}}" size="large">
         <view class="help-ittem-title">充电桩：</view>
         <view class="help-item-content">通过固定位置的充电插座，连接车身为车辆充电，需要自备充电器</view>
@@ -34,4 +34,4 @@
       </van-collapse-item>
     </van-collapse>
   </view>
-</page-meta>
+</view>

@@ -1,0 +1,118 @@
+/* pages/forums/components/postMessage/index.wxss */
+.post-message {
+  box-sizing: border-box;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.post-content {
+  flex: 1;
+  /* border: 1px solid rgb(129, 121, 121); */
+  padding: 0rpx 34rpx;
+  overflow-y: auto;
+}
+.title-right-num {
+  font-size: 20rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  color: rgba(0,0,0,0.3);
+  line-height: 46rpx;
+}
+.bottom-wrap {
+  box-sizing: border-box;
+  height: 310rpx;
+  width: 100%;
+  /* background: #ccc; */
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.popup-submit-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 682rpx;
+  height: 84rpx;
+  background: #0D7AC2;
+  border-radius: 42rpx;
+  font-size: 30rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #FFFFFF;
+  margin: 38rpx auto 38rpx;
+}
+.topic-wrap {
+  box-sizing: border-box;
+  display: flex;
+  padding: 34rpx;
+  overflow-x: auto;
+}
+.topic-wrap::-webkit-scrollbar{
+  width: 0;
+  height: 0;
+  color: transparent
+}
+.topic-cont {
+  width: max-content;
+  overflow: hidden;
+  height: 57rpx;
+  border-radius: 37rpx;
+  border: 1rpx solid rgba(0,0,0,0.1);
+  font-size: 26rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.5);
+  line-height: 57rpx;
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+  margin-right: 28rpx;
+  flex-shrink: 0;
+}
+
+.content-picture-wrap {
+  padding-top: 34rpx;
+  padding-bottom: 34rpx;
+}
+.editor-content-wrap {
+  position: relative;
+  width: 100%;
+  /* background: #ccc; */
+}
+/* .editor {
+  height: auto;
+  word-break: break-all;
+  color: transparent;
+  caret-color: #ccc;
+  font-size: 30rpx;
+  font-family: PingFangSC, PingFang SC;
+} */
+.content-field .van-field__control--textarea{
+  /* word-break: break-all; */
+  box-sizing: border-box;
+  white-space:pre-wrap;
+  font-size: 30rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  line-height: 46rpx;
+  color: transparent;
+  caret-color: black;
+}
+.content-field .van-field__placeholder {
+  font-size: 30rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  line-height: 46rpx;
+}
+.highlight {
+  box-sizing: border-box;
+  position: absolute;
+  top: 30rpx;
+  white-space:pre-wrap;
+  font-size: 30rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  line-height: 46rpx;
+  z-index: 2;
+}

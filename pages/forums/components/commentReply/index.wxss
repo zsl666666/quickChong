@@ -1,0 +1,114 @@
+/* pages/forums/components/commentReply/index.wxss */
+.top-cont {
+  position: relative;
+  height: 72rpx;
+  text-align: center;
+}
+.close-icon {
+  position: absolute;
+  right: 4rpx;
+  height: 100%;
+  width: 80rpx;
+  /* top: calc(36rpx - 10px); */
+}
+.reply-detail-title {
+  text-align: center;
+  line-height: 72rpx;
+}
+.comment-every-content {
+  padding: 32rpx 34rpx;
+  display: flex;
+}
+.comment-every-content:active {
+  /* background: rgba(243, 243, 243, 0.7); */
+  background: rgba(210, 210, 210, 1);
+}
+.comment-profile-image {
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 50%;
+}
+.comment-content-right {
+  flex: 1;
+  margin-left: 14rpx;
+}
+.comment-user-name {
+  font-size: 26rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  color: rgba(0,0,0,0.4);
+  line-height: 38rpx;
+}
+.is-post-author {
+  background: rgba(0,0,0,0.05);
+  border-radius: 6rpx;
+  padding: 2rpx 8rpx;
+  font-size: 22rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  color: rgba(0,0,0,0.5);
+  line-height: 30rpx;
+}
+.comment-main-content {
+  font-size: 28rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.7);
+  line-height: 40rpx;
+  margin-top: 7rpx;
+  /* margin-bottom: 10rpx; */
+}
+.reply-people-username {
+  font-size: 26rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  color: rgba(0,0,0,0.4);
+}
+.date-and-collect {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 24rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.4);
+  line-height: 34rpx;
+}
+.like-wrap {
+  display: flex;
+  align-items: center;
+  padding: 10rpx;
+}
+.like-num {
+  font-size: 22rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.5);
+  line-height: 30rpx;
+  margin-left: 8rpx;
+}
+.is-my-like {
+  color: #FF5656;
+}
+.collect-icon {
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 50%;
+}
+.reply-class {
+  background: #f3f3f3;
+}
+.reply-class:active {
+  /* background: rgba(243, 243, 243, 0.7); */
+  background: rgba(210, 210, 210, 1);
+}
+
+.content-end-wrap {
+  text-align: center;
+  height: 100rpx;
+  font-size: 24rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.3);
+  line-height: 50rpx;
+}

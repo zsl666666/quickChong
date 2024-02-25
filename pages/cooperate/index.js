@@ -53,6 +53,7 @@ Page({
   },
 
   choiceDeviceType(e) {
+    console.log('ffff', e.currentTarget.dataset.index)
     this.setData({
       choiceDeviceValue: e.currentTarget.dataset.index
     })

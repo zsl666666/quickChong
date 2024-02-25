@@ -1,6 +1,8 @@
 // pages/addDevice/index.js
 import { url } from '../../utils/util'
 import Toast from '@vant/weapp/toast/toast'
+import apis from './apis'
+
 const app = getApp()
 Page({
   /**
@@ -88,6 +90,8 @@ Page({
     }],
     isExpansion: false, // 是否展开
     mapData: {}, // 选择地图位置相关数据，省市区，经度纬度等
+    submitLoading: false, // 提交按钮loading
+    isShowConfirmPopup: false, // 是否显示二次确认弹窗
   },
 
   // 展开收起
@@ -292,17 +296,94 @@ Page({
   },
 
   // 提交
-  addDeviceHandle() {
-    const { deveiceData, mapData } = this.data
-    if (!deveiceData.device_type) {
-      return Toast('充电设备类型不能为空')
-    }
-    if (!mapData.name || !mapData.city || !mapData.address) {
-      return Toast('位置信息不能为空')
-    }
-    // if (this.data.deveiceData.picture.length < 3) {
-    //   return Toast('设备图片至少三张')
-    // }
+  // addDeviceHandle() {
+  //   const { deveiceData, mapData, submitLoading } = this.data
+
+  //   // 防重复点击
+  //   if (submitLoading) return
+
+  //   if (!deveiceData.device_type) {
+  //     return Toast('充电设备类型不能为空')
+  //   }
+  //   if (!mapData.name || !mapData.city || !mapData.address) {
+  //     return Toast('位置信息不能为空')
+  //   }
+  //   // if (this.data.deveiceData.picture.length < 3) {
+  //   //   return Toast('设备图片至少三张')
+  //   // }
+  //   this.setData({
+  //     submitLoading: true
+  //   })
+  //   wx.request({
+  //     url: url + '/api/device/add',
+  //     method: 'POST',
+  //     data: {
+  //       ...deveiceData,
+  //       // devicePosition: this.data.devicePosition, // 充电位置的文字
+  //       // address: this.data.address, // 详细地址
+  //       // coordinate: this.data.coordinate, // 坐标
+  //       // city: this.data.city, // 城市
+  //       ...mapData,
+  //       coordinate: `${mapData.latitude},${mapData.longitude}`,
+  //       devicePosition: mapData.name,
+  //       email: this.data.email, // 邮箱
+  //       brand: this.data.brand, // 品牌
+  //       device_code: this.data.device_code, // 设备编码
+  //       brand_contact: this.data.brand_contact, // 联系方式
+  //       around_monitor: this.data.around_monitor, // 监控个数
+  //       // name: this.data.name, // 设备位置
+  //       ticket: wx.getStorageSync('ticket')
+  //     },
+  //     success: (res) => {
+  //       if (!res.data.code) {
+  //         wx.showToast({
+  //           title: '等待审核',
+  //           icon: 'success'
+  //         })
+  //         setTimeout(() => {
+  //           this.setData({
+  //             submitLoading: false
+  //           })
+  //           wx.navigateBack({
+  //             delta: 1
+  //           })
+  //         }, 1000)
+  //       } else {
+  //         wx.showToast({
+  //           title: res.data.msg,
+  //           icon: 'fail'
+  //         })
+  //         this.setData({
+  //           submitLoading: false
+  //         })
+  //       }
+  //     },
+  //     fail: (err) => {
+  //       wx.showToast({
+  //         title: '添加失败',
+  //         icon: 'fail'
+  //       })
+  //       this.setData({
+  //         submitLoading: false
+  //       })
+  //     }
+  //   })
+  // },
+
+  postAddDevice() {
+    const { deveiceData, mapData, submitLoading } = this.data
+
+    // 防重复点击
+    if (submitLoading) return
+
+    this.setData({
+      submitLoading: true
+    })
+
+    wx.showLoading({
+      title: '提交中...',
+    })
+
     wx.request({
       url: url + '/api/device/add',
       method: 'POST',
@@ -326,10 +407,13 @@ Page({
       success: (res) => {
         if (!res.data.code) {
           wx.showToast({
-            title: '等待审核',
+            title: '提交成功，等待审核',
             icon: 'success'
           })
           setTimeout(() => {
+            this.setData({
+              submitLoading: false
+            })
             wx.navigateBack({
               delta: 1
             })
@@ -339,6 +423,9 @@ Page({
             title: res.data.msg,
             icon: 'fail'
           })
+          this.setData({
+            submitLoading: false
+          })
         }
       },
       fail: (err) => {
@@ -346,8 +433,110 @@ Page({
           title: '添加失败',
           icon: 'fail'
         })
+        this.setData({
+          submitLoading: false
+        })
+      },
+      complete: () => {
+        wx.hideLoading({ noConflict: true })
       }
     })
+  },
+
+  addDeviceHandle() {
+    const { deveiceData, mapData, submitLoading } = this.data
+
+    // 防重复点击
+    if (submitLoading) return
+
+    if (!deveiceData.device_type) {
+      return Toast('充电设备类型不能为空')
+    }
+    if (!mapData.name || !mapData.city || !mapData.address) {
+      return Toast('位置信息不能为空')
+    }
+
+    this.setData({
+      submitLoading: true
+    })
+
+    apis.getAddTimes().then(res => {
+      const timesNum = res?.data
+      if (timesNum > 3) {
+        this.setData({
+          submitLoading: false
+        }, () => {
+          this.postAddDevice()
+        })
+      } else {
+        this.setData({
+          isShowConfirmPopup: true,
+        })
+      }
+    }).finally(() => {
+      this.setData({
+        submitLoading: false
+      })
+    })
+
+    // wx.request({
+    //   url: url + '/api/device/add',
+    //   method: 'POST',
+    //   data: {
+    //     ...deveiceData,
+    //     // devicePosition: this.data.devicePosition, // 充电位置的文字
+    //     // address: this.data.address, // 详细地址
+    //     // coordinate: this.data.coordinate, // 坐标
+    //     // city: this.data.city, // 城市
+    //     ...mapData,
+    //     coordinate: `${mapData.latitude},${mapData.longitude}`,
+    //     devicePosition: mapData.name,
+    //     email: this.data.email, // 邮箱
+    //     brand: this.data.brand, // 品牌
+    //     device_code: this.data.device_code, // 设备编码
+    //     brand_contact: this.data.brand_contact, // 联系方式
+    //     around_monitor: this.data.around_monitor, // 监控个数
+    //     // name: this.data.name, // 设备位置
+    //     ticket: wx.getStorageSync('ticket')
+    //   },
+    //   success: (res) => {
+    //     if (!res.data.code) {
+    //       wx.showToast({
+    //         title: '等待审核',
+    //         icon: 'success'
+    //       })
+    //       setTimeout(() => {
+    //         this.setData({
+    //           submitLoading: false
+    //         })
+    //         wx.navigateBack({
+    //           delta: 1
+    //         })
+    //       }, 1000)
+    //     } else {
+    //       wx.showToast({
+    //         title: res.data.msg,
+    //         icon: 'fail'
+    //       })
+    //       this.setData({
+    //         submitLoading: false
+    //       })
+    //     }
+    //   },
+    //   fail: (err) => {
+    //     wx.showToast({
+    //       title: '添加失败',
+    //       icon: 'fail'
+    //     })
+    //     this.setData({
+    //       submitLoading: false
+    //     })
+    //   }
+    // })
+  },
+
+  handleConfirmSubmit() {
+    this.postAddDevice()
   },
 
   // 获取焦点

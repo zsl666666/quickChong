@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "论坛",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "van-nav-bar": "@vant/weapp/nav-bar/index",
+    "van-sticky": "@vant/weapp/sticky/index",
+    "van-search": "@vant/weapp/search/index",
+    "get-nick": "/pages/componets/getNickName/index"
+  }
+}

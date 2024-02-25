@@ -1,0 +1,88 @@
+<!--pages/forums/components/postMessage/index.wxml-->
+<view wx:if="{{!isViewPage}}" style="width:100%;height: 100vh;margin: 0rpx auto;text-align: center;position: fixed;z-index: 100000;background: #ffffff;line-height: 100vh;">
+  暂无数据
+</view>
+
+<view wx:else class="post-message">
+  <view class="post-content">
+    <van-field
+      value="{{ titleValue }}"
+      placeholder="输入标题会更受关注哦~"
+      border="{{ false }}"
+      maxlength="{{30}}"
+      show-word-limit="{{false}}"
+      extra-event-params
+      bind:change="handleChangeTitleValue"
+      custom-style="padding: 22rpx 0rpx"
+    >
+      <text
+        slot="right-icon"
+        class="title-right-num"
+      >{{titleValue.length}}/30</text>
+    </van-field>
+    <van-divider custom-style="margin: 0rpx" />
+    <!-- <view wx:for="{{[1,2,3,4,5,6,7,45,4,3,4,3,4,5,6,7,5,3,45,3,1,3,4,4,5]}}">
+      {{item}}
+    </view> -->
+    <view class="editor-content-wrap">
+      <rich-text
+        class="highlight"
+        nodes="{{contentCode}}"
+        space="nbsp"
+      ></rich-text>
+      <!-- <editor
+        id="editor"
+        class="editor"
+        placeholder="输入正文，字数小于10000字"
+        bindinput="handleEditor"
+      />  -->
+      <van-field
+        class="content-field"
+        id="contentField"
+        type="textarea"
+        autosize="{{autosize}}"
+        value="{{''}}"
+        placeholder="输入正文，字数小于10000字！支持话题：#话题#"
+        border="{{ true }}"
+        maxlength="{{10000}}"
+        show-word-limit="{{false}}"
+        extra-event-params
+        bind:change="handleChangeContent"
+        custom-style="padding: 22rpx 0rpx;"
+      >
+      </van-field>
+      <!-- <view class="editor-content-wrap"> -->
+        <!-- <rich-text class="highlight" nodes="{{contentCode}}"></rich-text> -->
+        <!-- <editor
+          id="editor"
+          class="editor"
+          placeholder="输入正文，字数小于10000字"
+          bindinput="handleEditor"
+        /> -->
+      <!-- </view> -->
+    </view>
+    <view class="content-picture-wrap">
+      <van-uploader
+        file-list="{{ fileList }}"
+        bind:delete="imageDelete"
+        accept="image"
+        multiple="true"
+        max-count="9"
+        bind:after-read="afterRead"
+      />
+    </view>
+  </view>
+
+  <view class="bottom-wrap">
+    <view class="topic-wrap">
+      <!-- <view wx:for="{{[1,2,3,4,5,6,7,8]}}" class="topic-cont">
+        {{'北京游玩'}}
+      </view> -->
+    </view>
+    <view class="popup-submit-btn" catch:tap="postMessage">
+      <text>发帖</text>
+    </view>
+  </view>
+
+  <van-toast id="van-toast" />
+</view>

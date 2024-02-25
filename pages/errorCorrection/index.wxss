@@ -144,6 +144,10 @@
   color: #FFFFFF;
   text-align: center;
 }
+.submit-btn-disabled {
+  background: #0D7AC2;
+  opacity: 0.3;
+}
 .device-excharge-type-wrapper {
   width: 714rpx;
   height: 204rpx;

@@ -9,10 +9,15 @@
     "pages/comment/index",
     "pages/help/index",
     "pages/feedback/index",
-    "pages/cooperate/index",
     "pages/contribute/index",
     "pages/errorCorrection/index",
-    "pages/testMap/index"
+    "pages/testMap/index",
+    "pages/my/components/myContriValue/index",
+    "pages/forums/index",
+    "pages/forums/components/postDetail/index",
+    "pages/forums/components/notify/index",
+    "pages/my/components/collectCenter/index",
+    "pages/forums/components/postMessage/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -33,6 +38,11 @@
     "chooseLocation",
     "getLocation"
   ],
+  "resolveAlias": {
+    "pages/*": "pages/*",
+    "utils/*": "utils/*",
+    "service/*": "service/*"
+  },
   "tabBar": {
     "color": "#7A7E83",
     "selectedColor": "#0D7AC2",
@@ -45,6 +55,12 @@
         "text": "首页",
         "iconPath": "/image/home.png",
         "selectedIconPath": "/image/home-select.png"
+      },
+      {
+        "pagePath": "pages/forums/index",
+        "text": "论坛",
+        "iconPath": "/image/forum/forum.png",
+        "selectedIconPath": "/image/forum/forumSelect.png"
       },
       {
         "pagePath": "pages/my/index",

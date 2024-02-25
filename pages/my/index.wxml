@@ -5,11 +5,21 @@
       <image src='{{avatarUrl || "/image/no-login.png"}}' class="my-portrait" catch:tap="getUserInfoHanle" />
     </view>
     <view class="my-user-name" catch:tap="getUserInfoHanle">{{nickName || '点击登录'}}</view>
-    <view wx:if="{{ifLogin}}" class="my-user-gongxian" catchtap="contributeHandle">
+    <!-- <view wx:if="{{ifLogin}}" class="my-user-gongxian" catchtap="contributeHandle">
       <text>贡献值：{{userData.contribute || 0}}</text>
       <van-icon name="arrow" />
-    </view>
+    </view> -->
     <view class="my-user-item-wrapper">
+      <view class="my-user-item" catchtap="goMyContributeValue">
+        <view class="my-item-left">
+          <image src="/image/my/myContributionValue.png" class="my-item-img" />
+          <text>我的贡献值</text>
+        </view>
+        <view>
+          <text class="my-contribute-value">{{ifLogin ? userData.contribute || 0 : 0}}</text>
+          <van-icon name="arrow" />
+        </view>
+      </view>
       <view class="my-user-item" catchtap="goHelpCenter">
         <view class="my-item-left">
           <image src="/image/bangzhu.png" class="my-item-img" />
@@ -24,10 +34,17 @@
         </view>
         <van-icon name="arrow" />
       </view>
-      <view class="my-user-item" catchtap="cooperateHandle">
+      <!-- <view class="my-user-item" catchtap="cooperateHandle">
         <view class="my-item-left">
           <image src="/image/hezuo.png" class="my-item-img" />
           <text>我要合作</text>
+        </view>
+        <van-icon name="arrow" />
+      </view> -->
+      <view class="my-user-item" catchtap="goCollectCenter">
+        <view class="my-item-left">
+          <image src="/image/my/myCollectEntryIcon.png" class="my-item-img" />
+          <text>收藏中心</text>
         </view>
         <van-icon name="arrow" />
       </view>

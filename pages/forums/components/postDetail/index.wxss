@@ -1,0 +1,287 @@
+/* pages/forums/components/postDetail/index.wxss */
+
+.detail-nav-bar-left {
+  display: flex;
+  align-items: center;
+}
+
+.custom-nav-bar-icon {
+  width: 54rpx;
+  height: 54rpx;
+  border-radius: 50%;
+  margin-left: 16rpx;
+  margin-right: 14rpx;
+}
+.post-detail-scroll-view {
+  background: #FAFAFA;
+  /* margin-bottom: 200rpx; */
+}
+
+.swiper-cutom {
+  width: 100%;
+  height: 750rpx !important;
+}
+.swiper-img {
+  width: 100%;
+  overflow: hidden;
+  height: 750rpx !important;
+}
+
+.swiper-cutom .wx-swiper-dot {
+  width: 8rpx;
+  height: 8rpx;
+  background: rgba(255, 255, 255, 0.6);
+}
+.swiper-cutom .wx-swiper-dot-active {
+  width: 24rpx;
+  height: 8rpx;
+  background: #FFFFFF;
+  border-radius: 4rpx;
+}
+.swiper-cutom .wx-swiper-dots {
+  height: 20rpx;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  padding: 6rpx 10rpx;
+}
+.post-content {
+  padding: 34rpx;
+  background: #FFFFFF;
+  margin-bottom: 20rpx;
+}
+.post-title {
+  font-size: 38rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  color: rgba(0,0,0,0.8);
+  line-height: 54rpx;
+  margin-bottom: 30rpx;
+}
+.post-content-main-body {
+  font-size: 30rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.8);
+  line-height: 46rpx;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+}
+.post-data-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 22rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.4);
+  line-height: 30rpx;
+  margin-top: 30rpx;
+}
+.preview-icon {
+  width: 24rpx;
+  height: 18rpx;
+  margin-right: 6rpx;
+}
+.post-delete {
+  font-size: 22rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.6);
+  line-height: 30rpx;
+  /* width: max-content; */
+  /* display: flex;
+  justify-content: right; */
+  text-align: right
+}
+.post-delete-name {
+  display: inline-block;
+  padding: 20rpx 0rpx 20rpx 20rpx;
+}
+.comment-wrap {
+  background: #FFFFFF;
+  /* margin-bottom: 200rpx; */
+}
+.comment-title {
+  font-size: 32rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 600;
+  color: rgba(0,0,0,0.9);
+  line-height: 38rpx;
+  padding-top: 34rpx;
+  padding-bottom: 34rpx;
+  text-indent: 34rpx;
+}
+.comment-every-content {
+  padding: 32rpx 34rpx;
+  display: flex;
+}
+.comment-every-content:active {
+  background: #eee;
+}
+.comment-profile-image {
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 50%;
+}
+.comment-content-right {
+  flex: 1;
+  margin-left: 14rpx;
+}
+.date-and-collect {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 24rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.4);
+  line-height: 34rpx;
+}
+.like-wrap {
+  display: flex;
+  align-items: center;
+  padding: 10rpx;
+}
+.like-num {
+  font-size: 22rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.5);
+  line-height: 30rpx;
+  margin-left: 8rpx;
+}
+.is-my-like {
+  color: #FF5656;
+}
+.collect-icon {
+  width: 34rpx;
+  height: 34rpx;
+}
+.comment-user-name {
+  font-size: 26rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  color: rgba(0,0,0,0.4);
+  line-height: 38rpx;
+}
+.is-post-author {
+  background: rgba(0,0,0,0.05);
+  border-radius: 6rpx;
+  padding: 2rpx 8rpx;
+  font-size: 22rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  color: rgba(0,0,0,0.5);
+  line-height: 30rpx;
+}
+.comment-main-content {
+  font-size: 28rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.7);
+  line-height: 40rpx;
+  margin-top: 7rpx;
+  /* margin-bottom: 10rpx; */
+}
+.comment-reply-operation {
+  font-size: 24rpx;
+  color: #0D7AC2;
+  /* margin-bottom: 10rpx; */
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+}
+.empty-comment-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 348rpx;
+  background: #FFFFFF;
+}
+.empty-comment-desc {
+  font-size: 30rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.5);
+  line-height: 42rpx;
+  margin-top: 14rpx;
+}
+
+
+.bottom-wrap {
+  box-sizing: border-box;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  height: 170rpx;
+  background: #FFFFFF;
+  /* border-top: 1px solid #ccc; */
+  padding: 16rpx 32rpx 0rpx 32rpx;
+}
+.bottom-comment-wrap{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.search-box {
+  flex: 1;
+}
+.search-box .van-search {
+  padding: 0rpx !important;
+  height: 72rpx;
+}
+.comment-operation {
+  display: flex;
+  justify-content: space-between;
+  width: 250rpx;
+  margin-left: 60rpx;
+  margin-right: 10rpx;
+}
+.comment-poeration-icon {
+  width: 48rpx !important;
+  height: 48rpx !important;
+}
+.collect-reply-wrap {
+  position: relative;
+}
+.share-post-detail {
+  padding: 0rpx !important;
+}
+.share-post-detail .van-button {
+  padding: 0rpx !important;
+  height: auto;
+  border: none;
+}
+.share-post-detail .van-button:active {
+  background: #FFFFFF !important;
+}
+.collect-reply-num {
+  background: #FFFFFF;
+  /* padding: 1rpx 6rpx; */
+  border-radius: 11rpx;
+  font-size: 18rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  line-height: 25rpx;
+  position: absolute;
+  top: -10rpx;
+  right: 6rpx;
+  /* top: -10rpx;
+  right: -10rpx; */
+  transform: translateX(100%);
+}
+.reply-num {
+  right: 8rpx;
+}
+
+.content-end-wrap {
+  text-align: center;
+  height: 100rpx;
+  font-size: 24rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.3);
+  line-height: 50rpx;
+}

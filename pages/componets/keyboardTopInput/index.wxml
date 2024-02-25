@@ -1,0 +1,30 @@
+<!--pages/componets/keyboardTopInput/index.wxml-->
+<view
+  class="keyboard-top-input-wrap"
+  wx:if="{{showInput}}"
+  style="bottom: {{keyboardHeight}}px; min-height: {{keyboardHeight ? 'initial' : '170rpx'}};"
+>
+  <textarea
+    class='keyboard-top-input'
+    value="{{keyboardTopInputMessage}}"
+    placeholder="{{placeholder || '请输入内容'}}"
+    name="textarea"
+    auto-focus
+    adjust-position
+    show-confirm-bar="{{false}}"
+    adjust-position="{{false}}"
+    cursor-spacing="{{50}}"
+    auto-height
+    bindblur="handleBlurInput"
+    bindkeyboardheightchange="handleKeyboardheightchange"
+    bindinput="handleKeyboardInput"
+  />
+  <view
+    wx:if="{{keyboardTopInputMessage}}"
+    class="keyboard-top-send-btn"
+    catch:tap="handleClickSend"
+  >
+    发送
+  </view>
+</view>
+<view wx:if="{{showInput}}" class="veil-layer"></view>

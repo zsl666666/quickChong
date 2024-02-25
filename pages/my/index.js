@@ -1,12 +1,14 @@
 // pages/my/index.js
 import { url } from '../../utils/util'
+import { verifyLogin } from 'utils/index'
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    ifLogin: wx.getStorageSync('nickName') ? true : false,
+    ifLogin: verifyLogin(),
     userData: {},
     avatarUrl: wx.getStorageSync('avatarUrl'),
     nickName: wx.getStorageSync('nickName'),
@@ -18,7 +20,7 @@ Page({
    */
   onLoad(options) {
     this.setData({
-      ifLogin: wx.getStorageSync('nickName') ? true : false,
+      ifLogin: verifyLogin(),
       avatarUrl: wx.getStorageSync('avatarUrl'),
       nickName: wx.getStorageSync('nickName')
     })
@@ -36,6 +38,7 @@ Page({
    */
   onShow() {
     this.setData({
+      ifLogin: verifyLogin(),
       avatarUrl: wx.getStorageSync('avatarUrl'),
       nickName: wx.getStorageSync('nickName')
     })
@@ -79,7 +82,7 @@ Page({
         avatarUrl: wx.getStorageSync('avatarUrl'),
         nickName: wx.getStorageSync('nickName'),
         showLogin: false,
-        ifLogin: wx.getStorageSync('nickName') ? true : false
+        ifLogin: verifyLogin()
       })
     }, 500)
   },
@@ -125,18 +128,43 @@ Page({
 
   // 我要合作
   cooperateHandle() {
-    if (!wx.getStorageSync('nickName')) {
-      this.getUserInfoHanle()
-    } else {
-      wx.navigateTo({
-        url: '/pages/cooperate/index',
-      })
-    }
+    // if (!wx.getStorageSync('nickName')) {
+    //   this.getUserInfoHanle()
+    // } else {
+    //   wx.navigateTo({
+    //     url: '/pages/cooperate/index',
+    //   })
+    // }
   },
 
   contributeHandle() {
     wx.navigateTo({
       url: '/pages/contribute/index',
+    })
+  },
+
+  // 跳转我的贡献值
+  goMyContributeValue() {
+    if (!this.data.ifLogin) {
+      return this.setData({
+        showLogin: true
+      })
+    }
+    wx.navigateTo({
+      url: '/pages/my/components/myContriValue/index' + `?userData=${encodeURIComponent(JSON.stringify(this.data.userData))}`,
+    })
+  },
+
+  // 跳转收藏中心
+  goCollectCenter() {
+    if (!this.data.ifLogin) {
+      return this.setData({
+        showLogin: true
+      })
+    }
+
+    wx.navigateTo({
+      url: '/pages/my/components/collectCenter/index',
     })
   },
 

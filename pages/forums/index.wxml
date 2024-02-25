@@ -1,0 +1,96 @@
+<!--pages/forums/index.wxml-->
+<view wx:if="{{!isViewPage}}" style="width:100%;height: 100vh;margin: 0rpx auto;text-align: center;position: fixed;z-index: 100000;background: #ffffff;line-height: 100vh;">
+  暂无数据
+</view>
+
+<view wx:else class="forums">
+  <!-- 自定义navbar -->
+  <van-nav-bar fixed>
+    <!-- <text slot="left" class="top-custom-nav-bar-title">论坛</text> -->
+    <image slot="left" src="/image/forum/navBarIcon.png" class="top-custom-nav-bar-title" />
+  </van-nav-bar>
+
+  <van-sticky style="top: {{navBarHeight}}px;position: relative;">
+    <view class="forums-search-wrap">
+      <van-search
+        value="{{filterParams.keywords}}"
+        placeholder="搜索感兴趣的帖子"
+        shape="round"
+        show-action="{{filterParams.keywords}}"
+        bind:change="handleForumChange"
+        bind:search="handleForumSearch"
+        bind:cancel="handleClearCancel"
+        clearable="{{false}}"
+        input-class="search-input-style"
+        class="search-box"
+      >
+      </van-search>
+      <view wx:if="{{!filterParams.keywords}}" class="search-notify-wrap" catchtap="goNotify">
+        <image
+          src="/image/forum/messageNotification.png"
+          class="search-icon"
+        />
+        <view wx:if="{{unReadNum}}" class="notify-num"></view>
+      </view>
+    </view>
+  </van-sticky>
+
+  <scroll-view
+    id="scrodd"
+    bindscrolltolower="handleScrollToLower"
+    scroll-y="true"
+    scroll-top="{{scrollTop}}"
+    enhanced="{{true}}"
+    enable-passive="{{true}}"
+    lower-threshold="80"
+    refresher-enabled
+    refresher-triggered="{{triggered}}"
+    bindrefresherrefresh="handleScrollRefresh"
+    style="height: calc(100vh - {{searchBoxHeight}}px - {{navBarHeight}}px); top: {{navBarHeight}}px;position: relative;"
+  >
+    <view wx:if="{{!list.length}}" class="empty-data-wrap">暂无数据</view>
+    <view
+      wx:for="{{list}}" 
+      wx:key="id"
+      class="forum-invitation"
+      data-item="{{item}}"
+      catch:tap="goPostDetail"
+    >
+      <view class="poster-info-wrap">
+        <view class="poster-profile-name">
+          <image
+            src="{{item.avatar}}"
+            class="poster-profile-icon"
+            data-id="{{item.id}}"
+            binderror="handleAvatarImageError"
+          />
+          <!-- <image src="/image/no-login.png" class="poster-profile-icon" /> -->
+          <text class="poster-name">{{item.username}}</text>
+        </view>
+        <text class="poster-date">发布于{{item.create_time}}</text>
+      </view>
+      <view class="forum-detail-wrap">
+        <view class="detail-cont-box">
+          <view class="forum-content-info">{{item.title || item.content}}</view>
+          <view class="invitation-data">
+            <text class="invitation-data-value">{{item.comment_number}} 评论</text>
+            <text class="invitation-data-value">{{item.like_number}} 点赞</text>
+            <text>{{item.view_number}} 浏览</text>
+          </view>
+        </view>
+        <image src="{{item.pic_cover}}" class="detail-content-image-icon" />
+      </view>
+    </view>
+    <view wx:if="{{isEndPage && total}}" class="content-end-wrap">到底啦~</view>
+  </scroll-view>
+
+  <view class="post-message-wrap" catch:tap="goPostMessage">
+    <image
+      src="/image/forum/postMessage.png"
+      class="post-message-icon"
+    />
+    <text>发帖</text>
+  </view>
+
+  <get-nick show="{{showLogin}}" bind:loginSure="loginSureHandle"></get-nick>
+</view>

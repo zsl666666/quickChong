@@ -1,0 +1,115 @@
+/* pages/forums/components/notify/index.wxss */
+.detail-nav-bar-left {
+  display: flex;
+  align-items: center;
+}
+.contom-top-title {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.triangle-icon {
+  border-left: 10rpx solid transparent;  
+  border-right: 10rpx solid transparent;  
+  border-top: 10rpx solid black;  
+  margin-left: 4rpx;
+}
+.message-type-select-box-popup {
+  padding: 34rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.message-type-select-box-popup:active {
+  background: rgb(236, 236, 236);
+}
+.messaeg-type-icon-popup {
+  width: 38rpx;
+  height: 38rpx;
+  margin-right: 18rpx;
+}
+.messaeg-type-selected-icon-popup {
+  width: 50rpx;
+  height: 50rpx;
+}
+.messaeg-type-title-popup {
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: #000000;
+  line-height: 50rpx;
+}
+
+.notify-content-box {
+  padding: 34rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.notify-content-box:active {
+  background: #eee;
+}
+.notify-conent {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+.notify-people-icon {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+  margin-right: 24rpx;
+}
+.reply-people-name {
+  font-size: 30rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  color: rgba(0,0,0,0.8);
+  line-height: 38rpx;
+  margin-bottom: 7rpx;
+  margin-top: 5rpx;
+}
+.notify-main-body {
+  font-size: 26rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.7);
+  line-height: 38rpx;
+}
+.notify-time {
+  font-size: 20rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.3);
+  line-height: 28rpx;
+  margin-left: 10rpx;
+}
+.reply-collect-box {
+  font-size: 20rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.6);
+  line-height: 28rpx;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 98rpx;
+  height: 42rpx;
+  background: rgba(0,0,0,0.03);
+  border-radius: 26rpx;
+  margin-right: 30rpx;
+  margin-top: 24rpx;
+}
+.reply-collect-icon {
+  width: 21rpx;
+  height: 21rpx;
+  margin-right: 7rpx;
+}
+.notify-comment-img {
+  width: 106rpx;
+  height: 106rpx;
+  border-radius: 8rpx;
+  margin-left: 24rpx;
+}

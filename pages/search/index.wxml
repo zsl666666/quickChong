@@ -48,13 +48,21 @@
     <view class="checked-mark-wrapper" wx:for="{{searchData}}" wx:key="index" catch:tap="detailHandle" data-item="{{item}}">
       <view class="mark-content-top">
         <view class="content-img">
-          <image src="{{item.pic_cover || '/image/list-position.png'}}" mode="aspectFit" class="content-img-style" />
+          <image
+            src="{{item.pic_cover || '/image/list-position.png'}}"
+            class="content-img-style"
+          />
         </view>
-        <view>
+        <view class="search-result-content-wrap">
           <text class="checked-content-title">{{item.device_type}}</text>
           <view class="checked-content-detail">
-            <text>{{item.distance}}</text>
-            <text class="checked-content-address">{{item.name}}</text>
+            <text>{{item.distance}} | {{item.name}}</text>
+            <!-- <text class="checked-content-address">{{item.name}}</text> -->
+          </view>
+          <view class="device-intro-desc-wrap">
+            <text class="device-intro-desc">{{!item.is_scancode ? '不支持' : ''}}扫码充电</text>
+            <text class="device-intro-desc">{{!item.is_rainshelter ? '无' : '有'}}防雨措施</text>
+            <text class="device-intro-desc">{{!item.is_charger ? '无需' : '需'}}自备充电器</text>
           </view>
           <view class="checked-pinlun-wrapper">
             <van-rate
@@ -70,9 +78,9 @@
         </view>
       </view>
       <view class="mark-content-bottom">
-        <view class="checked-content-bottom">
+        <view class="checked-content-bottom {{item.loc_type === 1 ? 'checked-content-bottom-estate': ''}}">
           <view class="checked-content-bg">
-            <image src="/image/home-checked-juxing.png" />
+            <image src="{{item.loc_type === 1 ? '/image/index/housingPostIcon.png' : '/image/home-checked-juxing.png'}}" />
             <text class="checked-content-type-text">{{ item.loc_type === 1 ? '小区' : '公用'}}</text>
           </view>
           <text class="type-chatou-num">端口：{{item.device_port}}个</text>

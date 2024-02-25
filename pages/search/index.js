@@ -77,6 +77,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    wx.setStorageSync('currentPosition', JSON.stringify({
+      latitude: options?.latitude,
+      longitude: options?.longitude
+    }))
     wx.hideShareMenu({
       menus: ['shareAppMessage', 'shareTimeline']
     })
@@ -128,9 +132,9 @@ Page({
       data: {
         key: '2IQBZ-GCWLL-DSGPF-EJPAM-5HDEV-ILB4O',
         keyword: `${this.data.searchParam.value}`,
-        region: app.globalData.address,
+        // region: app.globalData.address,
         page_index:  this.data.searchParam.page,
-        region_fix: 1,
+        // region_fix: 1,
         get_subpois: 1,
         page_size: 20,
         policy: 1,

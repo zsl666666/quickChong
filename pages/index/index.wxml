@@ -15,6 +15,45 @@
       show-location
     >
     </map>
+    <view
+      wx:if="{{isNoticeBar}}"
+      class="map-notice-bar"
+      style="top: calc({{navBarHeight}}px + 220rpx)"
+    >
+        <!-- <image
+          class="notice-bar-left-icon"
+          src="/image/index/mapTopNoticeBarIcon.png"
+          slot="left-icon"
+        />
+        <view class="map-notice-content">
+          {{noticeBarText}}
+        </view>
+        <van-icon
+          name="cross"
+          slot="right-icon"
+          class="map-notice-bar-close-icon"
+          catch:tap="handleCloseNoticeBar"
+        /> -->
+
+      <van-notice-bar
+        background="#FFFFFF"
+        color="#6b6b6b"
+        scrollable="{{isNoticeScrollable}}"
+        text="{{noticeBarText}}"
+      >
+        <image
+          class="notice-bar-left-icon"
+          src="/image/index/mapTopNoticeBarIcon.png"
+          slot="left-icon"
+        />
+        <van-icon
+          name="cross"
+          slot="right-icon"
+          class="map-notice-bar-close-icon"
+          catch:tap="handleCloseNoticeBar"
+        />
+      </van-notice-bar> 
+    </view>
   </view>
   <view id='moreAction' class="index-search-wrapper" style="top: {{navBarHeight}}px;">
     <view class="home-top-search-wrapper">
@@ -76,17 +115,28 @@
           <image src="/image/upload-icon.png" class="content-img-style2" />
         </van-uploader>
       </view>
-      <view>
+      <view class="search-result-content-wrap">
         <text class="checked-content-title">{{deviceDetail.device_type}}</text>
-        <view class="checked-tag-wrapper">
+        <!-- <view class="checked-tag-wrapper">
           <text class="tag-item" wx:if="{{deviceDetail.is_scancode}}">扫码充电</text>
           <text class="tag-item" wx:if="{{deviceDetail.is_rainshelter}}">有防雨措施</text>
           <text class="tag-item" wx:if="{{!deviceDetail.is_charger}}">无需自备充电器</text>
           <text class="tag-item" wx:if="{{deviceDetail.is_charger}}">需自备充电器</text>
-        </view> 
+        </view>  -->
+
         <view class="checked-content-detail">
+          <text>{{deviceDetail.distance}} | {{deviceDetail.name}}</text>
+          <!-- <text class="checked-content-address">{{deviceDetail.name}}</text> -->
+        </view>
+        <!-- <view class="checked-content-detail">
           <text>{{deviceDetail.distance}}</text>
           <text class="checked-content-address">{{deviceDetail.name}}</text>
+        </view> -->
+
+        <view class="device-intro-desc-wrap">
+          <text class="device-intro-desc">{{!deviceDetail.is_scancode ? '不支持' : ''}}扫码充电</text>
+          <text class="device-intro-desc">{{!deviceDetail.is_rainshelter ? '无' : '有'}}防雨措施</text>
+          <text class="device-intro-desc">{{!deviceDetail.is_charger ? '无需' : '需'}}自备充电器</text>
         </view>
         <view class="checked-pinlun-wrapper">
           <van-rate
@@ -103,14 +153,22 @@
       </view>
     </view>
     <view class="mark-content-bottom">
-      <view class="checked-content-bottom">
+      <view class="checked-content-bottom {{deviceDetail.loc_type === 1 ? 'checked-content-bottom-estate': ''}}">
         <view class="checked-content-bg">
-          <image src="/image/home-checked-juxing.png" />
+          <image src="{{deviceDetail.loc_type === 1 ? '/image/index/housingPostIcon.png' : '/image/home-checked-juxing.png'}}" />
           <text class="checked-content-type-text">{{ deviceDetail.loc_type === 1 ? '小区' : '公用'}}</text>
         </view>
         <text class="type-chatou-num">端口：{{deviceDetail.device_port}}个</text>
       </view>
       <text class="jiu-cuo-style" catchtap="goErrorCorrection" data-id="{{deviceDetail.id}}" data-detail="{{deviceDetail}}">去纠错？</text>
+      <view
+        class="collect-operation-wrap"
+        catch:tap="handleCollectDevice"
+        data-detail="{{deviceDetail}}"
+      >
+        <image src="{{deviceDetail.is_collect === 1 ? '/image/index/collectDeviceSelected.png' : '/image/index/collectDeviceNoSelected.png'}}" class="collect-device-icon" />
+        <text class="collect-title">{{deviceDetail.is_collect === 1 ? '已' : ''}}收藏</text>
+      </view>
       <view class="checked-content-go-wrapper" catchtap="goPosition">
         <image src="/image/home-checked-jiantou.png" class="go-btn-text-icon" />
         <text>去这里</text>

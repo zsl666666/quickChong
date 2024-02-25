@@ -1,0 +1,122 @@
+<!--pages/forums/components/commentReply/index.wxml-->
+<!-- <van-popup
+  show="{{ showPopup }}"
+  closeable
+  position="bottom"
+  custom-style="height: 20%"
+  bind:close="onClose"
+/> -->
+<wxs module="forumsFn" src="../../utils.wxs"></wxs>
+
+<page-container 
+  show="{{showPopup}}"
+  overlay="{{true}}"
+  round
+  close-on-slide-down
+>
+  <van-sticky>
+    <view class="top-cont">
+      <van-icon name="cross" size="{{20}}" class="close-icon" bind:tap="handleClose" />
+      <text class="reply-detail-title">回复详情</text>
+    </view>
+  </van-sticky>
+  <scroll-view
+    bindscrolltolower="handleScrollToLower"
+    scroll-y="true"
+    enhanced="{{true}}"
+    enable-passive="{{true}}"
+    lower-threshold="80"
+    style="height: 75vh"
+  >
+    <view
+      class="comment-every-content"
+      data-item="{{levelCommentDetail}}"
+      data-type="{{CONFIG.COMMENT_TYPE_COMMENT}}"
+      catch:tap="handleCommentReply"
+    >
+      <image
+        src="{{forumsFn.getAvatar(levelCommentDetail.avatar)}}"
+        class="comment-profile-image"
+      />
+      <view class="comment-content-right">
+        <view class="comment-user-name">
+          {{levelCommentDetail.username}}
+          <text wx:if="{{articleDetail.uid === levelCommentDetail.uid}}" class="is-post-author">帖主评论</text>
+        </view>
+        <view class="comment-main-content">{{levelCommentDetail.content}}</view>
+        <view class="date-and-collect">
+          <text>{{levelCommentDetail.create_time}}</text>
+          <view
+            class="like-wrap"
+            data-item="{{levelCommentDetail}}"
+            catch:tap="handleCommentLike"
+          >
+            <image
+              src="{{levelCommentDetail.is_like ? '/image/forum/collect.png' : '/image/forum/noCollect.png'}}" 
+              class="collect-icon"
+            />
+            <text
+              wx:if="{{levelCommentDetail.like_number}}"
+              class="like-num {{levelCommentDetail.is_like ? 'is-my-like' : ''}}"
+            >{{levelCommentDetail.like_number}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view
+      wx:for="{{list}}"
+      wx:key="index"
+      class="comment-every-content reply-class"
+      data-item="{{item}}"
+      data-type="{{CONFIG.COMMENT_TYPE_REPLY}}"
+      catch:tap="handleCommentReply"
+    >
+      <image
+        src="{{forumsFn.getAvatar(item.avatar)}}"
+        class="comment-profile-image"
+      />
+      <view class="comment-content-right">
+        <view class="comment-user-name">
+          {{item.username}}
+          <text wx:if="{{item.uid === articleDetail.uid}}" class="is-post-author">帖主回复</text>
+        </view>
+        <view class="comment-main-content">
+          <text
+            wx:if="{{item.to_username}}"
+          >回复 <text class="reply-people-username">{{item.to_username}}：</text></text>
+          <text>{{item.content}}</text>
+        </view>
+        <view class="date-and-collect">
+          <text>{{item.create_time}}</text>
+          <view
+            class="like-wrap"
+            data-item="{{item}}"
+            catch:tap="handleReplyLike"
+          >
+            <image
+              src="{{item.is_like ? '/image/forum/collect.png' : '/image/forum/noCollect.png'}}" 
+              class="collect-icon"
+            />
+            <text
+              wx:if="{{item.like_number}}"
+              class="like-num {{item.is_like ? 'is-my-like' : ''}}"
+            >{{item.like_number}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{isEndPage && total}}" class="content-end-wrap">到底啦~</view>
+  </scroll-view>
+
+  <keyboardTopInput
+    showInput="{{commentModal.showInput}}"
+    placeholder="{{'回复 @' + commentModal.data.username}}"
+    bind:onVisible="handleKeyboardTopInputVisible"
+    bind:onChange="handleKeyboardInput"
+    bind:onSubmit="handleSubmit"
+  ></keyboardTopInput>
+
+  <get-nick show="{{showLogin}}" bind:loginSure="loginSureHandle"></get-nick>
+</page-container>
