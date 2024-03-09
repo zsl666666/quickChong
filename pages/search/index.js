@@ -43,6 +43,10 @@ Page({
     ],
     value1: '',
     currentPosition: '',
+    curPositionParams: { // 当前定位参数
+      latitude: 0,
+      longitude: 0,
+    },
     latitude: '',
     longitude: '',
     resultData: [],
@@ -93,6 +97,10 @@ Page({
       success: (res) => {
         this.setData({
           currentPosition: res.result.formatted_addresses.recommend,
+          curPositionParams: {
+            latitude: options?.latitude * 1,
+            longitude: options?.longitude * 1,
+          },
           latitude: options?.latitude * 1,
           longitude: options?.longitude * 1,
           oldMessage: {
@@ -179,7 +187,7 @@ Page({
   // 附近设备
   searchVicinity(e) {
     const tempObj = e.currentTarget.dataset.item
-    console.log(tempObj)
+
     wx.setStorageSync('currentPosition', JSON.stringify({
       latitude: tempObj.location.lat,
       longitude: tempObj.location.lng
@@ -189,6 +197,10 @@ Page({
       currentPage: 1,
       searchData: [],
       currentPosition: tempObj.title,
+      curPositionParams: {
+        latitude: tempObj.location.lat,
+        longitude: tempObj.location.lng
+      },
       ifLoadMore: true
     }, () => {
       this.getDeviceList(this.data.currentValue)
@@ -196,7 +208,6 @@ Page({
   },
 
   handleGoMap(e) {
-    console.log('跳转去首页地图', e)
     const location = e.currentTarget.dataset.item.location
     wx.setStorageSync('detailObj', JSON.stringify({
       type: 'viewLocation',
@@ -204,7 +215,20 @@ Page({
       longitude: location.lng
     }))
     wx.switchTab({
-      url: `/pages/index/index?type=view&latitude=${location.lat}&longitude=${location.lng}`,
+      url: `/pages/index/index?type=viewLocation&latitude=${location.lat}&longitude=${location.lng}`,
+    })
+  },
+
+  // 点击当前定位
+  handleClickCurPosition() {
+    const location = this.data.curPositionParams
+    wx.setStorageSync('detailObj', JSON.stringify({
+      type: 'viewLocation',
+      latitude: location.latitude,
+      longitude: location.longitude
+    }))
+    wx.switchTab({
+      url: `/pages/index/index?type=viewLocation&latitude=${location.latitude}&longitude=${location.longitude}`,
     })
   },
 
@@ -215,6 +239,10 @@ Page({
       currentPage: 1,
       searchData: [],
       currentPosition: this.data.oldMessage.text,
+      curPositionParams: {
+        latitude: this.data.oldMessage.position.latitude,
+        longitude: this.data.oldMessage.position.longitude,
+      },
       ifLoadMore: true
     }, () => {
       this.getDeviceList(this.data.currentValue)
@@ -332,7 +360,6 @@ Page({
 
   // 添加地址时滚动到底部加载
   scrollToLower() {
-    console.log('滚动到底部了')
     if (this.data.ifLoadMore) {
       this.getDeviceList(this.data.currentValue)
     }

@@ -1,6 +1,6 @@
 <view class="page-body" page-style="{{ showCity ? 'overflow: hidden;' : '' }}">
   <navigation-bar
-    city="{{userCurLocation.city || ''}}"
+    userLocation="{{userCurLocation}}"
     bind:openRegular="openRegular"
     bind:selectAddress="selectAddress"
   ></navigation-bar>

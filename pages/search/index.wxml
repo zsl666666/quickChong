@@ -24,7 +24,10 @@
     <view class="charge-item-wrapper">
       <view>
         <text class="search-current-title">当前定位：</text>
-        <text class="search-current-content">{{currentPosition}}</text>
+        <text
+          class="search-current-content"
+          bind:tap="handleClickCurPosition"
+        >{{currentPosition}}</text>
       </view>
       <view catch:tap="resetPosition">
         <image src="/image/position.png" class="position-img" />

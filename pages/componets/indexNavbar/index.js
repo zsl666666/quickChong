@@ -11,13 +11,13 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    city: {
-      type: String,
-      value: '',
-      observer: function(newVal, oldVal) {
-        if (newVal) {
+    userLocation: {
+      type: Object,
+      value: {},
+      observer: function(val) {
+        if (val && val.city) {
           this.setData({
-            currentCity: newVal
+            currentCity: val.city
           })
         }
       }
@@ -119,7 +119,7 @@ Component({
     // 切换城市
     handleToggleCity() {
       wx.navigateTo({
-        url: `plugin://citySelector/index?key=${key}&referer=${'满电快搜'}&hotCitys=${'北京,上海,广州,深圳'}`,
+        url: `plugin://citySelector/index?key=${key}&referer=满电快搜&hotCitys=${'北京,上海,广州,深圳'}`,
       })
     }
   }

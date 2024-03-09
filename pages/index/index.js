@@ -297,8 +297,9 @@ Page({
       success: (res) => {
         const latitude = res.latitude
         const longitude = res.longitude
+
         console.log('用户当前位置', latitude, longitude, res)
-        // toScreenLocation
+
         wx.setStorageSync('currentPosition', JSON.stringify({ latitude, longitude }))
         this.setData({
           latitude,
@@ -307,7 +308,7 @@ Page({
             latitude,
             longitude,
             city: ''
-          }
+          },
         })
       },
       fail: (err) => {
@@ -663,9 +664,7 @@ Page({
           this.mapCtx.moveToLocation({
             latitude: options.latitude * 1,
             longitude: options.longitude * 1,
-            success: () => {
-              // 移动成功
-              console.log('移动成功')
+            success: () => { // 移动成功
               wx.removeStorageSync('detailObj')
             },
             fail: function (error) {
@@ -734,11 +733,12 @@ Page({
             }
             app.globalData.curPositionInfo = params
             app.globalData.address = params.city
+
             that.setData({
               userCurLocation: {
                 ...that.data.userCurLocation,
                 city: params.city
-              }
+              },
             })
         })
       }
@@ -959,7 +959,6 @@ Page({
     const longitude = obj.longitude
 
     if (latitude && longitude) {
-
       this.setData({
         latitude,
         longitude,

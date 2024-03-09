@@ -263,13 +263,14 @@
   font-size: 28rpx;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
-  color: rgba(0,0,0,0.9);
+  /* color: rgba(0,0,0,0.9); */
   display: inline-block;
   max-width: 390rpx;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: middle;
+  color: #0D7AC2;
 }
 .search-reset-position {
   font-size: 28rpx;
