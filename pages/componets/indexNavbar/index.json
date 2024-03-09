@@ -1,6 +1,7 @@
 {
   "component": true,
   "usingComponents": {
+    "selector-component": "plugin://citySelector/selector-component",
     "van-area": "@vant/weapp/area/index",
     "van-popup": "@vant/weapp/popup/index"
   }

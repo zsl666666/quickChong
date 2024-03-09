@@ -66,6 +66,7 @@ App({
           }
           that.globalData.curPositionInfo = params
           that.globalData.address = params.city
+          that.globalData.userLocationInfo = params
           if (typeof that.asyncOkCb === 'function') {
             that.asyncOkCb(that.globalData)
           }
@@ -80,6 +81,7 @@ App({
     menuTop: 0, // 胶囊距底部间距（保持底部间距一致）
     menuHeight: 0, // 胶囊高度（自定义内容可与胶囊高度保证一致）
     address: '', // 城市名
-    curPositionInfo: {}, // 当前位置信息
+    curPositionInfo: {}, // 位置信息，可通过选择城市修改
+    userLocationInfo: {}, // 用户当前所在定位的信息，存储目的是供整个项目直接获取用户定位信息
   }
 })

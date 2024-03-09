@@ -1,0 +1,63 @@
+<!--pages/addDeviceNew/index.wxml-->
+<view class="device-page-wrapper">
+  <view class="add-desc-wrap">
+    <image class="add-desc-wrap-icon" src="/image/addDevice/addDeviceIcon.png" />
+    <text>添加设备后获得的贡献值，可以兑换礼品哦～</text>
+  </view>
+
+  <view class="every-device-chunk">
+    <view class="device-chunk-top">
+      <image class="device-chunk-top-icon" src="/image/addDevice/deviceTypeIcon.png" />
+      <view class="device-chunk-top-title">充电设备类型</view>
+    </view>
+    <view class="device-type-bottom-wrap">
+      <view
+        wx:for="{{chargeDeviceTypes}}"
+        wx:key="index"
+        class="{{'device-type-b-box ' + (deveiceData.device_type === item.value && 'device-type-b-selected-box')}}"
+        data-value="{{item.value}}"
+        catch:tap="handleChangechargeDeviceType"
+      >
+        <image class="device-type-b-box-type-icon" src="{{item.icon}}" />
+        <text class="device-type-b-box-type-title">{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+
+  <chosen-position
+    title="地图位置*"
+    desc="位置有误会影响导航，请仔细确认"
+    bind:mapDataChange="handleMapDataChange"
+  ></chosen-position>
+
+  <view class="every-device-chunk">
+    <view class="device-chunk-top-wrap">
+      <view class="device-chunk-top-title">设备照片*</view>
+      <view class="device-chunk-top-content-desc">请上传真实、清晰的设备照片，有助于审核</view>
+    </view>
+    <view class="device-type-bottom-wrap">
+      开发中...
+    </view>
+  </view>
+
+  <view class="every-device-chunk">
+    <view class="device-chunk-top">
+      <view class="device-chunk-top-title">类型</view>
+    </view>
+    <view class="device-site-type-bottom-wrap">
+      <view
+        wx:for="{{deviceSiteTypes}}"
+        wx:key="index"
+        class="{{'device-site-type-b-box ' + (deveiceData.loc_type === item.value && 'device-site-type-b-selected-box')}}"
+        data-value="{{item.value}}"
+        catch:tap="handleChangeDeviceSiteType"
+      >
+        {{item.label}}
+      </view>
+    </view>
+  </view>
+
+  <van-uploader>
+    <van-button icon="photo" type="primary">上传图片</van-button>
+  </van-uploader>
+</view>

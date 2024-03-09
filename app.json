@@ -17,7 +17,8 @@
     "pages/forums/components/postDetail/index",
     "pages/forums/components/notify/index",
     "pages/my/components/collectCenter/index",
-    "pages/forums/components/postMessage/index"
+    "pages/forums/components/postMessage/index",
+    "pages/addDeviceNew/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -32,6 +33,12 @@
     },
     "scope.userFuzzyLocation": {
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "plugins": {
+    "citySelector": {
+      "version": "1.0.2",
+      "provider": "wx63ffb7b7894e99ae"
     }
   },
   "requiredPrivateInfos": [

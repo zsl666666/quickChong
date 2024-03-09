@@ -31,6 +31,7 @@
   font-weight: 400;
   color: rgba(0,0,0,0.2);
   line-height: 30rpx;
+  margin-top: 8rpx;
 }
 .map-wrap {
   width: 658rpx;

@@ -109,8 +109,29 @@
           </view>
           <view class="search-address-content">{{item.address}}</view>
         </view>
-        <view class="search-fujin-btn" catch:tap="searchVicinity" data-item="{{item}}">
-          <text>附近设备</text>
+        <view class="search-fujin-btn-wrap">
+          <!-- <view class="search-fujin-btn search-fujin-go-btn" catch:tap="handleGoMap" data-item="{{item}}">
+            <image src="/image/home-checked-jiantou.png" class="search-fujin-go-icon" />
+          </view>
+          <view class="search-fujin-btn" catch:tap="searchVicinity" data-item="{{item}}">
+            <text>附近设备</text>
+          </view> -->
+          <view
+            class="search-target-device-wrap"
+            catch:tap="handleGoMap"
+            data-item="{{item}}"
+          >
+            <image src="/image/search/goMapSite.png" class="search-fujin-go-target-device-icon" />
+            <text>定位</text>
+          </view>
+          <view
+            class="search-target-device-wrap search-target-near-device"
+            catch:tap="searchVicinity"
+            data-item="{{item}}"
+          >
+            <image src="/image/search/nearbydevice.png" class="search-fujin-go-target-device-icon" />
+            <text>附近设备</text>
+          </view>
         </view>
       </view>
     </view>

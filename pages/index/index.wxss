@@ -27,6 +27,65 @@
   padding-left: 6rpx;
 }
 
+.map-center-wrap {
+  position: fixed;
+  left: 50%;
+  top: calc(50% + var(--top));
+  transform: translate(-50%, calc(-50% - 32px));
+}
+.map-center-icon {
+  /* width: 48rpx;
+  height: 72rpx; */
+  width: 90rpx;
+  height: 138rpx;
+}
+.add-near-device-wrap {
+  box-sizing: border-box;
+  position: absolute;
+  width: 360rpx;
+  height: 86rpx;
+  background: #FFFFFF;
+  box-shadow: 0rpx 1rpx 8rpx 0rpx rgba(0,0,0,0.14);
+  border-radius: 6rpx;
+  transform: translate(calc(-50% - 45rpx), -85rpx);
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  font-size: 24rpx;
+  color: #0D7AC2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+}
+.add-near-device-wrap::after {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 84rpx;
+  /* left: 146rpx; */
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 0;  
+  height: 0;  
+  border-left: 12rpx solid transparent;  
+  border-right: 12rpx solid transparent;  
+  border-top: 12rpx solid #FFFFFF;  
+}
+.add-near-btn {
+  box-sizing: border-box;
+  width: 110rpx;
+  height: 50rpx;
+  background: #0D7AC2;
+  border-radius: 30rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  font-size: 20rpx;
+  color: #FFFFFF;
+  line-height: 50rpx;
+  text-align: center;
+}
+
 
 /* .map-notice-bar {
   position: fixed;
@@ -420,6 +479,32 @@
   height: 58rpx;
   margin-right: 14rpx;
 }
+
+.add-device-box-posi-wrap {
+  position: relative;
+}
+.add-device-box-posi-wrap-desc-wrap {
+  position: absolute;
+  width: 266rpx;
+  height: 210rpx;
+  top: 0rpx;
+  transform: translateY(-100%);
+}
+.add-device-box-posi-wrap-desc-wap {
+  position: relative;
+  width: 266rpx;
+  height: 210rpx;
+  /* top: 0rpx; */
+  /* transform: translateY(-100%); */
+}
+.add-device-box-posi-wrap-desc-delete-icon {
+  position: absolute;
+  width: 50rpx;
+  height: 50rpx;
+  top: 60rpx;
+  transform: translateX(calc(-100% - 16rpx));
+}
+
 .position-current-wrapper {
   width: 80rpx;
   height: 80rpx;

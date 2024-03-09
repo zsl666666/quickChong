@@ -2,6 +2,7 @@
 import { url, getUserInfo, QQMapWX } from '../../utils/util'
 import Toast from '@vant/weapp/toast/toast';
 import apis from './apis'
+import { getReverseGeocoder } from 'service/QQMapApis'
 
 // 获取应用实例
 const app = getApp()
@@ -34,6 +35,8 @@ Page({
     isNoticeBar: false, // 顶部通知
     isNoticeScrollable: false, // 顶部通知是否支持滚动
     noticeBarText: initNoticeBarText, // 顶部通知的内容
+    visibleCenterLocationAdd: false, // 地图中心点位置添加按钮是否可见
+    visibleAddDeviceGift: true, // 是否展示添加设备兑换礼品弹窗
     chargeBtnArray: [{
       name: '全部',
       id: 1,
@@ -62,6 +65,11 @@ Page({
     markCheckedShow: false,
     choiceTypeValue: 1,
     showMoreType: false,
+    userCurLocation: { //  用户当前定位坐标
+      latitude: 0,
+      longitude: 0,
+      city: ''
+    },
     latitude: 0,
     longitude: 0,
     markers:[],
@@ -83,10 +91,13 @@ Page({
     deviceId: 0,
     loadObj: {
       collectLoading: false
-    }
+    },
   },
   onReady: function (e) {
-    this.mapCtx = wx.createMapContext('myMap')
+    this.mapCtx = wx.createMapContext('100000001', this)
+    this.setData({
+      visibleAddDeviceGift: true
+    })
   },
 
   // 点击展示大图
@@ -286,10 +297,17 @@ Page({
       success: (res) => {
         const latitude = res.latitude
         const longitude = res.longitude
+        console.log('用户当前位置', latitude, longitude, res)
+        // toScreenLocation
         wx.setStorageSync('currentPosition', JSON.stringify({ latitude, longitude }))
         this.setData({
-          latitude: latitude,
-          longitude: longitude
+          latitude,
+          longitude,
+          userCurLocation: {
+            latitude,
+            longitude,
+            city: ''
+          }
         })
       },
       fail: (err) => {
@@ -308,7 +326,7 @@ Page({
     if (e.type === 'end') {
       // 用户停止拖动地图
       // 创建 map 上下文对象
-      this.mapCtx = wx.createMapContext('myMap')
+      // this.mapCtx = wx.createMapContext('myMap')
       this.mapCtx.getCenterLocation({
         success: (res) => {
           // 设置当前的地图中心坐标为用户坐标
@@ -320,6 +338,7 @@ Page({
           }
           timeId = setTimeout(() => {
             this.getDeviceList(obj.value, detailLatiuteAndLongitude.latitude || res.latitude, detailLatiuteAndLongitude.longitude || res.longitude)
+            // this.getDeviceList(obj.value, this.data.latitude || res.latitude, this.data.longitude || res.longitude)
           }, 500)
         },
         fail: (err) => {
@@ -340,7 +359,6 @@ Page({
     commonMarkId = markerId
     const selectedMarker = this.data.markers.find(marker => marker.id === markerId);
     // 在这里可以根据 selectedMarker 执行需要的操作，比如显示信息窗口等
-    console.log("点击了标记点：" + selectedMarker.id);
     const tempArr = JSON.parse(JSON.stringify(this.data.markers))
     tempArr.forEach(item => {
       item.iconPath = item.id === markerId ? item.selectIconPath : mapIcon[item.deviceType]
@@ -423,6 +441,14 @@ Page({
     }
   },
 
+  // 新的添加设备
+  handleAddDevice() {
+    // pages/addDeviceNew/index
+    wx.navigateTo({
+      url: `/pages/addDeviceNew/index`,
+    })
+  },
+
   
 
   // 获取用户所在位置附近的设备列表
@@ -461,7 +487,8 @@ Page({
           }
         })
         this.setData({
-          markers: tempMarkers
+          markers: tempMarkers,
+          visibleCenterLocationAdd: !tempMarkers.length, // 如果附近没有设备就显示中心点添加按钮
         }, () => {
           if (commonMarkId) {
             this.ifDeveiceDetail()
@@ -479,7 +506,6 @@ Page({
     const selectedMarker = this.data.markers.find(marker => marker.id === commonMarkId) || {}
     if (!selectedMarker.id) return
     // 在这里可以根据 selectedMarker 执行需要的操作，比如显示信息窗口等
-    console.log("点击了标记点：" + selectedMarker.id);
     const tempArr = JSON.parse(JSON.stringify(this.data.markers))
     tempArr.forEach(item => {
       item.iconPath = item.id === commonMarkId ? item.selectIconPath : mapIcon[item.deviceType]
@@ -618,24 +644,43 @@ Page({
     if (wx.getStorageSync('ticket')) {
       // const obj = this.data.chargeBtnArray.find(item => item.id === this.data.choiceTypeValue)
       const options = JSON.parse(wx.getStorageSync('detailObj') || '{}')
-      this.mapCtx = wx.createMapContext('myMap')
-      if (!options.id) return
-      commonMarkId= options.id // 获取点击的标记点的 id
-      console.log('options====', options)
-      detailLatiuteAndLongitude = {
-        latitude: options.latitude * 1,
-        longitude: options.longitude * 1
-      }
-      this.setData({
-        mapScal: 20
-      }, () => {
+      // this.mapCtx = wx.createMapContext('myMap')
+      // const type: 'viewDevice',
+      const type = options.type
+
+      if (type === 'viewDevice') { // 查看设备
+        if (!options.id) return
+        commonMarkId= options.id // 获取点击的标记点的 id
+  
+        detailLatiuteAndLongitude = {
+          latitude: options.latitude * 1,
+          longitude: options.longitude * 1
+        }
+        this.setData({
+          mapScal: 20
+        }, () => {
+          // 移动
+          this.mapCtx.moveToLocation({
+            latitude: options.latitude * 1,
+            longitude: options.longitude * 1,
+            success: () => {
+              // 移动成功
+              console.log('移动成功')
+              wx.removeStorageSync('detailObj')
+            },
+            fail: function (error) {
+              // 移动失败，可以处理错误情况
+              console.error(error);
+            }
+          });
+        })
+      } else if (type === 'viewLocation') { // 查看位置
         // 移动
         this.mapCtx.moveToLocation({
           latitude: options.latitude * 1,
           longitude: options.longitude * 1,
           success: () => {
             // 移动成功
-            console.log('移动成功')
             wx.removeStorageSync('detailObj')
           },
           fail: function (error) {
@@ -643,31 +688,61 @@ Page({
             console.error(error);
           }
         });
-      })
+      }
     }
   },
 
   // 回到当前位置
   goBackCurrentPosition() {
-    this.setData({
-      mapScal: 15
-    })
+    // const currentPosion = {
+    //   latitude: this.data.latitude,
+    //   longitude: this.data.longitude
+    // }
+    // if (!currentPosion.latitude) return
+
     const currentPosion = {
-      latitude: this.data.latitude,
-      longitude: this.data.longitude
+      latitude: this.data.userCurLocation.latitude,
+      longitude: this.data.userCurLocation.longitude,
     }
-    if (!currentPosion.latitude) return
+
+    const that = this
+  
+    this.setData({
+      mapScal: 15,
+      ...currentPosion
+    })
+     
     this.mapCtx.moveToLocation({
       latitude: currentPosion.latitude,
       longitude: currentPosion.longitude,
-      success: function () {
-        // 移动成功
-      },
-      fail: function (error) {
-        // 移动失败，可以处理错误情况
-        console.error(error);
+      success: function() {
+        getReverseGeocoder({
+          location: currentPosion
+        }).then(res => {
+          const result = res.result
+            const ad_info = result?.ad_info || {}
+            const params = {
+              province: ad_info.province,
+              city: ad_info.city,
+              district: ad_info.district,
+              town: result.address_reference?.town?.title || '',
+              name: result.address_reference.landmark_l2.title,
+              address: result.formatted_addresses.recommend,
+              location: result.location,
+              latitude: result.location.lat,
+              longitude: result.location.lng,
+            }
+            app.globalData.curPositionInfo = params
+            app.globalData.address = params.city
+            that.setData({
+              userCurLocation: {
+                ...that.data.userCurLocation,
+                city: params.city
+              }
+            })
+        })
       }
-    });
+    })
   },
 
   // 查看评论详情
@@ -711,7 +786,6 @@ Page({
 
   // 上传的图片删除
   imageDelete(e) {
-    console.log(e.detail.index)
     const tempArr = this.data.fileList
     tempArr.splice(e.detail.index, 1)
     const tempPicture = tempArr.map(item => item.url)
@@ -836,7 +910,6 @@ Page({
       to,
       accuracy: 2,
       success: (res) => {
-        console.log(res.data)
         var result = res.result
         var route = result.routes[0]
         var coors = route.polyline, pl = [];
@@ -876,10 +949,35 @@ Page({
   },
 
   // 选中城市
-  selectAddress() {
-    console.log(app.globalData.address)
-    this.onLoad()
-    this.onShow()
+  selectAddress(e) {
+    const isUserCity = e.detail.isUserCity
+
+    const appGlobData = app.globalData
+    const obj = isUserCity ? appGlobData.userLocationInfo : appGlobData.curPositionInfo
+
+    const latitude = obj.latitude
+    const longitude = obj.longitude
+
+    if (latitude && longitude) {
+
+      this.setData({
+        latitude,
+        longitude,
+      }, () => {
+        this.mapCtx.moveToLocation({
+          latitude,
+          longitude,
+          success: () => {
+            // 移动成功
+            console.log('移动成功')
+          },
+          fail: function (error) {
+            // 移动失败，可以处理错误情况
+            console.error(error);
+          }
+        })
+      })
+    }
   },
 
   // 收藏、取消收藏
@@ -914,6 +1012,13 @@ Page({
     wx.removeStorageSync('isNoticeBar')
     this.setData({
       isNoticeBar: false
+    })
+  },
+
+  // 取消添加设备兑换礼品弹窗
+  handleCancelAddGift() {
+    this.setData({
+      visibleAddDeviceGift: false
     })
   },
 

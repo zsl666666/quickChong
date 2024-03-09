@@ -15,6 +15,12 @@
   border-radius: 50px;
   padding-left: 14px;
 }
+.city-wrap {
+  width: max-content;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
 .index-address-icon {
   width: 42rpx;
   height: 42rpx;

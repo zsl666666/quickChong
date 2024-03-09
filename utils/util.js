@@ -46,6 +46,7 @@ module.exports = {
   url,
   getUserInfo,
   verifyLogin,
+  key: '2IQBZ-GCWLL-DSGPF-EJPAM-5HDEV-ILB4O',
   amapFile: new amapFile.AMapWX({key:'24c3089f745d73fccd2245382fbb2942'}),
   QQMapWX: new QQMapWX({
     key: '2IQBZ-GCWLL-DSGPF-EJPAM-5HDEV-ILB4O'

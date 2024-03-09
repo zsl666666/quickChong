@@ -295,6 +295,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 44rpx 0rpx;
+  /* padding: 30rpx 0rpx; */
   margin: 0 30rpx;
   border-bottom: 1px solid #eee;
 }
@@ -302,6 +303,7 @@
   width: 34rpx;
   height: 34rpx;
   vertical-align: middle;
+  margin-top: -10rpx;
 }
 .search-address-title {
   font-size: 32rpx;
@@ -321,19 +323,62 @@
   line-height: 34rpx;
   margin-top: 18rpx;
 }
+.search-fujin-btn-wrap {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  margin-left: 10rpx;
+}
 .search-fujin-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 172rpx;
+  /* width: 172rpx;
+  height: 68rpx; */
+  width: 140rpx;
   height: 68rpx;
   background: #0D7AC2;
   border-radius: 47rpx;
-  font-size: 28rpx;
+  /* font-size: 28rpx; */
+  font-size: 24rpx;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
   color: #FFFFFF;
 }
+.search-fujin-go-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 68rpx;
+  height: 68rpx;
+  margin-right: 10rpx;
+}
+.search-fujin-go-icon {
+  width: 34rpx;
+  height: 34rpx;
+}
+.search-target-device-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  font-size: 20rpx;
+  color: #0D7AC2;
+  line-height: 34rpx;
+  text-align: right;
+  font-style: normal;
+  width: max-content;
+}
+.search-target-near-device {
+  margin-left: 40rpx;
+}
+.search-fujin-go-target-device-icon {
+  width: 60rpx;
+  height: 60rpx;
+  margin-bottom: 5rpx;
+}
+
 .search-more-load {
   display: flex;
   align-items: center;

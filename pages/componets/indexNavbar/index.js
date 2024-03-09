@@ -1,19 +1,26 @@
 // pages/componets/indexNavbar/index.js
 import { areaList } from '@vant/area-data'
+import { key } from 'utils/index'
+import { getReverseGeocoder } from 'service/QQMapApis'
 const app = getApp()
-console.log('ggggggg', app)
+const citySelector = requirePlugin('citySelector')
+
+console.log('选择城市', app.globalData)
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-    // defaultData（父页面传递的数据-就是引用组件的页面）
-    defaultData: {
-      type: Object,
-      value: {
-        title: ""
-      },
-      observer: function(newVal, oldVal) {}
+    city: {
+      type: String,
+      value: '',
+      observer: function(newVal, oldVal) {
+        if (newVal) {
+          this.setData({
+            currentCity: newVal
+          })
+        }
+      }
     }
   },
 
@@ -41,11 +48,47 @@ Component({
   },
   pageLifetimes: {
     show() {
+      const city = citySelector.getCity()
+  
+      const userCity = this.data
+
+      if (city) {
+        getReverseGeocoder({
+          location: city.location
+        }).then(res => {
+          const result = res.result
+            const ad_info = result?.ad_info || {}
+            const params = {
+              province: ad_info.province,
+              city: ad_info.city,
+              district: ad_info.district,
+              town: result.address_reference?.town?.title || '',
+              name: result.address_reference.landmark_l2.title,
+              address: result.formatted_addresses.recommend,
+              location: result.location,
+              latitude: result.location.lat,
+              longitude: result.location.lng,
+            }
+            app.globalData.curPositionInfo = params
+            app.globalData.address = params.city
+            this.setData({
+              currentCity: params?.city,
+            }, () => {
+              this.triggerEvent('selectAddress', {
+                isUserCity: app.globalData.userLocationInfo.city === params.city
+              })
+            })
+        })
+      }
+
       app.asyncOkCb = (res) => {
         this.setData({
           currentCity: res.curPositionInfo?.city,
         })
       }
+    },
+    hide() {
+      citySelector.clearCity();
     }
   },
 
@@ -58,7 +101,7 @@ Component({
       this.setData({
         show: true
       })
-      console.log(areaList)
+      // console.log(areaList)
     },
     confirm(e) {
       app.globalData.address = e.detail.values[1].name
@@ -71,6 +114,12 @@ Component({
     onClose() {
       this.setData({
         show: false
+      })
+    },
+    // 切换城市
+    handleToggleCity() {
+      wx.navigateTo({
+        url: `plugin://citySelector/index?key=${key}&referer=${'满电快搜'}&hotCitys=${'北京,上海,广州,深圳'}`,
       })
     }
   }

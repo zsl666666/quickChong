@@ -205,6 +205,7 @@ Page({
     const latitude = tempObj.coordinate.split(',')[0]
     const longitude = tempObj.coordinate.split(',')[1]
     wx.setStorageSync('detailObj', JSON.stringify({
+      type: 'viewDevice',
       id: tempObj.id,
       latitude,
       longitude
@@ -255,6 +256,7 @@ Page({
     const latitude = tempObj.coordinate.split(',')[0]
     const longitude = tempObj.coordinate.split(',')[1]
     wx.setStorageSync('detailObj', JSON.stringify({
+      type: 'viewDevice',
       id: tempObj.device_id,
       latitude,
       longitude
@@ -269,6 +271,7 @@ Page({
     const latitude = tempObj.coordinate.split(',')[0]
     const longitude = tempObj.coordinate.split(',')[1]
     wx.setStorageSync('detailObj', JSON.stringify({
+      type: 'viewDevice',
       id: tempObj.device_id,
       latitude,
       longitude

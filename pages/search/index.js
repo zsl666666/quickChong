@@ -64,6 +64,7 @@ Page({
     const latitude = tempObj.coordinate.split(',')[0]
     const longitude = tempObj.coordinate.split(',')[1]
     wx.setStorageSync('detailObj', JSON.stringify({
+      type: 'viewDevice',
       id: tempObj.id,
       latitude,
       longitude
@@ -191,6 +192,19 @@ Page({
       ifLoadMore: true
     }, () => {
       this.getDeviceList(this.data.currentValue)
+    })
+  },
+
+  handleGoMap(e) {
+    console.log('跳转去首页地图', e)
+    const location = e.currentTarget.dataset.item.location
+    wx.setStorageSync('detailObj', JSON.stringify({
+      type: 'viewLocation',
+      latitude: location.lat,
+      longitude: location.lng
+    }))
+    wx.switchTab({
+      url: `/pages/index/index?type=view&latitude=${location.lat}&longitude=${location.lng}`,
     })
   },
 

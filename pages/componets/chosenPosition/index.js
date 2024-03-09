@@ -74,7 +74,7 @@ Component({
   ready() {
     const { latitude, longitude } = this.data
     this.mapCtx = wx.createMapContext('111101', this)
-
+    console.log('this.mapCtx', this.mapCtx)
     if (latitude && longitude) {
       this.handleMapMark({ latitude, longitude })
     } else {

@@ -1,8 +1,12 @@
 <view class="page-body" page-style="{{ showCity ? 'overflow: hidden;' : '' }}">
-  <navigation-bar bind:openRegular="openRegular" bind:selectAddress="selectAddress"></navigation-bar>
+  <navigation-bar
+    city="{{userCurLocation.city || ''}}"
+    bind:openRegular="openRegular"
+    bind:selectAddress="selectAddress"
+  ></navigation-bar>
   <view class="page-section page-section-gap">
     <map
-      id="myMap"
+      id='100000001'
       style="width: 100%; height: 100%;"
       latitude="{{latitude}}"
       longitude="{{longitude}}"
@@ -54,6 +58,13 @@
         />
       </van-notice-bar> 
     </view>
+    <view class="map-center-wrap" style="--top: {{navBarHeight}}px">
+      <image class="map-center-icon" src="/image/index/mapPoint.png" />
+      <div wx:if="{{visibleCenterLocationAdd}}" class="add-near-device-wrap">
+        <text>附近没有充电设备</text>
+        <div class="add-near-btn" catchtap="addDeviceHandle">去添加</div>
+      </div>
+    </view>
   </view>
   <view id='moreAction' class="index-search-wrapper" style="top: {{navBarHeight}}px;">
     <view class="home-top-search-wrapper">
@@ -84,9 +95,20 @@
     </view>
   </view>
   <view class="add-excharge-device-wrapper">
-    <view class="add-device-wrapper" catchtap="addDeviceHandle">
-      <image class="device-icon" src="/image/dian-dong-icon.png" />
-      <text>发现充电设备</text>
+    <view class="add-device-box-posi-wrap">
+      <view class="add-device-wrapper" catchtap="addDeviceHandle">
+        <image class="device-icon" src="/image/dian-dong-icon.png" />
+        <text>发现充电设备</text>
+      </view>
+      <view class="add-device-wrapper" catchtap="handleAddDevice">
+        <text>新添加</text>
+      </view>
+
+      <view wx:if="{{!visibleAddDeviceGift}}" class="add-device-box-posi-wrap-desc-wrap">
+        <image class="add-device-box-posi-wrap-desc-wap" src="/image/index/addDeviceDescWap.png" />
+        <image class="add-device-box-posi-wrap-desc-delete-icon" src="/image/index/addDeviceDescDeleteIcon.png" catch:tap="handleCancelAddGift" />
+      </view>
+
     </view>
     <view class="position-current-wrapper" catchtap="goBackCurrentPosition">
       <image class="position-current-icon" src="/image/position-icon.png" />
