@@ -307,7 +307,7 @@ Page({
           userCurLocation: {
             latitude,
             longitude,
-            city: ''
+            city: getApp().globalData.userLocationInfo.city || ''
           },
         })
       },
@@ -328,7 +328,7 @@ Page({
       // 用户停止拖动地图
       // 创建 map 上下文对象
       // this.mapCtx = wx.createMapContext('myMap')
-      this.mapCtx.getCenterLocation({
+      this.mapCtx?.getCenterLocation({
         success: (res) => {
           // 设置当前的地图中心坐标为用户坐标
           wx.setStorageSync('currentPosition', JSON.stringify({ latitude: res.latitude, longitude: res.longitude }))
@@ -422,18 +422,8 @@ Page({
   addDeviceHandle() {
     const tempCurrentUserInfo = wx.getStorageSync('nickName')
     if (tempCurrentUserInfo) {
-      wx.getSetting({
-        success: (res) => {
-          // 判断是否已经授权地理位置
-          if (!res.authSetting['scope.userLocation']) {
-            // 没有授权，弹出模态框
-            this.showModal()
-          } else {
-            wx.navigateTo({
-              url: `/pages/addDevice/index`,
-            })
-          }
-        }
+      wx.navigateTo({
+        url: `/pages/addDevice/index`,
       })
     } else {
       this.setData({
@@ -705,44 +695,92 @@ Page({
     }
 
     const that = this
-  
-    this.setData({
-      mapScal: 15,
-      ...currentPosion
-    })
-     
-    this.mapCtx.moveToLocation({
-      latitude: currentPosion.latitude,
-      longitude: currentPosion.longitude,
-      success: function() {
-        getReverseGeocoder({
-          location: currentPosion
-        }).then(res => {
-          const result = res.result
-            const ad_info = result?.ad_info || {}
-            const params = {
-              province: ad_info.province,
-              city: ad_info.city,
-              district: ad_info.district,
-              town: result.address_reference?.town?.title || '',
-              name: result.address_reference.landmark_l2.title,
-              address: result.formatted_addresses.recommend,
-              location: result.location,
-              latitude: result.location.lat,
-              longitude: result.location.lng,
-            }
-            app.globalData.curPositionInfo = params
-            app.globalData.address = params.city
 
-            that.setData({
-              userCurLocation: {
-                ...that.data.userCurLocation,
-                city: params.city
-              },
-            })
-        })
+    wx.getSetting({
+      success: (res) => {
+        // 判断是否已经授权地理位置
+        if (!res.authSetting['scope.userLocation']) {
+          // 没有授权，弹出模态框
+          this.showModal()
+        } else {
+          this.setData({
+            mapScal: 15,
+            ...currentPosion
+          })
+           
+          this.mapCtx.moveToLocation({
+            latitude: currentPosion.latitude,
+            longitude: currentPosion.longitude,
+            success: function() {
+              getReverseGeocoder({
+                location: currentPosion
+              }).then(res => {
+                const result = res.result
+                  const ad_info = result?.ad_info || {}
+                  const params = {
+                    province: ad_info.province,
+                    city: ad_info.city,
+                    district: ad_info.district,
+                    town: result.address_reference?.town?.title || '',
+                    name: result.address_reference.landmark_l2.title,
+                    address: result.formatted_addresses.recommend,
+                    location: result.location,
+                    latitude: result.location.lat,
+                    longitude: result.location.lng,
+                  }
+                  app.globalData.curPositionInfo = params
+                  app.globalData.address = params.city
+      
+                  that.setData({
+                    userCurLocation: {
+                      ...that.data.userCurLocation,
+                      city: params.city
+                    },
+                  })
+              })
+            }
+          })
+        }
       }
     })
+  
+    // this.setData({
+    //   mapScal: 15,
+    //   ...currentPosion
+    // })
+     
+    // this.mapCtx.moveToLocation({
+    //   latitude: currentPosion.latitude,
+    //   longitude: currentPosion.longitude,
+    //   success: function() {
+    //     getReverseGeocoder({
+    //       location: currentPosion
+    //     }).then(res => {
+    //       const result = res.result
+    //         const ad_info = result?.ad_info || {}
+    //         const params = {
+    //           province: ad_info.province,
+    //           city: ad_info.city,
+    //           district: ad_info.district,
+    //           town: result.address_reference?.town?.title || '',
+    //           name: result.address_reference.landmark_l2.title,
+    //           address: result.formatted_addresses.recommend,
+    //           location: result.location,
+    //           latitude: result.location.lat,
+    //           longitude: result.location.lng,
+    //         }
+    //         app.globalData.curPositionInfo = params
+    //         app.globalData.address = params.city
+
+    //         that.setData({
+    //           userCurLocation: {
+    //             ...that.data.userCurLocation,
+    //             city: params.city
+    //           },
+    //         })
+    //     })
+    //   }
+    // })
   },
 
   // 查看评论详情
