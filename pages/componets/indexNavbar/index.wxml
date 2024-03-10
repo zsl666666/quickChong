@@ -5,7 +5,7 @@
     <view class="city-wrap" bind:tap="handleToggleCity">
       <image src="/image/address-index-icon.png" class="index-address-icon" />
       <text class="index-current-city">{{currentCity || '请选择'}}</text>
-      <image wx:if="{{!!currentCity}}" src="/image/index-title-icon.png" class="index-title-icon" />
+      <!-- <image wx:if="{{!!currentCity}}" src="/image/index-title-icon.png" class="index-title-icon" /> -->
     </view>
   </view>
 </view>

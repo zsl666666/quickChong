@@ -118,9 +118,9 @@ Component({
     },
     // 切换城市
     handleToggleCity() {
-      wx.navigateTo({
-        url: `plugin://citySelector/index?key=${key}&referer=满电快搜&hotCitys=${'北京,上海,广州,深圳'}`,
-      })
+      // wx.navigateTo({
+      //   url: `plugin://citySelector/index?key=${key}&referer=满电快搜&hotCitys=${'北京,上海,广州,深圳'}`,
+      // })
     }
   }
 })
