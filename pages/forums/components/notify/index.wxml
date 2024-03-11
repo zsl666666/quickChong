@@ -54,7 +54,7 @@
         class="notify-people-icon"
         src="{{forumsFn.getAvatar(item.avatar)}}"
       />
-      <view>
+      <view class="notify-every-conent-right">
         <view class="reply-people-name">{{item.username}}</view>
         <view class="notify-main-body">
           <text>{{item.msg.content || '-'}}</text>

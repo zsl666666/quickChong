@@ -78,7 +78,7 @@
             <text>{{item.view_number}} 浏览</text>
           </view>
         </view>
-        <image src="{{item.pic_cover}}" class="detail-content-image-icon" />
+        <image wx:if="{{item.pic_cover}}" src="{{item.pic_cover}}" class="detail-content-image-icon" />
       </view>
     </view>
     <view wx:if="{{isEndPage && total}}" class="content-end-wrap">到底啦~</view>

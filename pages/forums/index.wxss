@@ -97,6 +97,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 32rpx;
+  min-height: 165rpx;
 }
 .detail-content-image-icon {
   width: 164rpx;
