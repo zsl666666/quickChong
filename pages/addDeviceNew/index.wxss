@@ -132,3 +132,206 @@
   flex: 1;
   text-align: center;
 }
+
+.custom-van-cell-wrap .van-cell {
+  box-sizing: border-box;
+  width: 100% !important;
+  display: flex;
+  align-items: center;
+  /* padding-left: 0rpx !important;
+  padding-right: 0rpx !important; */
+  padding: 40rpx 0rpx !important;
+  font-size: 28rpx !important;
+}
+.custom-van-cell-wrap .van-cell::after {
+  left: 0rpx !important;
+  right: 0rpx !important;
+}
+.custom-van-cell-wrap .van-cell__title {
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  font-size: 28rpx;
+  color: rgba(0,0,0,0.6);
+  line-height: 38rpx;
+  text-align: left;
+  font-style: normal;
+}
+.custom-van-cell-wrap .van-cell__right-icon-wrap {
+  font-size: 38rpx;
+}
+.custom-van-cell-wrap .van-icon {
+  font-size: 38rpx;
+}
+
+.custom-van-field-wrap .van-cell {
+  box-sizing: border-box;
+  width: 100% !important;
+  /* display: flex; */
+  /* align-items: center; */
+  /* padding-left: 0rpx !important;
+  padding-right: 0rpx !important; */
+  padding: 40rpx 0rpx !important;
+}
+.custom-van-field-wrap .van-field__label {
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  font-size: 28rpx;
+  color: rgba(0,0,0,0.6);
+  line-height: 38rpx;
+  text-align: left;
+  font-style: normal;
+}
+.custom-van-field-wrap .van-cell::after {
+  left: 0rpx !important;
+  right: 0rpx !important;
+}
+.custom-van-field-wrap .van-field__placeholder {
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  font-size: 30rpx !important;
+  color: rgba(0,0,0,0.2) !important;
+}
+.custom-van-field-wrap .van-field__control {
+  font-family: PingFangSC, PingFang SC !important;
+  font-size: 30rpx !important;
+  color: rgba(0,0,0,0.8) !important;
+}
+
+.custom-van-cell-group-wrap {
+  width: 100% !important;
+}
+.custom-van-field-textarea-wrap {
+  height: 80rpx !important;
+}
+.custom-desc-van-field-wrap .van-cell {
+  box-sizing: border-box;
+  width: 100% !important;
+  padding: 0rpx 0rpx 34rpx 0rpx !important;
+  font-size: 30rpx !important;
+  color: rgba(0,0,0,0.8) !important;
+}
+
+.custom-desc-van-field-wrap .van-field__placeholder {
+  font-family: PingFangSC, PingFang SC !important;
+  font-weight: 400 !important;
+  font-size: 30rpx !important;
+  color: rgba(0,0,0,0.2) !important;
+  line-height: 42rpx !important;
+}
+.custom-desc-van-field-wrap .van-field__control {
+  font-family: PingFangSC, PingFang SC !important;
+  font-weight: 400 !important;
+  font-size: 30rpx !important;
+  color: rgba(0,0,0,0.8) !important;
+  line-height: 42rpx !important;
+}
+
+.expansion-packup {
+  box-sizing: border-box;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.6);
+  padding: 34rpx 28rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.is-not-expansion {
+  margin-bottom: 210rpx;
+}
+.expansion-title {
+  color: red;
+  height: 38rpx;
+  font-size: 28rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.6);
+  line-height: 38rpx;
+}
+.expansion-desc {
+  font-size: 22rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: rgba(0,0,0,0.2);
+  line-height: 30rpx;
+  margin-top: 8rpx;
+}
+
+.custom-van-field-wrap-right-icon-slot {
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  font-size: 30rpx;
+  color: rgba(0,0,0,0.8);
+  line-height: 42rpx;
+}
+
+.custom-switch-wrap {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 210rpx;
+  height: 62rpx;
+  background: #F7F8FA;
+  border-radius: 14rpx;
+  padding: 4rpx;
+}
+.custom-switch-btn {
+  width: 101rpx;
+  height: 100%;
+  border-radius: 14rpx;
+  text-align: center;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  font-size: 28rpx;
+  line-height: 54rpx;
+  color: rgba(0,0,0,0.4);
+}
+.custom-switch-btn-active {
+  color: #FFFFFF;
+  background: #0D7AC2;
+}
+
+/* .custom-van-switch-wrap .van-switch {
+  width: 102rpx !important;
+  height: 62rpx !important;
+  background: #0D7AC2;
+}
+.custom-van-switch-wrap .van-switch__node {
+  width: 54rpx !important;
+  height: 54rpx !important;
+  right: 0rpx !important;
+} */
+
+
+.device-bottom-submit-wrapper {
+  /* background: #fff; */
+  /* height: 120rpx; */
+  background: #F4F4F4;
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  padding-top: 20rpx;
+  padding-bottom: 60rpx;
+}
+.submit-btn {
+  height: 80rpx;
+  width: 682rpx;
+  background: #0D7AC2;
+  border-radius: 34rpx;
+  font-size: 32rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  line-height: 80rpx;
+  color: #FFFFFF;
+  text-align: center;
+}
+.submit-btn-disabled {
+  background: #0D7AC2;
+  opacity: 0.3;
+}

@@ -55,10 +55,24 @@ Page({
         value: '其他',
       }
     ],
+    // 运维状态列表
+    maintenanceStatus: [
+      {
+        label: '是',
+        value: '是',
+      },
+      {
+        label: '否',
+        value: '否',
+      }
+    ],
     deveiceData: { // 添加设备的数据
       device_type: undefined, // 充电设备类型
       loc_type: undefined, // 设备地点类型，住宅区，办公区....
-    }
+      maintenance_status: undefined, // 运维状态
+      is_recharge: undefined, // 是否需要预充值
+    },
+    isExpansion: false, // 是否展开更多信息
   },
 
   /**
@@ -136,6 +150,13 @@ Page({
         ...this.data.deveiceData,
         loc_type: e.currentTarget.dataset.value
       }
+    })
+  },
+
+  // 处理展开/收起更多信息
+  handleExpansionChange() {
+    this.setData({
+      isExpansion: !this.data.isExpansion
     })
   },
 })
