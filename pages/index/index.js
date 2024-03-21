@@ -440,6 +440,13 @@ Page({
     })
   },
 
+  // 跳转设备详情
+  handleGoDeviceDetail() {
+    wx.navigateTo({
+      url: `/pages/deviceDetail/index`,
+    })
+  },
+
   
 
   // 获取用户所在位置附近的设备列表

@@ -1,0 +1,315 @@
+<!--pages/deviceDetail/index.wxml-->
+<!-- 设备详情页面 -->
+<view class="device-detail">
+  <van-nav-bar
+    fixed
+    class="constom-device-detail-nav-bar"
+  >
+    <view
+      slot="left"
+      class="detail-nav-bar-left" catch:tap="goBack"
+    >
+      <van-icon
+        name="arrow-left"
+        size="18"
+        color="#FFFFFF"
+        custom-style="font-weight: bolder;"
+      />
+    </view>
+  </van-nav-bar>
+  <view class="top-device-image">
+    <view
+      style="--top: {{navBarHeight}}px"
+      class="top-device-image-upload"
+    >
+      <image
+        class="top-device-image-upload-icon"
+        src="/image/deviceDetail/topUploadIcon.png"
+      />
+      <text>成为第一个添加相片的人！</text>
+    </view>
+  </view>
+
+  <view class="device-detail-content">
+    <view class="device-detail-content-wrap">
+      <view class="device-main-info">
+        <view class="device-main-info-charging-type">
+          <view class="device-main-info-charging-type-title">充电桩</view>
+          <view class="device-main-info-charging-type-evaluate">
+            <text class="device-main-info-charging-type-mark">4.8分</text>
+            <view class="device-main-info-charging-type-line"></view>
+            <view class="device-main-info-charging-type-evaluate-desc">90条评论</view>
+            <view class="device-main-info-charging-type-line"></view>
+            <view class="device-main-info-charging-type-evaluate-clock">312次打卡</view>
+          </view>
+        </view>
+        <view class="device-main-info-go-clock">去打卡</view>
+      </view>
+      <view class="operate-detail">
+        <view class="operate-detail-left">
+          <text class="operate-status">正常运营</text>
+          <text class="open-status">对外开放</text>
+        </view>
+        <image
+          class="operation-detail-icon"
+          src="/image/deviceDetail/contentOpeationRightIcon.png"
+        />
+      </view>
+      <view class="position-detail">
+        <view class="position-detail-left">
+          <view class="position-main-info">望京SOHO充电</view>
+          <text class="position-detail-info">340米｜朝阳区酒仙桥4号798艺术中心和颐酒店对面的停车场内</text>
+        </view>
+        <view class="position-detail-right">
+          <image
+            class="position-map-icon"
+            src="/image/deviceDetail/positionMapIcon.png"
+          />
+          <view>地图</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="device-detail-content-wrap">
+      <view class="detail-content-top">
+        <view class="detail-content-top-left">
+          <image
+            class="detail-content-top-left-icon"
+            src="/image/deviceDetail/priceInfoIcon.png"
+          />
+          <text>价格信息</text>
+        </view>
+        <view class="detail-content-top-right">
+          <text class="detail-content-top-right-desc">去补充</text>
+          <image
+            class="operation-detail-icon"
+            src="/image/deviceDetail/contentOpeationRightIcon.png"
+          />
+        </view>
+      </view>
+      <view class="price-info-amount">¥1.6200</view>
+      <view class="price-info-type">
+        需要预充值｜支持费用退款｜扫码充电
+      </view>
+    </view>
+
+    <view class="device-detail-content-wrap">
+      <view class="detail-content-top">
+        <view class="detail-content-top-left">
+          <image
+            class="detail-content-top-left-icon"
+            src="/image/deviceDetail/deviceTypeIcon.png"
+          />
+          <text>设备类型</text>
+        </view>
+        <view class="detail-content-top-right">
+          <text class="detail-content-top-right-desc">3月前更新</text>
+          <!-- <image
+            class="operation-detail-icon"
+            src="/image/deviceDetail/contentOpeationRightIcon.png"
+          /> -->
+        </view>
+      </view>
+      <view class="device-type">
+        <image
+          class="device-type-image"
+          src="https://gathertrack.oss-cn-beijing.aliyuncs.com/2024/03/TtojLp9vQ3cM17miEydAWkGxZqKNwVIl.jpg"
+        />
+        <view class="device-type-right">
+          <view class="device-type-title">智能充电插座</view>
+          <view class="device-type-right-extra-info">
+            <text class="device-type-right-brand">小绿人</text>
+            ｜限额2500w｜自备充电器｜快充｜有防雨措施
+          </view>
+          <view class="device-type-right-plug">
+            <view class="device-type-right-positon-box">
+              <image
+                class="device-type-right-positon-icon"
+                src="/image/deviceDetail/devicePositonIcon.png"
+              />
+              <text class="device-type-right-positon-name">住宅区</text>
+            </view>
+            <text class="device-type-right-positon-num">4台｜插头: 20个</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="device-detail-content-wrap">
+      <view class="detail-content-top">
+        <view class="detail-content-top-left">
+          <image
+            class="detail-content-top-left-icon"
+            src="/image/deviceDetail/deviceDescIcon.png"
+          />
+          <text>设备描述</text>
+        </view>
+      </view>
+      <view class="device-describe">
+        充电很快，特殊
+      </view>
+    </view>
+
+    <view class="device-detail-content-wrap">
+      <view class="detail-content-top">
+        <view class="detail-content-top-left">
+          <image
+            class="detail-content-top-left-icon"
+            src="/image/deviceDetail/deviceOperatorIcon.png"
+          />
+          <text>运营商</text>
+        </view>
+        <view class="detail-content-top-right">
+          <text class="detail-content-top-right-desc">免费入住</text>
+          <image
+            class="operation-detail-icon"
+            src="/image/deviceDetail/contentOpeationRightIcon.png"
+          />
+        </view>
+      </view>
+      <view class="device-operator">
+        <image
+          class="device-operator-profile"
+          src="https://gathertrack.oss-cn-beijing.aliyuncs.com/2024/03/TtojLp9vQ3cM17miEydAWkGxZqKNwVIl.jpg"
+        /> 
+        <view  class="device-operator-right">
+          <view class="device-operator-name">运营商名字</view>
+          <view class="device-operator-email">33333333@gmail.com</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="device-detail-content-wrap content-bottom-end">
+      <view class="detail-content-top">
+        <view class="detail-content-top-left">
+          <image
+            class="detail-content-top-left-icon"
+            src="/image/deviceDetail/evaluateDetailIcon.png"
+          />
+          <text>评价详情</text>
+        </view>
+      </view>
+      <view>
+      <block wx:for="{{[1,2]}}">
+        <view class="evaluate-detail-wrap">
+          <image
+            class="evaluate-detail-profile"
+            src="https://gathertrack.oss-cn-beijing.aliyuncs.com/2024/03/TtojLp9vQ3cM17miEydAWkGxZqKNwVIl.jpg"
+          />
+          <view class="evaluate-detail-right">
+            <view class="evaluate-detail-right-top">
+              <view class="evaluate-detail-right-top-left">
+                <view class="evaluate-detail-right-top-name">用户大帅先生</view>
+                <view class="evaluate-detail-right-top-rate">
+                  <image
+                    class="evaluate-rate-icon"
+                    src="/image/deviceDetail/evaluateRateSatisfaction.png"
+                  />
+                  <text>满意</text>
+                </view>
+              </view>
+              <view class="evaluate-detail-time">发布于6-20</view>
+            </view>
+            <view class="evaluate-detail-content">
+              非常好，需要给一个最长展示限制么，如果需要就最长显示两行，多与两行加一个展开全部的按钮不需要就默认全部展开就部展开展多
+            </view>
+            <view class="evaluate-image-wrap" >
+              <image
+                wx:for="{{[1,2,3]}}"
+                class="evaluate-detail-image"
+                src="https://gathertrack.oss-cn-beijing.aliyuncs.com/2024/03/TtojLp9vQ3cM17miEydAWkGxZqKNwVIl.jpg"
+              />
+            </view>
+          </view>
+        </view>
+      </block>
+      </view>
+      <view class="evaluate-look-move">
+        <text class="evaluate-look-move-writer">查看更多</text>
+        <image
+          class="operation-detail-icon"
+          src="/image/deviceDetail/contentOpeationRightIcon.png"
+        />
+      </view>
+    </view>
+  </view>
+    <view class="bottom-wrap">
+    <view class="bottom-comment-wrap">
+      <van-search
+        placeholder="快去参与讨论吧"
+        shape="round"
+        left-icon=""
+        show-action="{{serachValue}}"
+        clearable="{{false}}"
+        input-class="search-input-style"
+        class="search-box"
+        readonly
+        auto-focus
+        bindtap="handleShowInput"
+      >
+      </van-search>
+      <view class="comment-operation">
+        <view class="collect-reply-wrap" catch:tap="handleGivePostLike">
+          <image
+            class="comment-poeration-icon"
+            src="{{detailData.is_like ? '/image/forum/commentOperationCollect.png' : '/image/forum/commentOperationNoCollect.png'}}"
+          />
+          <view
+            wx:if="{{detailData.like_number}}"
+            class="collect-reply-num {{detailData.is_like ? 'is-my-like' : ''}}"
+          >{{detailData.like_number}}</view>
+        </view>
+        <view class="collect-reply-wrap" catch:tap="handleShowInput">
+          <image
+            class="comment-poeration-icon"
+            src="/image/forum/commentOperationReply.png"
+          />
+          <view wx:if="{{detailData.comment_number}}" class="collect-reply-num reply-num">{{detailData.comment_number}}</view>
+        </view>
+        <van-button
+          open-type="share"
+          icon="/image/forum/commentOperationShare.png"
+          class-prefix="comment-poeration-icon"
+          class="share-post-detail"
+        ></van-button>
+        <!-- <image
+          class="comment-poeration-icon"
+          src="/image/forum/commentOperationShare.png"
+        /> -->
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="bottom-wrap">
+  <view class="bottom-wrap-left">
+    <view class="bottom-wrap-left-operation">
+      <image
+        class="bottom-wrap-left-operation-icon"
+        src="/image/deviceDetail/shareIcon.png"
+      />
+      <text class="bottom-wrap-left-operation-name">分享</text>
+    </view>
+    <view class="bottom-wrap-left-operation">
+      <image
+        class="bottom-wrap-left-operation-icon"
+        src="/image/deviceDetail/collectActiveIcon.png"
+      />
+      <text class="bottom-wrap-left-operation-name">收藏</text>
+    </view>
+    <view class="bottom-wrap-left-operation">
+      <image
+        class="bottom-wrap-left-operation-icon"
+        src="/image/deviceDetail/errorCorrectionIcon.png"
+      />
+      <text class="bottom-wrap-left-operation-name">纠错</text>
+    </view>
+  </view>
+  <view class="bottom-wrap-right">
+    <image
+      class="bottom-wrap-right-go-view-icon"
+      src="/image/deviceDetail/goViewIcon.png"
+    />
+    <text>去这里</text>
+  </view>
+</view>

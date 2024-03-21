@@ -19,7 +19,8 @@
     "pages/forums/components/notify/index",
     "pages/my/components/collectCenter/index",
     "pages/forums/components/postMessage/index",
-    "pages/addDeviceNew/index"
+    "pages/addDeviceNew/index",
+    "pages/deviceDetail/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
