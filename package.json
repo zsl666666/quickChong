@@ -11,6 +11,7 @@
   "dependencies": {
     "@vant/area-data": "^1.5.0",
     "@vant/weapp": "^1.10.21",
+    "js-pinyin": "^0.2.5",
     "mp-html": "^2.4.2"
   }
 }

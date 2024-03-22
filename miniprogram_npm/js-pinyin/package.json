@@ -1,0 +1,61 @@
+{
+  "_from": "js-pinyin",
+  "_id": "js-pinyin@0.2.5",
+  "_inBundle": false,
+  "_integrity": "sha512-XuqAZ9fctWCzKx/ALgsDRtfd/xwaC/IyAwkDkW8jTXhlVNRuj+lG2tKEOWraCHLgaOSPkSFFWXB3qjfNTaMU6A==",
+  "_location": "/js-pinyin",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "js-pinyin",
+    "name": "js-pinyin",
+    "escapedName": "js-pinyin",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/js-pinyin/-/js-pinyin-0.2.5.tgz",
+  "_shasum": "cba749a40bf556064fda73176d647883a2092ecc",
+  "_spec": "js-pinyin",
+  "_where": "/Users/zhoushanlin/code/wx/quickChong",
+  "bugs": {
+    "url": "https://github.com/waterchestnut/pinyin/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "汉字转换拼音，需要es6语法(let、class等)支持，不依赖其他组件",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "homepage": "https://github.com/waterchestnut/pinyin#readme",
+  "keywords": [
+    "pinyin",
+    "拼音",
+    "首字母",
+    "汉语拼音",
+    "汉字",
+    "es6"
+  ],
+  "license": "MIT License",
+  "name": "js-pinyin",
+  "private": false,
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/waterchestnut/pinyin.git"
+  },
+  "scripts": {
+    "build": "babel pinyin.js -d dist",
+    "start": "node ./index",
+    "test": "node ./index"
+  },
+  "version": "0.2.5"
+}

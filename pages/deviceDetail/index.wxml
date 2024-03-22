@@ -19,6 +19,7 @@
   </van-nav-bar>
   <view class="top-device-image">
     <view
+      wx:if="{{!pictures.length}}"
       style="--top: {{navBarHeight}}px"
       class="top-device-image-upload"
     >
@@ -28,6 +29,49 @@
       />
       <text>成为第一个添加相片的人！</text>
     </view>
+    <block wx:else>
+      <swiper
+      indicator-dots
+      class="swiper-cutom"
+      current="{{currentImageIndex}}"
+      bindchange="handleSwiperChange"
+      bindtransition="handleTransition"
+    >
+      <block
+        wx:for="{{pictures}}"
+        wx:key="index"
+      >
+        <swiper-item
+          data-item="{{item}}"
+          bind:tap="handlePreview"
+        >
+          <image src="{{item}}" mode="aspectFit" class="swiper-img" />
+        </swiper-item>
+      </block>
+      </swiper>
+      <view class="thum-image-wrap">
+        <view
+          wx:for="{{pictures}}"
+          wx:key="index"
+          class="thum-image-box {{currentImageIndex === index ? 'thum-image-box-active' : ''}}"
+          data-index="{{index}}"
+          catch:tap="handleClickThum"
+        >
+          <image
+            class="thum-image-icon {{currentImageIndex === index ? 'thum-image-icon-active' : ''}}"
+            src="{{item}}"
+          />
+          <view
+            wx:if="{{currentImageIndex !== index}}"
+            class="thum-image-no-active-mask"
+          ></view>
+        </view>
+        <image
+          class="thum-image-icon thum-image-upload-icon"
+          src="/image/deviceDetail/deviceImageBackUploadIcon.png"
+        />
+      </view>
+    </block>
   </view>
 
   <view class="device-detail-content">
