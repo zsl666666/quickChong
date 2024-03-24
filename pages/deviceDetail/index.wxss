@@ -101,6 +101,10 @@
 .thum-image-upload-icon {
   margin-left: 7rpx;
 }
+.custom-van-uploader {
+  width: 78rpx;
+  height: 78rpx;
+}
 
 .device-detail-content {
   position: relative;

@@ -99,7 +99,9 @@ Page({
     })
   },
 
-  handleTransition(e) {
-    // console.log('fffsfdsfsfs', e)
+  // 原本有图片继续上传
+  handleUplaodAfterRead(event) {
+    // wx.chooseMedia()
+    console.log('handleUplaodAfterRead', event)
   }
 })

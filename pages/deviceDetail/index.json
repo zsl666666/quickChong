@@ -3,6 +3,7 @@
   "navigationBarTextStyle": "white",
   "navigationBarBackgroundColor": "#00000026",
   "usingComponents": {
-    "van-nav-bar": "@vant/weapp/nav-bar/index"
+    "van-nav-bar": "@vant/weapp/nav-bar/index",
+    "van-uploader": "@vant/weapp/uploader/index"
   }
 }

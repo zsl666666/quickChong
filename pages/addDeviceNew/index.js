@@ -1,4 +1,5 @@
 // pages/addDeviceNew/index.js
+import { customUploadFile } from 'utils/uploadFile'
 Page({
 
   /**
@@ -64,6 +65,24 @@ Page({
       {
         label: '否',
         value: '否',
+      }
+    ],
+    // 三种特殊类型设备照片的上传
+    uploadSpecialTypes: [
+      {
+        icon: '/image/addDevice/addUploadTypeOneIcon.png',
+        url: '',
+        desc: '上传带有二维码的照片'
+      },
+      {
+        icon: '/image/addDevice/addUploadTypeTwoIcon.png',
+        url: '',
+        desc: '上传设备整体照片'
+      },
+      {
+        icon: '/image/addDevice/addUploadTypeThreeIcon.png',
+        url: '',
+        desc: '上传环境建筑物照片'
       }
     ],
     deveiceData: { // 添加设备的数据
@@ -157,6 +176,49 @@ Page({
   handleExpansionChange() {
     this.setData({
       isExpansion: !this.data.isExpansion
+    })
+  },
+
+  // 特殊种类上传
+  handleSpecialUplaod(e) {
+    console.log('上传特殊类型的图片', e)
+    const curSpecialIndex = e.currentTarget.dataset.index
+    const { file } = e.detail;
+
+    if (file && file.length === 1) {
+      customUploadFile({
+        filePath: file[0].url,
+        success: (data = {}) => {
+          const url = data.url
+          const newUploadSpecialTypes = [...this.data.uploadSpecialTypes]
+          newUploadSpecialTypes[curSpecialIndex].url = url
+          this.setData({
+            uploadSpecialTypes: newUploadSpecialTypes
+          })
+        }
+      })
+    }
+
+    // file.forEach(item => {
+    //   customUploadFile({
+    //     filePath: item.url,
+    //     success: (data = {}) => {
+    //       const url = data.url
+    //       console.log('上传成功', data)
+    //     }
+    //   })
+    // })
+  },
+
+  // 特殊种类删除
+  handleSpecialDelete(e) {
+    const curSpecialIndex = e.currentTarget.dataset.index
+
+    const newUploadSpecialTypes = [...this.data.uploadSpecialTypes]
+    newUploadSpecialTypes[curSpecialIndex].url = ''
+
+    this.setData({
+      uploadSpecialTypes: newUploadSpecialTypes
     })
   },
 })

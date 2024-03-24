@@ -66,10 +66,18 @@
             class="thum-image-no-active-mask"
           ></view>
         </view>
-        <image
-          class="thum-image-icon thum-image-upload-icon"
-          src="/image/deviceDetail/deviceImageBackUploadIcon.png"
-        />
+        <van-uploader
+          class="custom-van-uploader"
+          accept="image"
+          multiple="true"
+          max-count="6"
+          bind:after-read="handleUplaodAfterRead"
+        >
+          <image
+            class="thum-image-icon thum-image-upload-icon"
+            src="/image/deviceDetail/deviceImageBackUploadIcon.png"
+          />
+        </van-uploader>
       </view>
     </block>
   </view>

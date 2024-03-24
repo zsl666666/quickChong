@@ -32,11 +32,61 @@
 
   <view class="every-device-chunk">
     <view class="device-chunk-top-wrap">
-      <view class="device-chunk-top-title">设备照片*</view>
+      <view class="device-chunk-top-title">设备照片</view>
       <view class="device-chunk-top-content-desc">请上传真实、清晰的设备照片，有助于审核</view>
     </view>
-    <view class="device-type-bottom-wrap">
-      开发中...
+    <view class="custom-upload-device-wrap">
+      <view
+        wx:for="{{uploadSpecialTypes}}"
+        class="custom-upload-special-type"
+      >
+        <van-uploader
+          class="custom-van-uploader"
+          accept="image"
+          multiple="true"
+          max-count="1"
+          data-index="{{index}}"
+          file-list="{{ item.url ? [{...item}] : [] }}"
+          bind:after-read="handleSpecialUplaod"
+          bind:delete="handleSpecialDelete"
+        >
+          <view class="custom-van-uploader-content-wrap">
+            <image
+              class="custom-van-uploader-cont"
+              src="{{item.icon}}"
+            />
+            <view class="add-uploader-cont-wrap">
+              <image
+                class="add-uploader-cont-icon"
+                src="/image/addDevice/addUploadIcon.png"
+              />
+              <text>{{item.desc}}</text>
+            </view>
+          </view>
+        </van-uploader>
+      </view>
+      <view
+        wx:if="{{uploadSpecialTypes[0].url && uploadSpecialTypes[1].url && uploadSpecialTypes[2].url}}"
+        class="custom-upload-special-type"
+      >
+        <van-uploader
+          class="custom-van-uploader"
+          accept="image"
+          multiple="true"
+          max-count="1"
+          bind:after-read="handleUplaodAfterRead"
+        >
+          <view class="custom-van-uploader-content-wrap">
+            <view class="add-uploader-cont-wrap">
+              <image
+                class="add-uploader-cont-icon"
+                src="/image/addDevice/addUploadIcon.png"
+              />
+              <text>上传其他补充图片</text>
+            </view>
+          </view>
+        </van-uploader>
+      </view>
     </view>
   </view>
 
