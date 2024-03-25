@@ -199,11 +199,12 @@ Component({
       if (!this.mapCtx) return
       const markers = [{
         id: 11110101,
-        width: 24,
-        height: 36,
+        width: 36,
+        height: 48,
         latitude: latitude,
         longitude: longitude,
-        iconPath: '/image/map/map-marker-icon.png'
+        // iconPath: '/image/map/map-marker-icon.png'
+        iconPath: '/image/index/mapPoint.png'
       }]
 
       // 标点
