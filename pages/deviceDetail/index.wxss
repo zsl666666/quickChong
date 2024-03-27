@@ -536,6 +536,24 @@
   width: 48rpx;
   height: 48rpx;
 }
+
+.comment-poeration-icon {
+  width: 48rpx !important;
+  height: 48rpx !important;
+}
+.share-post-detail {
+  padding: 0rpx !important;
+}
+.share-post-detail .van-button {
+  padding: 0rpx !important;
+  height: auto;
+  border: none;
+  background: #FFFFFF !important;
+}
+.share-post-detail .van-button:active {
+  background: #FFFFFF !important;
+}
+
 .bottom-wrap-left-operation-name {
   font-family: PingFangSC, PingFang SC;
   font-weight: 400;
@@ -563,4 +581,51 @@
   width: 38rpx;
   height: 38rpx;
   margin-right: 14rpx;
+}
+
+.comment-empty-wrap {
+  text-align: center;
+  padding-top: 30rpx;
+  padding-bottom: 50rpx;
+}
+.comment-empty-title {
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  font-size: 30rpx;
+  color: rgba(0,0,0,0.8);
+  line-height: 42rpx;
+}
+.comment-empty-desc {
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  font-size: 24rpx;
+  color: rgba(0,0,0,0.4);
+  line-height: 34rpx;
+  margin-top: 4rpx;
+  margin-bottom: 30rpx;
+}
+.comment-empty-go-comment {
+  width: max-content;
+  border-radius: 28rpx;
+  border: 1rpx solid #0D7AC2;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  font-size: 26rpx;
+  color: #0D7AC2;
+  line-height: 37rpx;
+  padding: 10rpx 28rpx;
+  margin: auto;
+}
+
+.contact-btn {
+  background: none;
+  border: 0 !important;
+    font-size: 24rpx;
+    color: rgba(0,0,0,0.3);
+    line-height: 33rpx;
+    font-weight: 400;
+    padding: 10rpx 0rpx 10rpx 10rpx;
+}
+.contact-btn::after{
+  border: none;
 }

@@ -23,7 +23,53 @@
       bind:search="searchHandle"
     >
     </van-search>
-    <view class="{{commentData.length === index + 1 ? 'comment-item comment-item-last' : 'comment-item'}}" wx:for="{{commentData}}" wx:key="index">
+    <block wx:for="{{commentData}}" wx:key="index">
+      <view class="evaluate-detail-wrap {{commentData.length === index + 1 ? 'evaluate-detail-wrap-comment-item-last' : ''}}">
+        <image
+          class="evaluate-detail-profile"
+          src="{{item.avatar}}"
+        />
+        <view class="evaluate-detail-right">
+          <view class="evaluate-detail-right-top">
+            <view class="evaluate-detail-right-top-left">
+              <view class="evaluate-detail-right-top-name">{{item.username}}</view>
+              <view class="evaluate-detail-right-top-rate">
+                <image
+                  class="evaluate-rate-icon"
+                  src="{{CONFIG.STAR_TYPE_MAP[item.star_level].icon || '/image/deviceDetail/evaluateRateCommon.png'}}"
+                />
+                <text>{{CONFIG.STAR_TYPE_MAP[item.star_level].label || '一般'}}</text>
+              </view>
+            </view>
+            <view class="evaluate-detail-time">{{item.update_time}}</view>
+          </view>
+          <view class="comment-item-content-tag" wx:if="{{item.tag.length}}">
+            <van-tag
+              type="primary"
+              custom-class='tag-style'
+              round
+              plain
+              wx:for="{{item.tag}}"
+              wx:key="index"
+            >{{item}}</van-tag>
+          </view>
+          <view class="evaluate-detail-content">
+            {{item.comment}}
+          </view>
+          <view wx:if="{{item.pictures && item.pictures.length}}" class="evaluate-image-wrap" >
+            <image
+              wx:for="{{item.pictures}}"
+              class="evaluate-detail-image"
+              src="{{item.pic_url}}"
+              data-url="{{item.pic_url}}"
+              wx:key="index"
+              catch:tap="showBig"
+            />
+          </view>
+        </view>
+      </view>
+    </block>
+    <!-- <view class="{{commentData.length === index + 1 ? 'comment-item comment-item-last' : 'comment-item'}}" wx:for="{{commentData}}" wx:key="index">
       <view class="comment-item-left">
         <image src="{{item.avatar}}" class="comment-portrait" />
       </view>
@@ -50,7 +96,7 @@
           <image src="{{item.pic_url}}" catch:tap="showBig" data-url="{{item.pic_url}}"  wx:for="{{item.pictures}}" wx:key="index" class="comment-item-imgage" />
         </view>
       </view>
-    </view>
+    </view> -->
     <view wx:if="{{!commentData.length}}">
       <van-empty description="暂无评价" />
     </view>
@@ -65,12 +111,30 @@
     round
     position="bottom"
     closeable
-    custom-style="height: 68%"
+    custom-style="height: 1050rpx; max-height: 85%;"
     bind:close="closeCommentPopup"
     custom-class='comment-popup-wrapper'
   >
     <view class="popup-title">评价</view>
-    <view class="comment-rate-wrapper">
+    <view class="comment-rate-expression-wrap">
+      <view
+        class="comment-rate-expression-box {{item.value === star_level ? 'comment-rate-expression-box-active' : ''}}"
+        wx:for="{{CONFIG.STAR_TYPE_LIST}}"
+        wx:key="{{item.value}}"
+        data-item="{{item}}"
+        catch:tap="handleRate"
+      >
+        <image
+          src="{{item.icon}}"
+          class="comment-rate-grade-icon"
+        />
+        <text>{{item.label}}</text>
+      </view>
+    </view>
+    <view
+      class="selected-rate-desc"
+    >{{CONFIG.STAR_TYPE_MAP[star_level].desc}}</view>
+    <!-- <view class="comment-rate-wrapper">
       <van-rate
         value="{{star_level}}"
         size="{{ 28 }}"
@@ -80,7 +144,7 @@
         custom-class='popup-rate-wrapper'
         bind:change="rateChange"
       />
-    </view>
+    </view> -->
     <view class="popup-pingjia-wrapper">
       <view
         wx:for="{{messageItemData}}"

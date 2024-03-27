@@ -1,6 +1,7 @@
 // pages/comment/index.js
 import { url } from '../../utils/util'
 import Toast from '@vant/weapp/toast/toast';
+import * as CONFIG from './config'
 const datas = [{
   name: '位置好找',
   id: 1,
@@ -32,6 +33,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    CONFIG,
     fileList: [
     ],
     commentData: [],
@@ -59,7 +61,10 @@ Page({
    */
   onLoad(options) {
     this.setData({
-      deviceId: options.id
+      deviceId: options.id,
+      ...(options.showModal === 'true' ? {
+        show: true
+      } : {})
     }, () => this.getCommentList())
   },
 
@@ -96,6 +101,42 @@ Page({
     this.setData({
       messageItemData: tempData,
       star_level: e.detail
+    })
+  },
+
+  handleRate(e) {
+    const item = e.currentTarget.dataset.item
+    let tempData = [{
+      name: '位置不准',
+      id: 1,
+      selected: false
+    }, {
+      name: '设备信息缺失',
+      id: 2,
+      selected: false
+    }, {
+      name: '设备故障多',
+      id: 3,
+      selected: false
+    }, {
+      name: '无防雨棚',
+      id: 4,
+      selected: false
+    }, {
+      name: '充电慢功率低',
+      id: 5,
+      selected: false
+    }, {
+      name: '车辆乱停',
+      id: 6,
+      selected: false
+    }]
+    if (item.value >= 3) {
+      tempData = datas
+    }
+    this.setData({
+      messageItemData: tempData,
+      star_level: item.value
     })
   },
 
@@ -322,6 +363,7 @@ Page({
       data: {
         ticket: wx.getStorageSync('ticket'),
         device_id: this.data.deviceId,
+        // device_id: 21646,
         star_level: this.data.star_level,
         tag: this.data.tag,
         comment: this.data.comment,
