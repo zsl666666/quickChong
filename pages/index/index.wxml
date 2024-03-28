@@ -160,20 +160,27 @@
         </view>  -->
 
         <view class="checked-content-detail">
-          <text>{{deviceDetail.distance}} | {{deviceDetail.name}}</text>
+          <text class="checked-content-detail-star-level">{{deviceDetail.star_level}}分</text>
+          <text> | {{deviceDetail.name}}</text>
           <!-- <text class="checked-content-address">{{deviceDetail.name}}</text> -->
         </view>
-        <!-- <view class="checked-content-detail">
-          <text>{{deviceDetail.distance}}</text>
-          <text class="checked-content-address">{{deviceDetail.name}}</text>
-        </view> -->
 
         <view class="device-intro-desc-wrap">
+          <text class="device-intro-desc">{{deviceDetail.brand || '品牌未知'}}</text>
+          <!-- <text class="device-intro-desc">{{deviceDetail.update_time}}</text> -->
+          <text class="operate-status">{{CONFIG.OPERATION_STATUS_LIST_MAP[deviceData.operation_status].label}}</text>
+          <text class="device-intro-desc">{{CONFIG.OPEN_STATUS_LIST_MAP[deviceDetail.open_status].label || '对外开放'}}</text>
+        </view>
+        <view class="device-intro-desc-wrap">
+          <text class="device-intro-desc">{{deviceDetail.update_time}} 更新</text>
+        </view>
+
+        <!-- <view class="device-intro-desc-wrap">
           <text class="device-intro-desc">{{!deviceDetail.is_scancode ? '不支持' : ''}}扫码充电</text>
           <text class="device-intro-desc">{{!deviceDetail.is_rainshelter ? '无' : '有'}}防雨措施</text>
           <text class="device-intro-desc">{{!deviceDetail.is_charger ? '无需' : '需'}}自备充电器</text>
-        </view>
-        <view class="checked-pinlun-wrapper">
+        </view> -->
+        <!-- <view class="checked-pinlun-wrapper">
           <van-rate
             value="{{deviceDetail.star_level || 0}}"
             size="{{ 20 }}"
@@ -184,16 +191,19 @@
           />
           <text class="checked-content-pinlun" catchtap="lookCommentDetail" data-id="{{deviceDetail.id}}">{{deviceDetail.comment_number}}条评论
           </text>
-        </view>
+        </view> -->
       </view>
     </view>
     <view class="mark-content-bottom">
-      <view class="checked-content-bottom {{deviceDetail.loc_type === 1 ? 'checked-content-bottom-estate': ''}}">
-        <view class="checked-content-bg">
-          <image src="{{deviceDetail.loc_type === 1 ? '/image/index/housingPostIcon.png' : '/image/home-checked-juxing.png'}}" />
-          <text class="checked-content-type-text">{{ deviceDetail.loc_type === 1 ? '小区' : '公用'}}</text>
+      <view class="checked-content-bottom">
+        <view class="device-type-right-positon-box">
+          <image
+            class="device-type-right-positon-icon"
+            src="/image/deviceDetail/devicePositonIcon.png"
+          />
+          <text class="checked-content-type-text">{{CONFIG.DEVICE_SITE_TYPES_MAP[deviceDetail.loc_type].label || '未知'}}</text>
         </view>
-        <text class="type-chatou-num">端口：{{deviceDetail.device_port}}个</text>
+        <text class="type-chatou-num">{{deviceDetail.device_number}}台｜插头: {{deviceDetail.device_port}}个</text>
       </view>
       <text class="jiu-cuo-style" catchtap="goErrorCorrection" data-id="{{deviceDetail.id}}" data-detail="{{deviceDetail}}">去纠错？</text>
       <view
@@ -206,7 +216,8 @@
       </view>
       <view class="checked-content-go-wrapper" catchtap="goPosition">
         <image src="/image/home-checked-jiantou.png" class="go-btn-text-icon" />
-        <text>去这里</text>
+        <!-- <text>去这里</text> -->
+        <text>{{deviceDetail.distance}}</text>
       </view>
     </view>
   </view>

@@ -4,6 +4,8 @@ import Toast from '@vant/weapp/toast/toast';
 import apis from './apis'
 import { getReverseGeocoder } from 'service/QQMapApis'
 
+import * as CONFIG from './config'
+
 // 获取应用实例
 const app = getApp()
 let timeId = 0
@@ -31,6 +33,7 @@ const initNoticeBarText = '请您注意骑行安全，远离大车盲区，减�
 
 Page({
   data: {
+    CONFIG,
     navBarHeight: app.globalData.navBarHeight,
     isNoticeBar: false, // 顶部通知
     isNoticeScrollable: false, // 顶部通知是否支持滚动
@@ -547,7 +550,8 @@ Page({
           method: 'GET',
           data: {
             ticket: wx.getStorageSync('ticket'),
-            id: param.id,
+            // id: param.id,
+            id: 21646,
             coordinate: `${latitude},${longitude}`
           },
           success: (res) => {

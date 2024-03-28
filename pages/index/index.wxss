@@ -275,9 +275,11 @@
   margin-right: 5rpx;
 }
 .checked-mark-wrapper {
+  box-sizing: border-box;
   position: fixed;
   width: 718rpx;
-  height: 362rpx;
+  /* height: 362rpx; */
+  padding: 28rpx;
   background: #FFFFFF;
   box-shadow: 0rpx 1rpx 14rpx 0rpx rgba(21,47,111,0.2);
   border-radius: 34rpx;
@@ -342,6 +344,13 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.checked-content-detail-star-level {
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  font-size: 28rpx;
+  color: #0D7AC2;
+  line-height: 34rpx;
+}
 .checked-content-pinlun {
   font-size: 24rpx;
   font-family: PingFangSC-Regular, PingFang SC;
@@ -354,13 +363,13 @@
   align-items: center;
   justify-content: space-between;
   /* margin: 0 34rpx 0 34rpx; */
-  margin: 0 20rpx 0 20rpx;
+  /* margin: 0 20rpx 0 20rpx; */
 }
 .checked-content-bottom {
   position: relative;
   display: flex;
   align-items: center;
-  width: 218rpx;
+  /* width: 218rpx; */
   height: 40rpx;
   background: #F1FFFD;
   border-radius: 22rpx 0rpx 20rpx 22rpx;
@@ -369,10 +378,10 @@
   font-weight: 400;
   color: #2AA596;
 }
-.checked-content-bottom-estate {
+/* .checked-content-bottom-estate {
   background: #FFF8EF;
   color: #FF9E28;
-}
+} */
 .checked-content-bg {
   position: absolute;
   width: 80rpx;
@@ -396,11 +405,16 @@
   top: 5rpx;
 }
 .type-chatou-num {
-  position: relative;
-  left: 86rpx;  
+  flex: 1;
+  /* position: relative; */
+  /* left: 86rpx;   */
+  line-height: 40rpx;
+  margin-top: -4rpx;
+  padding-right: 4rpx;
+
 }
 .checked-content-go-wrapper {
-  width: 172rpx;
+  /* width: 172rpx; */
   height: 68rpx;
   background: #0D7AC2;
   border-radius: 47rpx;
@@ -410,13 +424,16 @@
   color: #FFFFFF;
   line-height: 68rpx;
   text-align: center;
+  padding-left: 24rpx;
+  padding-right: 24rpx;
 }
 .go-btn-text-icon {
   display: inline-block;
   width: 34rpx;
   height: 35rpx;
   vertical-align: middle;
-  margin-right: 4rpx;
+  margin-right: 10rpx;
+  margin-top: -5rpx;
 }
 
 .checked-content-address {
@@ -432,7 +449,7 @@
   margin: 0 6rpx;
 }
 .device-intro-desc-wrap {
-  margin-bottom: 10rpx;
+  /* margin-bottom: 10rpx; */
 }
 .checked-mark-close {
   display: inline-block;
@@ -554,4 +571,20 @@
 .collect-device-icon {
   width: 38rpx;
   height: 38rpx;
+}
+.device-type-right-positon-box {
+  position: relative;
+}
+.device-type-right-positon-icon {
+  width: 102rpx !important;
+  height: 40rpx !important;
+}
+.device-type-right-positon-name {
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 600;
+  font-size: 24rpx;
+  color: #FFFFFF;
+  line-height: 40rpx;
+  position: absolute;
+  left: 11rpx;
 }
