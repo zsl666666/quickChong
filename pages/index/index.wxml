@@ -96,12 +96,19 @@
   </view>
   <view class="add-excharge-device-wrapper">
     <view class="add-device-box-posi-wrap">
-      <view class="add-device-wrapper" catchtap="addDeviceHandle">
+      <!-- <view class="add-device-wrapper" catchtap="addDeviceHandle">
         <image class="device-icon" src="/image/dian-dong-icon.png" />
         <text>发现充电设备</text>
-      </view>
-      <view class="add-device-wrapper" catchtap="handleAddDevice">
-        <text>新添加</text>
+      </view> -->
+      <view
+        class="add-device-wrapper"
+        catchtap="handleAddDevice"
+      >
+        <image
+          class="device-icon"
+          src="/image/dian-dong-icon.png"
+        />
+        <text>发现充电设备</text>
       </view>
       <view
         class="add-device-wrapper" 

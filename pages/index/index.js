@@ -435,9 +435,16 @@ Page({
   // 新的添加设备
   handleAddDevice() {
     // pages/addDeviceNew/index
-    wx.navigateTo({
-      url: `/pages/addDeviceNew/index`,
-    })
+    const tempCurrentUserInfo = wx.getStorageSync('nickName')
+    if (tempCurrentUserInfo) {
+      wx.navigateTo({
+        url: `/pages/addDeviceNew/index`,
+      })
+    } else {
+      this.setData({
+        showLogin: true
+      })
+    }
   },
 
   // 跳转设备详情

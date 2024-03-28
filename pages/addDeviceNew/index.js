@@ -543,7 +543,7 @@ Page({
     }
 
     if (!deveiceData.open_status) {
-      return Toast('请选择开发状态')
+      return Toast('请选择开放状态')
     }
 
     this.setData({

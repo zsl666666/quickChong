@@ -1,0 +1,165 @@
+<!--pages/errorCorrection/index.wxml-->
+<view class="device-page-wrapper">
+  <view class="device-excharge-type-wrapper">
+    <view class="excharge-type-title custom-required-ident">纠正设备信息</view>
+    <view class="excharge-type-data-wrapper">
+      <view
+        wx:for="{{quickData}}"
+        wx:key="index"
+        class="{{ choiceDataValue === item.value ? 'excharge-type-item excharge-type-item-select' : 'excharge-type-item'}}"
+        data-index="{{item.id}}" 
+        data-value="{{item.value}}"
+        catchtap="choiceType"
+      >
+        <text>{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 位置有误 -->
+  <view wx:if="{{ choiceDataValue === '位置有误'}}">
+    <chosen-position
+      disabled="{{type}}"
+      required="{{true}}"
+      title="地图位置"
+      desc="位置有误会影响导航，请仔细确认"
+      initPosData="{{initPosData}}"
+      bind:mapDataChange="handleMapDataChange"
+    ></chosen-position>
+  </view>
+
+  <!-- 设备信息有误 -->
+  <view wx:if="{{ choiceDataValue === '设备信息有误'}}">
+    <view class="device-excharge-type-wrapper">
+      <view class="excharge-type-title custom-required-ident">充电设备类型</view>
+      <view class="excharge-type-data-wrapper">
+        <view
+          wx:for="{{deviceData}}"
+          wx:key="index"
+          class="{{ deveiceData.device_type === item.name ? 'excharge-type-item excharge-type-item-select' : 'excharge-type-item'}}"
+          data-index="{{index}}"
+          data-name="{{item.name}}"
+          catchtap="choiceDeviceType"
+        >
+          <image src="{{deveiceData.device_type === item.name ? item.selectIcon : item.icon}}" class="excharge-type-icon" />
+          <text>{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+  
+    <view class="device-excharge-content">
+      <van-cell-group custom-class='cell-group-content' border="{{false}}">
+        <van-field
+          disabled="{{type === 'view'}}"
+          clearable
+          label="设备品牌"
+          placeholder="请输入"
+          input-align="right"
+          model:value="{{ brand }}"
+        />
+        <van-field
+          disabled="{{type === 'view'}}"
+          clearable
+          label="品牌联系方式"
+          placeholder="请输入"
+          input-align="right"
+          model:value="{{ brand_contact }}"
+        />
+        <van-cell title-class='cell-title-style' value-class='monitor-value-style' catch:tap="showMonitor" is-link value="{{around_monitor}}" title="设备周围监控" border="{{false}}">
+        </van-cell>
+      </van-cell-group>
+    </view>
+
+    <view class="device-excharge-content">
+      <van-cell-group custom-class='cell-group-content' border="{{false}}">
+        <van-cell title-class='cell-title-style' title="支持扫码充电">
+          <van-switch disabled="{{type === 'view'}}" size="{{'20px'}}" checked="{{deveiceData.is_scancode}}" bind:change="scanCode" />
+        </van-cell>
+        <van-cell title-class='cell-title-style' title="有防雨措施" >
+          <van-switch disabled="{{type === 'view'}}" size="{{'20px'}}" checked="{{deveiceData.is_rainshelter}}" bind:change="rainshelter" />
+        </van-cell>
+        <van-cell title-class='cell-title-style' title="是否要自带充电器">
+          <van-switch disabled="{{type === 'view'}}" checked="{{true}}" size="{{'20px'}}" checked="{{deveiceData.is_charger}}" bind:change="auoCharger" />
+        </van-cell>
+        <van-cell title-class='cell-title-style' title="类型" border="{{false}}" />
+        <view class="device-type-wrapper">
+          <view
+            wx:for="{{deviceTypeData}}"
+            wx:key="index"
+            data-value="{{item.value}}"
+            class="{{ deveiceData.loc_type === item.value ? 'device-type-item device-type-item-selected' : 'device-type-item'}}"
+            catchtap="publicPlotType"
+          >
+            <text>{{item.name}}</text>
+          </view>
+        </view>
+        <van-cell title-class='cell-title-style' title="充电端口数量" border="{{false}}">
+          <van-stepper disabled="{{type === 'view'}}" min="1" value="{{ deveiceData.device_port }}" integer bind:change="devicePortHandle" />
+        </van-cell>
+      </van-cell-group>
+    </view>
+  </view>
+
+  <view class="device-excharge-content device-desicribtion-img">
+    <van-cell-group border="{{ false }}">
+      <van-cell
+        title-class="device-img-title-class"
+        title="设备照片"
+        label="请上传真实、清晰的设备照片，有助于审核"
+        border="{{ false }}"
+      />
+    </van-cell-group>
+    <van-uploader
+      file-list="{{ fileList }}"
+      bind:delete="imageDelete"
+      accept="image"
+      multiple="true"
+      max-count="6"
+      max-size="{{5242880}}"
+      use-before-read
+      bind:before-read="beforeRead"
+      bind:after-read="afterRead"
+      disabled="{{type === 'view'}}"
+    />
+  </view>
+  <view class="device-excharge-content device-desicribtion">
+    <van-cell-group custom-class='cell-group-content' border="{{false}}">
+      <van-cell title-class='cell-title-style' title="添加描述" border="{{false}}" />
+      <van-field
+        type="textarea"
+        placeholder="添加纠错描述，加速审核通过"
+        autosize="{{ true }}"
+        :autosize="{ maxHeight: 100, minHeight: 50 }"
+        border="{{ false }}"
+        input-class="text-area-style"
+        model:value="{{ comment }}"
+        disabled="{{type}}"
+      />
+    </van-cell-group>
+  </view>
+
+  <view class="device-bottom-submit-wrapper">
+    <view class="submit-btn {{type === 'view' || submitLoading ? 'submit-btn-disabled' : ''}}" catchtap='errorCorrection'>提交</view>
+  </view>
+  <van-toast id="van-toast" />
+  <view class="process-wrapper" wx:if="{{showProcess}}">
+    <van-circle value="{{ processValue }}"  text="{{processValue}}%" />
+  </view>
+
+  <van-toast id="van-toast" />
+  <van-action-sheet
+    show="{{ monitorShow }}"
+    actions="{{ actions }}"
+    bind:close="onCloseAction"
+    bind:select="onSelect"
+  />
+
+  <confirmPopup
+    show="{{isShowConfirmPopup}}"
+    title="请确认"
+    content="您选择的电瓶车充电位置、充电信息的准确性！！<br/>错误的位置会影响导航，对其他骑友造成困扰！"
+    okButtonText="信息无误，提交"
+    cancelButtonText="再看看"
+    bind:onOk="handleConfirmSubmit"
+  ></confirmPopup>
+</view>

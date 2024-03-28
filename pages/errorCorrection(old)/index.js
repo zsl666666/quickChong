@@ -1,14 +1,12 @@
 // pages/errorCorrection/index.js
 import Toast from '@vant/weapp/toast/toast';
 import { url } from '../../utils/util'
-import * as CONFIG from './config'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    CONFIG,
     quickData: [{
       name: '位置有误',
       id: 1,
@@ -22,84 +20,62 @@ Page({
       id: 3,
       value: '设备信息有误',
     }],
+    choiceData: [],
     choiceDataValue: '',
+    comment: '',
     fileList: [],
     picture: [],
     deviceId: 0,
     showProcess: false,
     processValue: 0,
 
-    // 充电设备类型
-    chargeDeviceTypes: [
-      {
-        label: '智能充电插座',
-        value: '智能充电插座',
-        icon: '/image/addDevice/deviceTypeChongDianZuoIcon.png'
-      },
-      {
-        label: '交流电桩',
-        value: '交流电桩',
-        icon: '/image/addDevice/deviceTypeJiaoLiuDianGuiIcon.png'
-      },
-      {
-        label: '充电柜',
-        value: '充电柜',
-        icon: '/image/addDevice/deviceTypeChongDianGuiIcon.png'
-      },
-      {
-        label: '换电柜',
-        value: '换电柜',
-        icon: '/image/addDevice/deviceTypeHuanDianGuiIcon.png'
-      }
-    ],
-    // 设备位置类型
-    deviceSiteTypes: [
-      {
-        label: '住宅区',
-        value: 1,
-      },
-      {
-        label: '办公区',
-        value: 3,
-      },
-      {
-        label: '商业区',
-        value: 4,
-      },
-      {
-        label: '休闲区',
-        value: 5,
-      },
-      {
-        label: '工业区',
-        value: 6,
-      },
-      {
-        label: '其他',
-        value: 2,
-      }
-    ],
-    showActionSheet: false, // 是否显示下拉选择弹窗
-    actionList: [], // 下拉选择弹窗列表
+    deviceData: [{
+      name: '充电桩',
+      icon: '/image/chongdianzhuang-icon.png',
+      selectIcon: '/image/device-chongdianzhuang-select-icon.png',
+      id: 0
+    }, {
+      name: '充电柜',
+      icon: '/image/chongdiangui-select.png',
+      selectIcon: '/image/deveice-chongdiangui-select-icon.png',
+      id: 1
+    }, {
+      name: '换电柜',
+      icon: '/image/huandiangui-icon.png',
+      selectIcon: '/image/device-huandiangui-select-icon.png',
+      id: 2
+    }],
+    brand: '', // 设备品牌,
+    brand_contact: '', // 联系方式
+    around_monitor: '', // 监控
+    monitorShow: false, // 选择设备周围监控弹窗
+    actions: [{ // 设备监控列表
+      name: '单独配置监控措施',
+      color: '#646566'
+    }, {
+      name: '周围建筑有监控',
+      color: '#646566'
+    }, {
+      name: '无监控措施',
+      color: '#646566'
+    }],
     // 设备数据
     deveiceData: {
-      device_type: '', // 充电设备类型
-      loc_type: '', // 设备地点类型，住宅区，办公区....
-      brand: '', // 设备品牌
-      operation_status: '', // 运维状态
-      open_status: '', // 开发状态
-      description: '', // 描述
-      device_number: 1, // 设备数
-      device_port: 1, // 充电端口数量
-      power_range: '', // 功率范围
-      is_recharge: '', // 是否需要预充值
-      is_refund: '', // 是否支持退款
-      payment_way: '', // 付款方式
-      fee: '', // 收费详情
-      is_rainshelter: 0, // 有无防雨措施
-      is_charger: 0, // 是否自带充电器
-      is_fast: 2, // 快充还是慢充
+      is_scancode: false, // 扫码充电
+      is_rainshelter: false, // 是否有防雨棚
+      is_charger: false, // 是否自带充电器
+      loc_type: null, // 是小区，还是公共
+      device_port: 0, // 充电口数量
+      device_type: null, // 充电设备类型
     },
+    // 设备类型
+    deviceTypeData: [{
+      name: '公共充电设备',
+      value: 2
+    }, {
+      name: '小区内充电设备',
+      value: 1
+    }],
     initPosData: {}, // 接口返回地图位置数据
     mapData: {}, // 地图相关数据
     type: '', // 页面类型，view表示是查看纠错数据，不可编辑
@@ -125,7 +101,6 @@ Page({
 
     this.setData({
       type: type,
-      // type: 'view',
       deviceId: options.id,
       deviceDetail: detail,
       initPosData: {
@@ -135,8 +110,19 @@ Page({
         longitude: coordinateArr[1],
         city: detail.city
       },
-      deveiceData: { ...detail },
+      deveiceData: {
+        is_scancode: detail.is_scancode === 1, // 扫码充电
+        is_rainshelter: detail.is_rainshelter === 1, // 是否有防雨棚
+        is_charger: detail.is_charger === 1, // 是否自带充电器
+        loc_type: detail.loc_type, // 是小区，还是公共
+        device_port: detail.device_port, // 充电口数量
+        device_type: detail.device_type, // 充电设备类型
+      },
+      brand: detail.brand, // 设备品牌
+      brand_contact: detail.brand_contact, // 联系方式
+      around_monitor: detail.around_monitor, // 设备周围监控
       fileList: pictures, // 设备照片
+      comment: detail.description, // 描述
       // 查看纠错信息时，回显纠错设备信息类型
       ...(type === 'view' ? {
         choiceDataValue: detail.error_type || ''
@@ -145,6 +131,21 @@ Page({
   },
 
   choiceType: function (e) {
+    // const index = e.currentTarget.dataset.index
+    // let arr = []
+    // if (this.data.choiceData.includes(index)) {
+    //   arr = this.data.choiceData.filter(item => item !== index)
+    // } else {
+    //   arr = this.data.choiceData.concat([index])
+    // }
+    // const tempMessageItemData = JSON.parse(JSON.stringify(this.data.quickData))
+    // tempMessageItemData.forEach(element => {
+    //   if (arr.includes(element.id)) {
+    //     element.selected = true
+    //   } else {
+    //     element.selected = false
+    //   }
+    // });
 
     // 为查看页面类型时
     if (this.data.type === 'view') return
@@ -231,14 +232,84 @@ Page({
   },
 
   // 选择充电设备类型
-  handleChangechargeDeviceType(e) {
+  choiceDeviceType(e) {
     // 为查看页面类型时
     if (this.data.type === 'view') return
 
     this.setData({
       deveiceData: {
         ...this.data.deveiceData,
-        device_type: e.currentTarget.dataset.value
+        device_type: e.currentTarget.dataset.name
+      }
+    })
+  },
+
+  // 监控选择弹窗显示
+  showMonitor() {
+    this.setData({
+      monitorShow: true
+    })
+  },
+  // 关闭
+  onCloseAction() {
+    this.setData({
+      monitorShow: false
+    })
+  },
+  // action 选择
+  onSelect(event) {
+    this.setData({
+      around_monitor: event.detail.name
+    })
+  },
+
+  // 扫码充电
+  scanCode({ detail }) {
+    this.setData({
+      deveiceData: {
+        ...this.data.deveiceData,
+        is_scancode: detail
+      }
+    })
+  },
+  // 防雨棚
+  rainshelter({ detail }) {
+    this.setData({
+      deveiceData: {
+        ...this.data.deveiceData,
+        is_rainshelter: detail
+      }
+    })
+  },
+  // 是否自带充电器
+  auoCharger({ detail }) {
+    this.setData({
+      deveiceData: {
+        ...this.data.deveiceData,
+        is_charger: detail
+      }
+    })
+  },
+
+  // 端口数量
+  devicePortHandle(value) {
+    this.setData({
+      deveiceData: {
+        ...this.data.deveiceData,
+        device_port: value.detail
+      }
+    })
+  },
+
+  // 选择类型-公共充电设备，还是小区充电设备
+  publicPlotType(e) {
+    // 为查看页面类型时
+    if (this.data.type === 'view') return
+
+    this.setData({
+      deveiceData: {
+        ...this.data.deveiceData,
+        loc_type: e.currentTarget.dataset.value
       }
     })
   },
@@ -261,6 +332,22 @@ Page({
 
     // 防重复点击
     if (data.submitLoading) return
+
+    // const mapData = data.mapData
+    // // 校验纠错设备信息
+    // if (!data.choiceDataValue) {
+    //   return Toast('纠错设备信息不能为空')
+    // }
+    // // 校验纠错设备信息-位置有误的情况
+    // if (data.choiceDataValue === '位置有误') {
+    //   if (!mapData.name || !mapData.city || !mapData.address) {
+    //     return Toast('位置信息不能为空')
+    //   }
+    // }
+    // // 校验纠错设备信息-设备信息有误，充电设备类型
+    // if (data.choiceDataValue === '设备信息有误' && !data.deveiceData.device_type) {
+    //   return Toast('充电设备类型不能为空') 
+    // }
 
     const params = {
       ...data.deveiceData,
@@ -347,32 +434,17 @@ Page({
     const mapData = data.mapData
     // 校验纠错设备信息
     if (!data.choiceDataValue) {
-      return Toast('请选择纠错设备信息类型')
+      return Toast('纠错设备信息不能为空')
     }
     // 校验纠错设备信息-位置有误的情况
     if (data.choiceDataValue === '位置有误') {
       if (!mapData.name || !mapData.city || !mapData.address) {
-        return Toast('请选择地图位置信息')
+        return Toast('位置信息不能为空')
       }
     }
     // 校验纠错设备信息-设备信息有误，充电设备类型
-    if (data.choiceDataValue === '设备信息有误') {
-      if (!data.deveiceData.device_type) {
-        return Toast('请选择充电设备类型') 
-      }
-      if (!data.deveiceData.loc_type) {
-        return Toast('请选择类型') 
-      }
-      if (!data.deveiceData.brand) {
-        return Toast('设备品牌不能为空')
-      }
-      if (!data.deveiceData.operation_status) {
-        return Toast('请选择运维状态')
-      }
-  
-      if (!data.deveiceData.open_status) {
-        return Toast('请选择开放状态')
-      }
+    if (data.choiceDataValue === '设备信息有误' && !data.deveiceData.device_type) {
+      return Toast('充电设备类型不能为空') 
     }
 
     // 显示二次确认弹窗
@@ -383,157 +455,6 @@ Page({
 
   handleConfirmSubmit() {
     this.postDeviceCorrection()
-  },
-
-  // 选择充电设备类型
-  handleChangechargeDeviceType(e) {
-    // deveiceData.device_type
-    this.setData({
-      deveiceData: {
-        ...this.data.deveiceData,
-        device_type: e.currentTarget.dataset.value
-      }
-    })
-  },
-  // 设备品牌
-  handleBrand(e) {
-    this.setData({
-      deveiceData: {
-        ...this.data.deveiceData,
-        brand: e.detail
-      }
-    })
-  },
-  // 处理显示下拉选择弹窗
-  handleShowActionSheet(e) {
-    // 为查看页面类型时
-    if (this.data.type === 'view') return
-
-    const actionSheetType = e.currentTarget.dataset.type
-
-    const list = CONFIG.actionSheetListMap[actionSheetType] || []
-
-    this.setData({
-      showActionSheet: true,
-      actionList: list.map(item => ({
-        ...item,
-        name: item.label,
-        color: '#646566',
-        className: 'custom-action-sheet-select',
-        field: actionSheetType
-      }))
-    })
-  },
-  // 关闭下拉选择弹窗显示
-  handleActionSheetClose() {
-    this.setData({
-      showActionSheet: false,
-      actionList: []
-    })
-  },
-
-  // 下拉选择回调
-  handleActionSelect(e) {
-    const detail = e.detail
-    this.setData({
-      deveiceData: {
-        ...this.data.deveiceData,
-        [detail.field]: detail.value
-      }
-    }, () => {
-      console.log('gdgdgsgs', this.data.deveiceData, CONFIG.OPERATION_STATUS_LIST_MAP[this.data.deveiceData.operation_status].label)
-    })
-  },
-  // 设备数量
-  handleDeviceNum(value) {
-    this.setData({
-      deveiceData: {
-        ...this.data.deveiceData,
-        device_number: value.detail
-      }
-    })
-  },
-  // 设备数量
-  handleDevicePortNum(value) {
-    this.setData({
-      deveiceData: {
-        ...this.data.deveiceData,
-        device_port: value.detail
-      }
-    })
-  },
-  // 功率范围
-  handlePowerRange(value) {
-    this.setData({
-      deveiceData: {
-        ...this.data.deveiceData,
-        power_range: value.detail
-      }
-    })
-  },
-  // 收费详情
-  handleFee(e) {
-    // 为查看页面类型时
-    if (this.data.type === 'view') return
-
-    this.setData({
-      deveiceData: {
-        ...this.data.deveiceData,
-        fee: e.detail
-      }
-    })
-  },
-  // 有无防雨措施
-  handleRainshelter(e) {
-    this.setData({
-      deveiceData: {
-        ...this.data.deveiceData,
-        is_rainshelter: e.detail ? 1 : 0
-      }
-    })
-  },
-
-  // 是否自带充电器
-  handleCharger(e) {
-    this.setData({
-      deveiceData: {
-        ...this.data.deveiceData,
-        is_charger: e.detail ? 1 : 0
-      }
-    })
-  },
-
-  // 快慢充
-  handleFast(e) {
-    const value = e.currentTarget.dataset.value
-    this.setData({
-      deveiceData: {
-        ...this.data.deveiceData,
-        is_fast: value
-      }
-    })
-  },
-  // 描述
-  handleDescriptionValueChange(e) {
-    this.setData({
-      deveiceData: {
-        ...this.data.deveiceData,
-        description: e.detail
-      }
-    })
-  },
-  // 选择设备地方类型
-  handleChangeDeviceSiteType(e) {
-    // 为查看页面类型时
-    if (this.data.type === 'view') return
-
-    // deveiceData.device_type
-    this.setData({
-      deveiceData: {
-        ...this.data.deveiceData,
-        loc_type: e.currentTarget.dataset.value
-      }
-    })
   },
 
   /**

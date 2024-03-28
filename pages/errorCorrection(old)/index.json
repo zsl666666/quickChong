@@ -1,0 +1,18 @@
+{
+  "navigationBarTitleText": "设备纠错",
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#0D7AC2",
+  "usingComponents": {
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-switch": "@vant/weapp/switch/index",
+    "van-stepper": "@vant/weapp/stepper/index",
+    "van-uploader": "@vant/weapp/uploader/index",
+    "van-circle": "@vant/weapp/circle/index",
+    "van-toast": "@vant/weapp/toast/index",
+    "van-action-sheet": "@vant/weapp/action-sheet/index",
+    "chosen-position": "/pages/componets/chosenPosition/index",
+    "confirmPopup": "/pages/componets/addDeviceConfirmPopup/index"
+  }
+}

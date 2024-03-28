@@ -1,7 +1,7 @@
 <!--pages/errorCorrection/index.wxml-->
 <view class="device-page-wrapper">
   <view class="device-excharge-type-wrapper">
-    <view class="excharge-type-title custom-required-ident">纠正设备信息</view>
+    <view class="excharge-type-title">纠正设备信息*</view>
     <view class="excharge-type-data-wrapper">
       <view
         wx:for="{{quickData}}"
@@ -20,8 +20,7 @@
   <view wx:if="{{ choiceDataValue === '位置有误'}}">
     <chosen-position
       disabled="{{type}}"
-      required="{{true}}"
-      title="地图位置"
+      title="地图位置*"
       desc="位置有误会影响导航，请仔细确认"
       initPosData="{{initPosData}}"
       bind:mapDataChange="handleMapDataChange"
@@ -30,77 +29,259 @@
 
   <!-- 设备信息有误 -->
   <view wx:if="{{ choiceDataValue === '设备信息有误'}}">
-    <view class="device-excharge-type-wrapper">
-      <view class="excharge-type-title custom-required-ident">充电设备类型</view>
-      <view class="excharge-type-data-wrapper">
+
+    <view class="every-device-chunk">
+      <view class="device-chunk-top">
+        <image class="device-chunk-top-icon" src="/image/addDevice/deviceTypeIcon.png" />
+        <view class="device-chunk-top-title">充电设备类型*</view>
+      </view>
+      <view class="device-type-bottom-wrap">
         <view
-          wx:for="{{deviceData}}"
+          wx:for="{{chargeDeviceTypes}}"
           wx:key="index"
-          class="{{ deveiceData.device_type === item.name ? 'excharge-type-item excharge-type-item-select' : 'excharge-type-item'}}"
-          data-index="{{index}}"
-          data-name="{{item.name}}"
-          catchtap="choiceDeviceType"
+          class="{{'device-type-b-box ' + (deveiceData.device_type === item.value && 'device-type-b-selected-box')}}"
+          data-value="{{item.value}}"
+          catch:tap="handleChangechargeDeviceType"
         >
-          <image src="{{deveiceData.device_type === item.name ? item.selectIcon : item.icon}}" class="excharge-type-icon" />
-          <text>{{item.name}}</text>
+          <image class="device-type-b-box-type-icon" src="{{item.icon}}" />
+          <text class="device-type-b-box-type-title">{{item.label}}</text>
         </view>
       </view>
     </view>
-  
-    <view class="device-excharge-content">
-      <van-cell-group custom-class='cell-group-content' border="{{false}}">
-        <van-field
-          disabled="{{type === 'view'}}"
-          clearable
-          label="设备品牌"
-          placeholder="请输入"
-          input-align="right"
-          model:value="{{ brand }}"
-        />
-        <van-field
-          disabled="{{type === 'view'}}"
-          clearable
-          label="品牌联系方式"
-          placeholder="请输入"
-          input-align="right"
-          model:value="{{ brand_contact }}"
-        />
-        <van-cell title-class='cell-title-style' value-class='monitor-value-style' catch:tap="showMonitor" is-link value="{{around_monitor}}" title="设备周围监控" border="{{false}}">
-        </van-cell>
-      </van-cell-group>
+
+    <view class="every-device-chunk">
+      <view class="device-chunk-top">
+        <view class="device-chunk-top-title">类型*</view>
+      </view>
+      <view class="device-site-type-bottom-wrap">
+        <view
+          wx:for="{{deviceSiteTypes}}"
+          wx:key="index"
+          class="{{'device-site-type-b-box ' + (deveiceData.loc_type === item.value && 'device-site-type-b-selected-box')}}"
+          data-value="{{item.value}}"
+          catch:tap="handleChangeDeviceSiteType"
+        >
+          {{item.label}}
+        </view>
+        <van-cell-group class="custom-van-cell-group-wrap">
+          <van-field
+            class="custom-van-field-wrap"
+            clearable
+            label="设备品牌"
+            placeholder="请输入"
+            input-align="right"
+            model:value="{{ deveiceData.brand }}"
+            bind:change="handleBrand"
+            disabled="{{type === 'view'}}"
+          />
+          <van-cell
+            class="custom-van-cell-wrap"
+            data-type="operation_status"
+            catch:tap="handleShowActionSheet"
+            is-link
+            title="运维状态"
+            value="{{CONFIG.OPERATION_STATUS_LIST_MAP[deveiceData.operation_status].label}}"
+          />
+          <van-cell
+            class="custom-van-cell-wrap"
+            data-type="open_status"
+            catch:tap="handleShowActionSheet"
+            is-link
+            title="开放状态"
+            value="{{CONFIG.OPEN_STATUS_LIST_MAP[deveiceData.open_status].label}}"
+            border="{{false}}"
+          />
+        </van-cell-group>
+      </view>
     </view>
 
-    <view class="device-excharge-content">
-      <van-cell-group custom-class='cell-group-content' border="{{false}}">
-        <van-cell title-class='cell-title-style' title="支持扫码充电">
-          <van-switch disabled="{{type === 'view'}}" size="{{'20px'}}" checked="{{deveiceData.is_scancode}}" bind:change="scanCode" />
-        </van-cell>
-        <van-cell title-class='cell-title-style' title="有防雨措施" >
-          <van-switch disabled="{{type === 'view'}}" size="{{'20px'}}" checked="{{deveiceData.is_rainshelter}}" bind:change="rainshelter" />
-        </van-cell>
-        <van-cell title-class='cell-title-style' title="是否要自带充电器">
-          <van-switch disabled="{{type === 'view'}}" checked="{{true}}" size="{{'20px'}}" checked="{{deveiceData.is_charger}}" bind:change="auoCharger" />
-        </van-cell>
-        <van-cell title-class='cell-title-style' title="类型" border="{{false}}" />
-        <view class="device-type-wrapper">
-          <view
-            wx:for="{{deviceTypeData}}"
-            wx:key="index"
-            data-value="{{item.value}}"
-            class="{{ deveiceData.loc_type === item.value ? 'device-type-item device-type-item-selected' : 'device-type-item'}}"
-            catchtap="publicPlotType"
+    <view>
+      <view class="every-device-chunk">
+        <view class="device-site-type-bottom-wrap">
+          <van-cell-group
+            class="custom-van-cell-group-wrap"
+            border="{{false}}"
           >
-            <text>{{item.name}}</text>
-          </view>
+            <van-cell
+              class="custom-van-cell-wrap"
+              title="设备数"
+            >
+              <van-stepper
+                min="1"
+                integer
+                value="{{deveiceData.device_number}}"
+                bind:change="handleDeviceNum"
+                disabled="{{type === 'view'}}"
+              />
+            </van-cell>
+            <van-cell
+              class="custom-van-cell-wrap"
+              title="充电端口数量"
+            >
+              <van-stepper
+                min="1"
+                integer
+                value="{{deveiceData.device_port}}"
+                bind:change="handleDevicePortNum"
+                disabled="{{type === 'view'}}"
+              />
+            </van-cell>
+            <van-field
+              type="number"
+              class="custom-van-field-wrap"
+              clearable
+              label="功率范围"
+              placeholder="请输入"
+              input-align="right"
+              model:value="{{deviceData.power_range}}"
+              bind:change="handlePowerRange"
+              disabled="{{type === 'view'}}"
+            >
+              <view slot="right-icon" class="custom-van-field-wrap-right-icon-slot">W以内</view>
+            </van-field>
+            <van-cell
+              class="custom-van-cell-wrap"
+              data-type="is_recharge"
+              catch:tap="handleShowActionSheet"
+              is-link
+              title="是否预充值"
+              value="{{CONFIG.IS_RECHARGE_LIST_MAP[deveiceData.is_recharge].label}}"
+              border="{{false}}"
+            />
+            <van-cell
+              class="custom-van-cell-wrap"
+              data-type="is_refund"
+              catch:tap="handleShowActionSheet"
+              is-link
+              title="是否支持费用退款"
+              value="{{CONFIG.IS_REFUND_LIST_MAP[deveiceData.is_refund].label}}"
+              border="{{false}}"
+            />
+            <van-cell
+              class="custom-van-cell-wrap"
+              is-link
+              title="付款方式"
+              data-type="payment_way"
+              catch:tap="handleShowActionSheet"
+              value="{{CONFIG.PAYMENT_WAY_LIST_MAP[deveiceData.payment_way].label}}"
+            />
+            <van-field
+              class="custom-van-field-wrap"
+              clearable
+              label="收费详情"
+              placeholder="请输入"
+              input-align="right"
+              model:value="{{ deveiceData.fee }}"
+              bind:change="handleFee"
+              disabled="{{type === 'view'}}"
+          />
+            <van-cell
+              class="custom-van-cell-wrap"
+              title="快充还是慢充"
+            >
+              <view
+                slot="right-icon"
+                class="custom-switch-wrap"
+              >
+                <view
+                class="custom-switch-btn {{deveiceData.is_fast === 2 ? 'custom-switch-btn-active' : ''}}"
+                  data-value="{{2}}"
+                  catch:tap="handleFast"
+                >慢</view>
+                <view
+                  class="custom-switch-btn {{deveiceData.is_fast === 1 ? 'custom-switch-btn-active' : ''}}"
+                  data-value="{{1}}"
+                  catch:tap="handleFast"
+                >快</view>
+              </view>
+            </van-cell>
+            <van-cell
+              title-class='cell-title-style'
+              class="custom-van-cell-wrap"
+              title="有防雨措施"
+            >
+              <van-switch
+                size="26"
+                active-color="#0D7AC2"
+                checked="{{!!deveiceData.is_rainshelter}}"
+                bind:change="handleRainshelter"
+                disabled="{{type === 'view'}}"
+              />
+            </van-cell>
+            <van-cell
+              title-class='cell-title-style'
+              class="custom-van-cell-wrap"
+              title="是否要自带充电器"
+            >
+              <van-switch
+                size="26"
+                active-color="#0D7AC2"
+                checked="{{!!deveiceData.is_charger}}"
+                bind:change="handleCharger"
+                disabled="{{type === 'view'}}"
+              />
+            </van-cell>
+          </van-cell-group>
         </view>
-        <van-cell title-class='cell-title-style' title="充电端口数量" border="{{false}}">
-          <van-stepper disabled="{{type === 'view'}}" min="1" value="{{ deveiceData.device_port }}" integer bind:change="devicePortHandle" />
-        </van-cell>
+      </view>
+    </view>
+
+  </view>
+
+  <view
+    class="device-excharge-content device-desicribtion-img"
+  >
+    <!-- <van-cell-group border="{{ false }}">
+      <van-cell
+        title-class="device-img-title-class"
+        title="设备照片"
+        label="请上传真实、清晰的设备照片，有助于审核"
+        border="{{ false }}"
+      />
+    </van-cell-group> -->
+    <view class="device-chunk-top-wrap">
+      <view class="device-chunk-top-title">设备照片</view>
+      <view class="device-chunk-top-content-desc">请上传真实、清晰的设备照片，有助于审核</view>
+    </view>
+    <van-uploader
+      file-list="{{ fileList }}"
+      bind:delete="imageDelete"
+      accept="image"
+      multiple="true"
+      max-count="6"
+      max-size="{{5242880}}"
+      use-before-read
+      bind:before-read="beforeRead"
+      bind:after-read="afterRead"
+      disabled="{{type === 'view'}}"
+    />
+  </view>
+
+  <view class="every-device-chunk device-desicribtion">
+    <view class="device-chunk-top">
+      <view class="device-chunk-top-title">添加描述</view>
+    </view>
+    <view class="device-site-type-bottom-wrap">
+      <van-cell-group
+        class="custom-van-cell-group-wrap"
+        border="{{false}}"
+      >
+        <van-field
+          disabled="{{type === 'view'}}"
+          type="textarea"
+          class="custom-desc-van-field-wrap"
+          input-class="custom-van-field-textarea-wrap"
+          placeholder="请对要添加的设备信息进行简要描述，详细描写周边的特征，有助于帮助用户准备查找"
+          autosize="{ maxHeight: 100, minHeight: 50 }"
+          bind:change="handleDescriptionValueChange"
+          model:value="{{ deveiceData.description }}"
+          border="{{ false }}"
+        />
       </van-cell-group>
     </view>
   </view>
 
-  <view class="device-excharge-content device-desicribtion-img">
+  <!-- <view class="device-excharge-content device-desicribtion-img">
     <van-cell-group border="{{ false }}">
       <van-cell
         title-class="device-img-title-class"
@@ -121,8 +302,9 @@
       bind:after-read="afterRead"
       disabled="{{type === 'view'}}"
     />
-  </view>
-  <view class="device-excharge-content device-desicribtion">
+  </view> -->
+
+  <!-- <view class="device-excharge-content device-desicribtion">
     <van-cell-group custom-class='cell-group-content' border="{{false}}">
       <van-cell title-class='cell-title-style' title="添加描述" border="{{false}}" />
       <van-field
@@ -136,7 +318,7 @@
         disabled="{{type}}"
       />
     </van-cell-group>
-  </view>
+  </view> -->
 
   <view class="device-bottom-submit-wrapper">
     <view class="submit-btn {{type === 'view' || submitLoading ? 'submit-btn-disabled' : ''}}" catchtap='errorCorrection'>提交</view>
@@ -148,10 +330,10 @@
 
   <van-toast id="van-toast" />
   <van-action-sheet
-    show="{{ monitorShow }}"
-    actions="{{ actions }}"
-    bind:close="onCloseAction"
-    bind:select="onSelect"
+    show="{{ showActionSheet }}"
+    actions="{{ actionList }}"
+    bind:close="handleActionSheetClose"
+    bind:select="handleActionSelect"
   />
 
   <confirmPopup
