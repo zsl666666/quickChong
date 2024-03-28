@@ -110,12 +110,12 @@
         />
         <text>发现充电设备</text>
       </view>
-      <view
+      <!-- <view
         class="add-device-wrapper" 
         style="position: fixed; bottom: 200rpx;"
         catchtap="handleGoDeviceDetail">
         <text>详情页</text>
-      </view>
+      </view> -->
 
       <view wx:if="{{!visibleAddDeviceGift}}" class="add-device-box-posi-wrap-desc-wrap">
         <image class="add-device-box-posi-wrap-desc-wap" src="/image/index/addDeviceDescWap.png" />
@@ -127,7 +127,11 @@
       <image class="position-current-icon" src="/image/position-icon.png" />
     </view>
   </view>
-  <view class="{{ markCheckedShow ? 'checked-mark-wrapper' : 'checked-mark-wrapper hide'}}">
+  <view
+    class="{{ markCheckedShow ? 'checked-mark-wrapper' : 'checked-mark-wrapper hide'}}"
+    data-detail="{{deviceDetail}}"
+    catch:tap="handleGoDeviceDetail"
+  >
     <image src="/image/close.png" class="checked-mark-close" catchtap="closeMarkDetail" />
     <view class="mark-content-top">
       <view class="content-img content-uploader-image" wx:if="{{deviceDetail.pic_cover}}">
@@ -168,7 +172,7 @@
         <view class="device-intro-desc-wrap">
           <text class="device-intro-desc">{{deviceDetail.brand || '品牌未知'}}</text>
           <!-- <text class="device-intro-desc">{{deviceDetail.update_time}}</text> -->
-          <text class="operate-status">{{CONFIG.OPERATION_STATUS_LIST_MAP[deviceData.operation_status].label}}</text>
+          <text class="device-intro-desc">{{CONFIG.OPERATION_STATUS_LIST_MAP[deviceDetail.operation_status].label || '正常运营'}}</text>
           <text class="device-intro-desc">{{CONFIG.OPEN_STATUS_LIST_MAP[deviceDetail.open_status].label || '对外开放'}}</text>
         </view>
         <view class="device-intro-desc-wrap">
@@ -203,21 +207,35 @@
           />
           <text class="checked-content-type-text">{{CONFIG.DEVICE_SITE_TYPES_MAP[deviceDetail.loc_type].label || '未知'}}</text>
         </view>
-        <text class="type-chatou-num">{{deviceDetail.device_number}}台｜插头: {{deviceDetail.device_port}}个</text>
+        <text class="type-chatou-num">插头: {{deviceDetail.device_port}}个</text>
+        <!-- <text class="type-chatou-num">{{deviceDetail.device_number}}台｜插头: {{deviceDetail.device_port}}个</text> -->
       </view>
-      <text class="jiu-cuo-style" catchtap="goErrorCorrection" data-id="{{deviceDetail.id}}" data-detail="{{deviceDetail}}">去纠错？</text>
-      <view
-        class="collect-operation-wrap"
-        catch:tap="handleCollectDevice"
+      <text
+        class="jiu-cuo-style"
+        catchtap="goErrorCorrection"
+        data-id="{{deviceDetail.id}}"
         data-detail="{{deviceDetail}}"
-      >
-        <image src="{{deviceDetail.is_collect === 1 ? '/image/index/collectDeviceSelected.png' : '/image/index/collectDeviceNoSelected.png'}}" class="collect-device-icon" />
-        <text class="collect-title">{{deviceDetail.is_collect === 1 ? '已' : ''}}收藏</text>
-      </view>
-      <view class="checked-content-go-wrapper" catchtap="goPosition">
-        <image src="/image/home-checked-jiantou.png" class="go-btn-text-icon" />
-        <!-- <text>去这里</text> -->
-        <text>{{deviceDetail.distance}}</text>
+      >去纠错？</text>
+      <view class="card-detail-bottom-right">
+        <view
+          class="collect-operation-wrap"
+          catch:tap="handleCollectDevice"
+          data-detail="{{deviceDetail}}"
+        >
+          <image src="{{deviceDetail.is_collect === 1 ? '/image/index/collectDeviceSelected.png' : '/image/index/collectDeviceNoSelected.png'}}" class="collect-device-icon" />
+          <text class="collect-title">{{deviceDetail.is_collect === 1 ? '已' : ''}}收藏</text>
+        </view>
+        <view
+          class="checked-content-go-wrapper"
+          catchtap="goPosition"
+        >
+          <image
+            src="/image/home-checked-jiantou.png"
+            class="go-btn-text-icon"
+          />
+          <!-- <text>去这里</text> -->
+          <text>{{deviceDetail.distance}}</text>
+        </view>
       </view>
     </view>
   </view>

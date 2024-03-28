@@ -46,3 +46,26 @@ export const DEVICE_SITE_TYPES_MAP = {}
 DEVICE_SITE_TYPES.forEach(item => {
   DEVICE_SITE_TYPES_MAP[item.value] = item
 })
+
+// 运营状态
+export const OPERATION_STATUS_NORMAL = 1 // 正常运营
+export const OPERATION_STATUS_STOPED = 2 // 已停用
+export const OPERATION_STATUS_DISMANTLE = 3 // 已拆除
+export const OPERATION_STATUS_LIST = [
+  {
+    label: '正常运营',
+    value: OPERATION_STATUS_NORMAL
+  },
+  {
+    label: '已停用',
+    value: OPERATION_STATUS_STOPED
+  },
+  {
+    label: '已拆除',
+    value: OPERATION_STATUS_DISMANTLE
+  }
+]
+export const OPERATION_STATUS_LIST_MAP = {}
+OPERATION_STATUS_LIST.forEach(item => {
+  OPERATION_STATUS_LIST_MAP[item.value] = item
+})

@@ -526,6 +526,7 @@
   padding-right: 50rpx;
 }
 .bottom-wrap-left-operation {
+  min-width: 70rpx;
   display: flex;
   flex-direction: column;
   align-items: center;

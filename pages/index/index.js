@@ -550,8 +550,8 @@ Page({
           method: 'GET',
           data: {
             ticket: wx.getStorageSync('ticket'),
-            // id: param.id,
-            id: 21646,
+            id: param.id,
+            // id: 21646,
             coordinate: `${latitude},${longitude}`
           },
           success: (res) => {
@@ -1067,6 +1067,17 @@ Page({
     wx.removeStorageSync('isNoticeBar')
     this.setData({
       isNoticeBar: false
+    })
+  },
+
+  // 点击设备卡片跳转设备详情
+  handleGoDeviceDetail(e) {
+    const detail = e.currentTarget.dataset.detail
+    if (!detail.id) {
+      return Toast('设备id获取失败')
+    }
+    wx.navigateTo({
+      url: '/pages/deviceDetail/index' + `?id=${detail.id}`
     })
   },
 

@@ -19,6 +19,7 @@ Page({
     currentImageIndex: 0, // 当前swiper所在滑块的 index
     deviceData: {}, // 设备详情数据
     commentList: [], // 评论列表
+    skipCommentPageing: false, // 跳转评论页中，(点击去打卡跳转，用于评论页返回本页面时是否请求评论列表的判断依据)
     loadObj: {
       collectLoading: false, // 收藏loading
     },
@@ -28,7 +29,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.getDeviceDetail()
+    const deviceId = options.id
+    this.getDeviceDetail({
+      id: deviceId
+    })
   },
 
   /**
@@ -42,7 +46,20 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    // 评论页面返回来的
+    const deviceId = this.data.deviceData.id
+    const skipCommentPageing = this.data.skipCommentPageing
 
+    if (skipCommentPageing) {
+      if (deviceId) {
+        this.getCommentList({
+          device_id: deviceId
+        })
+      }
+      this.setData({
+        skipCommentPageing: false
+      })
+    }
   },
 
   /**
@@ -97,13 +114,17 @@ Page({
   },
 
   // 获取设备详情接口
-  getDeviceDetail() {
+  getDeviceDetail(params = {}) {
+    // 设备id
+    const id = params.id
+
     const initUserLocationInfo = getApp().globalData.userLocationInfo
+
     const latitude = initUserLocationInfo.latitude
     const longitude = initUserLocationInfo.longitude
     const coordinate = `${latitude},${longitude}`
-    const id = 21646
-    // const coordinate
+    // const id = 21646
+
     apis.getDeviceDetail({
       id,
       coordinate
@@ -158,24 +179,39 @@ Page({
   // 查看更多评论
   handleViewMoveComment(e) {
     const deviceId = e.currentTarget.dataset.id
-    wx.navigateTo({
-      url: '/pages/comment/index' + `?id=${deviceId}`
+
+    this.setData({
+      skipCommentPageing: true
+    }, () => {
+      wx.navigateTo({
+        url: '/pages/comment/index' + `?id=${deviceId}`
+      })
     })
   },
 
   // 去评价
   handleGoComment(e) {
     const deviceId = e.currentTarget.dataset.id
-    wx.navigateTo({
-      url: '/pages/comment/index' + `?id=${deviceId}`
+
+    this.setData({
+      skipCommentPageing: true
+    }, () => {
+      wx.navigateTo({
+        url: '/pages/comment/index' + `?id=${deviceId}`
+      })
     })
   },
 
   // 去打卡
   handleGoPunchClock(e) {
     const deviceId = e.currentTarget.dataset.id
-    wx.navigateTo({
-      url: '/pages/comment/index' + `?id=${deviceId}&showModal=true`
+
+    this.setData({
+      skipCommentPageing: true
+    }, () => {
+      wx.navigateTo({
+        url: '/pages/comment/index' + `?id=${deviceId}&showModal=true`
+      })
     })
   },
 

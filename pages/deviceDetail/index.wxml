@@ -169,7 +169,7 @@
       <view class="device-type">
         <image
           class="device-type-image"
-          src="{{deviceData.pic_cover}}"
+          src="{{deviceData.pic_cover || '/image/list-position.png'}}"
         />
         <view class="device-type-right">
           <view class="device-type-title">{{deviceData.device_type}}</view>
@@ -396,7 +396,7 @@
       />
       <text
         class="bottom-wrap-left-operation-name"
-      >收藏</text>
+      >{{deviceData.is_collect === 1 ? '已' : ''}}收藏</text>
     </view>
     <view
       class="bottom-wrap-left-operation"

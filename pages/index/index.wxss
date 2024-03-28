@@ -279,7 +279,9 @@
   position: fixed;
   width: 718rpx;
   /* height: 362rpx; */
-  padding: 28rpx;
+  padding-bottom: 28rpx;
+  padding-left: 28rpx;
+  padding-right: 28rpx;
   background: #FFFFFF;
   box-shadow: 0rpx 1rpx 14rpx 0rpx rgba(21,47,111,0.2);
   border-radius: 34rpx;
@@ -402,7 +404,7 @@
   color: #FFFFFF;
   z-index: 20;
   left: 13rpx;
-  top: 5rpx;
+  top: 4rpx;
 }
 .type-chatou-num {
   flex: 1;
@@ -414,15 +416,16 @@
 
 }
 .checked-content-go-wrapper {
+  box-sizing: border-box;
   /* width: 172rpx; */
-  height: 68rpx;
+  height: 50rpx;
   background: #0D7AC2;
-  border-radius: 47rpx;
+  border-radius: 25rpx;
   font-size: 28rpx;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
   color: #FFFFFF;
-  line-height: 68rpx;
+  line-height: 50rpx;
   text-align: center;
   padding-left: 24rpx;
   padding-right: 24rpx;
@@ -448,9 +451,9 @@
   content: '|';
   margin: 0 6rpx;
 }
-.device-intro-desc-wrap {
-  /* margin-bottom: 10rpx; */
-}
+/* .device-intro-desc-wrap {
+  margin-bottom: 10rpx;
+} */
 .checked-mark-close {
   display: inline-block;
   position: absolute;
@@ -556,9 +559,23 @@
   border-radius: 6rpx;
 }
 
-.collect-operation-wrap {
+.card-detail-bottom-right {
   display: flex;
   align-items: center;
+}
+.collect-operation-wrap {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 136rpx;
+  height: 50rpx;
+  border-radius: 25rpx;
+  line-height: 50rpx;
+  /* padding-left: 24rpx;
+  padding-right: 24rpx; */
+  border: 1rpx solid #0D7AC2;
+  margin-right: 18rpx;
 }
 .collect-title {
   font-size: 24rpx;
@@ -569,11 +586,12 @@
   margin-left: 4rpx;
 }
 .collect-device-icon {
-  width: 38rpx;
-  height: 38rpx;
+  width: 24rpx;
+  height: 24rpx;
 }
 .device-type-right-positon-box {
   position: relative;
+  top: 4rpx;
 }
 .device-type-right-positon-icon {
   width: 102rpx !important;

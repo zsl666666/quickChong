@@ -347,9 +347,9 @@
   padding-right: 28rpx;
   padding-bottom: 20rpx;
 }
-.common-upload-wrap {
-  /* width: 100% !important; */
-}
+/* .common-upload-wrap {
+  width: 100% !important;
+} */
 .custom-upload-special-type {
   width: 184rpx;
   height: 184rpx;
